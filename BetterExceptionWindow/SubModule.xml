@@ -1,0 +1,22 @@
+<Module>
+     <Name value="BetterExceptionWindow"/>
+     <Id value="BetterExceptionWindow"/>
+     <Version value="e1.0.3"/>
+     <SingleplayerModule value="true"/>
+     <MultiplayerModule value="false"/>
+     <DependedModules>
+    </DependedModules>
+     <SubModules>
+         <SubModule>
+             <Name value="BetterExceptionWindow"/>
+             <DLLName value="BetterExceptionWindow.dll"/>             
+             <SubModuleClassType value="BetterExceptionWindow.Main"/>
+             <Tags>
+                 <Tag key="DedicatedServerType" value="none" />
+                 <Tag key="IsNoRenderModeElement" value="false" />
+             </Tags>
+         </SubModule>
+     </SubModules>
+     <Xmls>
+  </Xmls>
+ </Module>
