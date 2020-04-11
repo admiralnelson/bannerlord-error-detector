@@ -85,9 +85,9 @@ Public Class ErrorWindow
                                 </a>
                            </h2>
                            <div class='msg' id='fullStack'>
-                               <b>Protip: </b><p>
-                                Use a debugger like <a href='http://www.w3schools.com'>dnSpy</a> or 
-                                <a href='http://www.w3schools.com'>Visual studio</a> to trace the source of error, by stepping the program
+                               <p><b>Protip: </b>
+                                Use a debugger like <a href='http://github.com/0xd4d/dnSpy'>dnSpy</a> or 
+                                <a href='http://visualstudio.microsoft.com/'>Visual studio</a> to trace the source of error, by stepping the program
                                 line by line.
                                 </p>
 <pre id='fullStackPre'>{fullStackString}</pre>

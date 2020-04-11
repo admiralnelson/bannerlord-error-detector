@@ -48,21 +48,21 @@ Namespace Global.BetterExceptionWindow
 
         Protected Overrides Sub OnBeforeInitialModuleScreenSetAsRoot()
             MyBase.OnBeforeInitialModuleScreenSetAsRoot()
-            Dim ver = System.Environment.Version
-            InformationManager.ShowInquiry(New InquiryData(
-                "test test",
-                $"running on version {ver}",
-                True,
-                False,
-                "Accept",
-                "",
-                Sub()
-                    'Environment.Exit(1)
-
-                End Sub,
-                Sub()
-
-                End Sub))
+            '' Dim ver = System.Environment.Version
+            '' InformationManager.ShowInquiry(New InquiryData(
+            ''     "test test",
+            ''     $"running on version {ver}",
+            ''     True,
+            ''     False,
+            ''     "Accept",
+            ''     "",
+            ''     Sub()
+            ''         'Environment.Exit(1)
+            ''
+            ''     End Sub,
+            ''     Sub()
+            ''
+            ''     End Sub))
         End Sub
     End Class
 End Namespace
