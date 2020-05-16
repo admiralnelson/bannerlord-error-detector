@@ -1,0 +1,8 @@
+{  
+    "AllowInDebugger": true,
+    "CatchOnApplicationTick": true,
+    "CatchOnMissionScreenTick": true,
+    "CatchOnFrameTick": true,
+    "CatchTick": true,
+    "SaveLogPath": ""
+}

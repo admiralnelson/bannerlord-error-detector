@@ -31,14 +31,14 @@ Partial Class ErrorWindow
         Me.widget.Location = New System.Drawing.Point(0, 0)
         Me.widget.MinimumSize = New System.Drawing.Size(20, 20)
         Me.widget.Name = "widget"
-        Me.widget.Size = New System.Drawing.Size(973, 457)
+        Me.widget.Size = New System.Drawing.Size(1189, 457)
         Me.widget.TabIndex = 3
         '
         'ErrorWindow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(973, 457)
+        Me.ClientSize = New System.Drawing.Size(1189, 457)
         Me.ControlBox = False
         Me.Controls.Add(Me.widget)
         Me.Name = "ErrorWindow"
