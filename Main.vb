@@ -56,6 +56,21 @@ Namespace Global.BetterExceptionWindow
                 End If
             End Sub
         End Class
+
+        <HarmonyPatch(GetType(TaleWorlds.MountAndBlade.MissionBehaviour), "OnMissionTick")>
+        Public Class OnMissionTickPatch
+            Private Shared Sub Finalizer(ByVal __exception As Exception)
+                If CatchTick Then
+                    If __exception IsNot Nothing Then
+                        Dim window As New ErrorWindow
+                        window.exceptionData = __exception
+                        window.ShowDialog()
+                    End If
+                End If
+            End Sub
+        End Class
+
+
         Public Sub New()
 
         End Sub

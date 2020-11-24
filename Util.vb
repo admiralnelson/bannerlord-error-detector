@@ -1,6 +1,8 @@
 ﻿
 Imports System.IO
+Imports System.Reflection
 Imports System.Security.Cryptography
+Imports System.Xml
 Imports Newtonsoft.Json
 
 Module Util
@@ -29,5 +31,29 @@ Module Util
         Dim stream = File.OpenRead(filename)
         Dim hash = checksum.ComputeHash(stream)
         Return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant()
+    End Function
+    Public Function ValidateXmlFile(filename As String) As Boolean
+        Dim doc As New XmlDocument()
+        Try
+            doc.Load(New StreamReader(filename))
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
+    Public Function GetAssembliesData() As List(Of Assembly)
+        Dim asm = AppDomain.CurrentDomain.GetAssemblies()
+        Dim out As New List(Of Assembly)
+        For Each x In asm
+            Try
+                If Not x.Location.ToLower().Contains("Mount & Blade II Bannerlord".ToLower()) Then
+                    Continue For
+                End If
+                out.Add(x)
+            Catch ex As Exception
+
+            End Try
+        Next
+        Return out
     End Function
 End Module
