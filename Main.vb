@@ -2,6 +2,7 @@
 Imports System.Windows.Forms
 Imports HarmonyLib
 Imports TaleWorlds.Core
+Imports TaleWorlds.InputSystem
 Imports TaleWorlds.MountAndBlade
 
 Namespace Global.BetterExceptionWindow
@@ -85,6 +86,8 @@ Namespace Global.BetterExceptionWindow
                 harmony.PatchAll()
             End If
         End Sub
+
+
 
         Protected Overrides Sub OnBeforeInitialModuleScreenSetAsRoot()
             MyBase.OnBeforeInitialModuleScreenSetAsRoot()

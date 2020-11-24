@@ -11,7 +11,7 @@ Imports Newtonsoft.Json
 <ComVisibleAttribute(True)>
 Public Class ErrorWindow
     Public Shared exceptionData As Exception
-
+    Dim problematicModules = New List(Of String)
     Private Sub ErrorWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim menu As New Windows.Forms.ContextMenu()
         menu.MenuItems.Add("none")
@@ -102,8 +102,8 @@ Public Class ErrorWindow
                 Dim assmeblyVer = x.GetName().Version
                 Dim location = x.Location
                 Dim link = x.Location.Replace("\", "\\")
-                Dim checksum = CalculateMD5(location)
-                Dim li = $"Assembly {name}, checksum: {checksum}. Location: <a href='#' onclick='window.external.OpenPath(""{link}"")'>{location}</a>"
+                Dim version = assmeblyVer
+                Dim li = $"Assembly {name}, version: {version}. Location: <a href='#' onclick='window.external.OpenPath(""{link}"")'>{location}</a>"
                 Dim output = ""
                 If name.StartsWith("TaleWorlds") Or
                     name.StartsWith("SandBox") Or
@@ -120,6 +120,47 @@ Public Class ErrorWindow
         Next
         Return out
     End Function
+    Public Sub DisableProblematicModules()
+        Dim myDocument = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+        Dim xmlPath = myDocument + "\Mount and Blade II Bannerlord\Configs\LauncherData.xml"
+        Dim loadedModuleJSON = ReadXmlAsJson(xmlPath)
+        Debug.Print(JsonConvert.SerializeObject(loadedModuleJSON))
+        Dim modules = ""
+        For Each x In problematicModules
+            modules = modules + x + ","
+        Next
+        If problematicModules.Count() = 0 Then
+            MsgBox("Unable to fix this. We can't determine faulting modules.", MsgBoxStyle.Critical)
+            Exit Sub
+        End If
+        modules = modules.Substring(0, modules.Length() - 1)
+        Dim prompt = MsgBox("Are you sure to disable these modules: " + vbNewLine +
+               modules,
+               MsgBoxStyle.Exclamation Or MsgBoxStyle.YesNo,
+               "Disable mods"
+        )
+        If prompt = MsgBoxResult.Yes Then
+            Dim userModData = loadedModuleJSON("UserData")("SingleplayerData")("ModDatas")("UserModData")
+            For Each x In userModData
+                Dim moduleId = x("Id").ToString()
+                For Each y In problematicModules
+                    If moduleId = y Then
+                        x("IsSelected") = "false"
+                        Exit For
+                    End If
+                Next
+            Next
+            Dim jsonString = JsonConvert.SerializeObject(loadedModuleJSON)
+            Debug.Print(jsonString)
+            Dim xmlData As XmlDocument = JsonConvert.DeserializeXmlNode(jsonString)
+            Dim stringXml = New StringWriter()
+            Dim xmlWriter = New XmlTextWriter(stringXml)
+            xmlData.WriteTo(xmlWriter)
+            Debug.Print(stringXml.ToString())
+            File.WriteAllText(xmlPath, stringXml.ToString())
+            MsgBox("mods have been disabled")
+        End If
+    End Sub
     Public Sub AnalyseModules()
         Dim modulePath = Path.GetFullPath("..\..\Modules\")
         Dim myDocument = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
@@ -144,6 +185,9 @@ Public Class ErrorWindow
             Dim maybeArray = True
             Try
                 jsondata("isFaultingMod") = exceptionData.StackTrace.Contains(jsondata("Module")("SubModules")("SubModule")("SubModuleClassType")("@value").ToString())
+                If (jsondata("isFaultingMod")) Then
+                    problematicModules.Add(jsondata("Module")("Id")("@value").ToString())
+                End If
                 maybeArray = False
             Catch ex As Exception
             End Try

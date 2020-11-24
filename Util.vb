@@ -4,6 +4,7 @@ Imports System.Reflection
 Imports System.Security.Cryptography
 Imports System.Xml
 Imports Newtonsoft.Json
+Imports TaleWorlds.Core
 
 Module Util
     Public AllowInDebugger As Boolean = True
@@ -32,6 +33,7 @@ Module Util
         Dim hash = checksum.ComputeHash(stream)
         Return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant()
     End Function
+
     Public Function ValidateXmlFile(filename As String) As Boolean
         Dim doc As New XmlDocument()
         Try
@@ -41,6 +43,9 @@ Module Util
             Return False
         End Try
     End Function
+    Public Sub Print(str As String)
+        InformationManager.DisplayMessage(New InformationMessage(str))
+    End Sub
     Public Function GetAssembliesData() As List(Of Assembly)
         Dim asm = AppDomain.CurrentDomain.GetAssemblies()
         Dim out As New List(Of Assembly)
