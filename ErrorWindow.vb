@@ -39,8 +39,24 @@ Public Class ErrorWindow
         End If
 
         widget.DocumentText = html
+        'AddHandler widget.Document.ContextMenuShowing, AddressOf WebContextMenuShowing
+        AddHandler widget.PreviewKeyDown, AddressOf WebShorcut
+        widget.WebBrowserShortcutsEnabled = False
+        widget.ScriptErrorsSuppressed = True
     End Sub
-
+    Private Sub WebContextMenuShowing(ByVal sender As Object, ByVal e As HtmlElementEventArgs)
+        'disables context menu
+        Me.widget.ContextMenuStrip.Show(Cursor.Position)
+        e.ReturnValue = False
+    End Sub
+    Private Sub WebShorcut(ByVal sender As Object, ByVal e As PreviewKeyDownEventArgs)
+        If e.Modifiers = Keys.Control And e.Modifiers = Keys.C Then
+            widget.Document.ExecCommand("Copy", False, Nothing)
+        End If
+        If e.Modifiers = Keys.Control And e.Modifiers = Keys.P Then
+            widget.Document.InvokeScript("window.print", Nothing)
+        End If
+    End Sub
     Public Sub Save()
         Dim filename = Str(DateTime.Now.ToFileTimeUtc()) + ".htm"
         File.WriteAllText(filename, widget.Document.Body.OuterHtml)
@@ -206,6 +222,27 @@ Public Class ErrorWindow
             jsondata("manifest") = x + "\SubModule.xml"
             widget.Document.InvokeScript("DisplayModulesReport", New String() {JsonConvert.SerializeObject(jsondata)})
         Next
+    End Sub
+    Public Sub ScanAndLintXmls()
+        Dim errorDetected = False
+        Dim modulePath = Path.GetFullPath("..\..\Modules\")
+        Dim files = Directory.GetFiles(modulePath, "*.xml", SearchOption.AllDirectories)
+
+        For Each x In files
+            Dim filename = Path.GetFileName(x)
+            Try
+                Dim doc As New XmlDocument()
+                doc.Load(New StreamReader(x))
+                Debug.Print(x)
+                widget.Document.InvokeScript("addXMLDiagResult", New String() {filename, x})
+            Catch ex As XmlException
+                widget.Document.InvokeScript("addXMLDiagResult", New String() {filename, x, ex.Message})
+                errorDetected = True
+            End Try
+            Application.DoEvents()
+        Next
+        widget.Document.InvokeScript("finishSearch", New Object() {errorDetected})
+
     End Sub
 
     Private Sub widget_Navigating(sender As Object, e As WebBrowserNavigatingEventArgs) Handles widget.Navigating
