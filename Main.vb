@@ -9,6 +9,20 @@ Namespace Global.BetterExceptionWindow
     Public Class Main
         Inherits MBSubModuleBase
 
+
+        <HarmonyPatch(GetType(TaleWorlds.Engine.ScriptComponentBehaviour), "OnTick")>
+        Public Class OnApplicationTickCorePatch
+            Private Shared Sub Finalizer(ByVal __exception As Exception)
+                If CatchOnApplicationTick Then
+                    If __exception IsNot Nothing Then
+                        Dim window As New ErrorWindow
+                        window.exceptionData = __exception
+                        window.ShowDialog()
+                    End If
+                End If
+            End Sub
+        End Class
+
         <HarmonyPatch(GetType(TaleWorlds.MountAndBlade.Module), "OnApplicationTick")>
         Public Class OnApplicationTickPatch
             Private Shared Sub Finalizer(ByVal __exception As Exception)
@@ -81,7 +95,7 @@ Namespace Global.BetterExceptionWindow
             ReadConfig()
             Dim harmony = New Harmony("org.calradia.admiralnelson.betterexceptionwindow")
             If Debugger.IsAttached And AllowInDebugger Then
-                harmony.PatchAll()
+
             Else
                 harmony.PatchAll()
             End If
@@ -91,6 +105,11 @@ Namespace Global.BetterExceptionWindow
 
         Protected Overrides Sub OnBeforeInitialModuleScreenSetAsRoot()
             MyBase.OnBeforeInitialModuleScreenSetAsRoot()
+
+        End Sub
+        Public Overrides Sub OnCampaignStart(gam As Game, starterObject As Object)
+            MyBase.OnCampaignStart(gam, starterObject)
+            Print("campaign start")
 
         End Sub
     End Class

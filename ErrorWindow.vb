@@ -244,7 +244,21 @@ Public Class ErrorWindow
         widget.Document.InvokeScript("finishSearch", New Object() {errorDetected})
 
     End Sub
+    Public Sub ForceSave(filename As String)
 
+        'TaleWorlds.Core.MBSaveLoad.SaveAsCurrentGame()
+        Try
+            If TaleWorlds.Core.Game.Current Is Nothing OrElse
+                TaleWorlds.Core.Game.Current.GameType Is Nothing Then
+                MsgBox("Unable to save as this is not a campaign!", MsgBoxStyle.Critical)
+            Else
+                TaleWorlds.CampaignSystem.Campaign.Current.SaveHandler.SaveAs(filename)
+            End If
+        Catch ex As Exception
+            MsgBox("error while saving! " + vbCrLf + ex.Message, MsgBoxStyle.Critical)
+        End Try
+
+    End Sub
     Private Sub widget_Navigating(sender As Object, e As WebBrowserNavigatingEventArgs) Handles widget.Navigating
         Dim isUri = Uri.IsWellFormedUriString(e.Url.ToString(), UriKind.RelativeOrAbsolute)
         If (isUri AndAlso (e.Url.ToString().StartsWith("http://") Or e.Url.ToString().StartsWith("https://"))) Then

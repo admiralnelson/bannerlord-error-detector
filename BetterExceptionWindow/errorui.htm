@@ -199,7 +199,7 @@
         <div class='border-blue'>
             <img src='http://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-65-Floppy-Save-icon.png' width='48' />
             Attempt to save the game. (Saved game maybe corrupted)
-            <button style='position:absolute;right:5px;'>Save the game</button>
+            <button style='position:absolute;right:5px;' onclick="saveEmergencyCampaign()">Save the game</button>
         </div>
         <p id="log">
 
@@ -613,7 +613,21 @@
             document.getElementById("search-icon").remove();
             document.getElementById("scan-status").innerText = "XML checks done.";
         }
-
+        function saveEmergencyCampaign() {
+            var result = confirm("Depending on the crash, this might not work! \n Only use this if you're in: Campaign map and the crash is not player data related (i.e caused by corrupt party tables, items, or anything that is stored into save file)! \nContinue to forcefully save the game?");
+            if (result) {
+                var filename = prompt("Save as");
+                if (!filename) {
+                    alert("invalid name");
+                }
+                else {
+                    window.external.ForceSave(filename);
+                    alert("game saved as " + filename);
+                }
+                
+            }
+            
+        }
         function clearTable() {
             var elmtTable = document.getElementById('xml-report-table');
                 tableRows = elmtTable.getElementsByTagName('tr'),
