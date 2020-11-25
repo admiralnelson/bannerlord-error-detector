@@ -668,6 +668,7 @@
 
         }
         function DisplayModulesReport(moduleJSON) {
+            var d = document.getElementById("log");
             var data = JSON.parse(moduleJSON);
             try {
                 var modContainer = document.getElementById('mod-container'),
@@ -736,18 +737,20 @@
                     }
                 }
 
-                if (!data.Module.SubModules || !data.Module.SubModules.SubModule || !Array.isArray(data.Module.SubModules.SubModule) || data.Module.SubModules.SubModule.length == 0) {
+                if (!data.Module.SubModules || !data.Module.SubModules.SubModule || !Array.isArray(data.Module.SubModules.SubModule) && data.Module.SubModules.SubModule.length == 0) {
                     var node = document.createElement('li');
                     node.innerText = "Does not contain any DLL module";
                     modSubModulesUl.appendChild(node);
                 }
                 else if (!Array.isArray(data.Module.SubModules.SubModule)) {
                     var node = document.createElement('li');
-                    if (data.Module.SubModules.SubModule.DLLName) 
+                    if (data.Module.SubModules.SubModule.DLLName) {
                         node.innerText = data.Module.SubModules.SubModule.DLLName["@value"];
+                    }
                     else
                         node.innerText = "Does not contain any DLL module";                   
                     modSubModulesUl.appendChild(node);
+
                 }
                 else {
                     for (var i = 0; i < data.Module.SubModules.SubModule.length; i++) {

@@ -94,7 +94,7 @@ Namespace Global.BetterExceptionWindow
             MyBase.OnSubModuleLoad()
             ReadConfig()
             Dim harmony = New Harmony("org.calradia.admiralnelson.betterexceptionwindow")
-            If Debugger.IsAttached And AllowInDebugger Then
+            If Debugger.IsAttached And Not AllowInDebugger Then
 
             Else
                 harmony.PatchAll()
