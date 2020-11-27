@@ -12,6 +12,8 @@ Module Util
     Public CatchOnMissionScreenTick As Boolean = True
     Public CatchOnFrameTick As Boolean = True
     Public CatchTick As Boolean = True
+    Public CatchComponentBehaviourTick As Boolean = True
+    Public CatchGlobalTick As Boolean = True
     Public SaveLogPath As String = ""
     Public Sub ReadConfig()
         Try
@@ -22,6 +24,8 @@ Module Util
             CatchOnMissionScreenTick = configData("CatchOnMissionScreenTick")
             CatchOnFrameTick = configData("CatchOnFrameTick")
             CatchTick = configData("CatchTick")
+            CatchComponentBehaviourTick = configData("CatchComponentBehaviourTick")
+            CatchGlobalTick = configData("CatchGlobalTick")
             SaveLogPath = configData("SaveLogPath")
         Catch ex As Exception
             Console.WriteLine("unable to read the config. It's ok")

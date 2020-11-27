@@ -176,7 +176,7 @@
         <p>You can try several troubleshoot options down below.</p>
         <div class='border-blue' id='xml-report'>
             <img src='http://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-64-Folder-Check-icon.png' width='48' />
-            Try checks for XML typos if an error were caused by faulty XMLs, tap the button on the right to validate them.
+            Check for XML typos if an error were caused by faulty XMLs, tap the button on the right to validate them.
             <button onclick='validateXML(this)' id='btn-validate-xml'  style='position:absolute;right:5px;'>Check XML validity</button>
             <br />
             <table id='xml-report-table' style='width:100%; display:none' border='0'>
@@ -198,7 +198,8 @@
         </div>
         <div class='border-blue'>
             <img src='http://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-65-Floppy-Save-icon.png' width='48' />
-            Attempt to save the game. (Saved game maybe corrupted)
+            Emergency save. <br />
+            Forcefully to save the game. This might not work!
             <button style='position:absolute;right:5px;' onclick="saveEmergencyCampaign()">Save the game</button>
         </div>
         <p id="log">
@@ -614,15 +615,16 @@
             document.getElementById("scan-status").innerText = "XML checks done.";
         }
         function saveEmergencyCampaign() {
-            var result = confirm("Depending on the crash, this might not work! \n Only use this if you're in: Campaign map and the crash is not player data related (i.e caused by corrupt party tables, items, or anything that is stored into save file)! \nContinue to forcefully save the game?");
+            var result = confirm("Depending on the crash, this might not work!\n Only use this if you're in: Campaign map and the crash is not player data related (i.e caused by corrupt party tables, items, or anything that is stored into save file)! \nContinue to forcefully save the game?");
             if (result) {
                 var filename = prompt("Save as");
                 if (!filename) {
                     alert("invalid name");
                 }
                 else {
-                    window.external.ForceSave(filename);
-                    alert("game saved as " + filename);
+                    if (window.external.ForceSave(filename)) {
+                        alert("game saved as " + filename);
+                    }
                 }
                 
             }

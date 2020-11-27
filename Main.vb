@@ -10,10 +10,22 @@ Namespace Global.BetterExceptionWindow
         Inherits MBSubModuleBase
 
 
-        <HarmonyPatch(GetType(TaleWorlds.Engine.ScriptComponentBehaviour), "OnTick")>
+        <HarmonyPatch(GetType(TaleWorlds.DotNet.Managed), "ApplicationTick")>
         Public Class OnApplicationTickCorePatch
             Private Shared Sub Finalizer(ByVal __exception As Exception)
-                If CatchOnApplicationTick Then
+                If CatchGlobalTick Then
+                    If __exception IsNot Nothing Then
+                        Dim window As New ErrorWindow
+                        window.exceptionData = __exception
+                        window.ShowDialog()
+                    End If
+                End If
+            End Sub
+        End Class
+        <HarmonyPatch(GetType(TaleWorlds.Engine.ScriptComponentBehaviour), "OnTick")>
+        Public Class OnComponentBehaviourTickPatch
+            Private Shared Sub Finalizer(ByVal __exception As Exception)
+                If CatchComponentBehaviourTick Then
                     If __exception IsNot Nothing Then
                         Dim window As New ErrorWindow
                         window.exceptionData = __exception

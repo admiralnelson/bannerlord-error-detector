@@ -3,6 +3,8 @@
     "CatchOnApplicationTick": true,
     "CatchOnMissionScreenTick": true,
     "CatchOnFrameTick": true,
+    "CatchComponentBehaviourTick" : true,
+    "CatchGlobalTick": true,
     "CatchTick": true,
     "SaveLogPath": ""
 }

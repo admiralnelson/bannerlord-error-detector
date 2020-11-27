@@ -141,17 +141,18 @@ Public Class ErrorWindow
         Dim xmlPath = myDocument + "\Mount and Blade II Bannerlord\Configs\LauncherData.xml"
         Dim loadedModuleJSON = ReadXmlAsJson(xmlPath)
         Debug.Print(JsonConvert.SerializeObject(loadedModuleJSON))
-        Dim modules = ""
+        Dim nativeModules = {"Native", "SandBoxCore", "CustomBattle", "StoryMode"}
+        Dim modulesString = ""
         For Each x In problematicModules
-            modules = modules + x + ","
+            modulesString = modulesString + x + ","
         Next
         If problematicModules.Count() = 0 Then
             MsgBox("Unable to fix this. We can't determine faulting modules.", MsgBoxStyle.Critical)
             Exit Sub
         End If
-        modules = modules.Substring(0, modules.Length() - 1)
+        modulesString = modulesString.Substring(0, modulesString.Length() - 1)
         Dim prompt = MsgBox("Are you sure to disable these modules: " + vbNewLine +
-               modules,
+               modulesString,
                MsgBoxStyle.Exclamation Or MsgBoxStyle.YesNo,
                "Disable mods"
         )
@@ -160,7 +161,7 @@ Public Class ErrorWindow
             For Each x In userModData
                 Dim moduleId = x("Id").ToString()
                 For Each y In problematicModules
-                    If moduleId = y Then
+                    If moduleId = y AndAlso Not nativeModules.Contains(y) Then
                         x("IsSelected") = "false"
                         Exit For
                     End If
@@ -239,26 +240,29 @@ Public Class ErrorWindow
                 widget.Document.InvokeScript("addXMLDiagResult", New String() {filename, x, ex.Message})
                 errorDetected = True
             End Try
-            Application.DoEvents()
+            Application.DoEvents() 'bad, but i dont care, TASK.RUN CompleteWith DOESN'T WORK FOR SOME REASONS
         Next
         widget.Document.InvokeScript("finishSearch", New Object() {errorDetected})
 
     End Sub
-    Public Sub ForceSave(filename As String)
+    Public Function ForceSave(filename As String)
 
         'TaleWorlds.Core.MBSaveLoad.SaveAsCurrentGame()
         Try
             If TaleWorlds.Core.Game.Current Is Nothing OrElse
                 TaleWorlds.Core.Game.Current.GameType Is Nothing Then
                 MsgBox("Unable to save as this is not a campaign!", MsgBoxStyle.Critical)
+                Return False
             Else
                 TaleWorlds.CampaignSystem.Campaign.Current.SaveHandler.SaveAs(filename)
+                Return True
             End If
         Catch ex As Exception
             MsgBox("error while saving! " + vbCrLf + ex.Message, MsgBoxStyle.Critical)
+            Return False
         End Try
 
-    End Sub
+    End Function
     Private Sub widget_Navigating(sender As Object, e As WebBrowserNavigatingEventArgs) Handles widget.Navigating
         Dim isUri = Uri.IsWellFormedUriString(e.Url.ToString(), UriKind.RelativeOrAbsolute)
         If (isUri AndAlso (e.Url.ToString().StartsWith("http://") Or e.Url.ToString().StartsWith("https://"))) Then
