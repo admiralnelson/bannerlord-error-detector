@@ -11,7 +11,8 @@ Imports Newtonsoft.Json
 <ComVisibleAttribute(True)>
 Public Class ErrorWindow
     Public Shared exceptionData As Exception
-    Dim problematicModules = New List(Of String)
+    Dim problematicModules = New SortedSet(Of String)
+
     Private Sub ErrorWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim menu As New Windows.Forms.ContextMenu()
         menu.MenuItems.Add("none")
@@ -39,24 +40,31 @@ Public Class ErrorWindow
         End If
 
         widget.DocumentText = html
-        'AddHandler widget.Document.ContextMenuShowing, AddressOf WebContextMenuShowing
+        AddHandler widget.Document.ContextMenuShowing, AddressOf WebContextMenuShowing
         AddHandler widget.PreviewKeyDown, AddressOf WebShorcut
         widget.WebBrowserShortcutsEnabled = False
         widget.ScriptErrorsSuppressed = True
     End Sub
+
     Private Sub WebContextMenuShowing(ByVal sender As Object, ByVal e As HtmlElementEventArgs)
         'disables context menu
-        Me.widget.ContextMenuStrip.Show(Cursor.Position)
+        widgetMenu.Show(widget, e.MousePosition)
+        'Me.widget.ContextMenuStrip.Show(Cursor.Position)
         e.ReturnValue = False
     End Sub
+
     Private Sub WebShorcut(ByVal sender As Object, ByVal e As PreviewKeyDownEventArgs)
-        If e.Modifiers = Keys.Control And e.Modifiers = Keys.C Then
+        If e.Modifiers = Keys.Control And e.KeyCode = Keys.C Then
             widget.Document.ExecCommand("Copy", False, Nothing)
         End If
-        If e.Modifiers = Keys.Control And e.Modifiers = Keys.P Then
+        If e.Modifiers = Keys.Control And e.KeyCode = Keys.P Then
             widget.Document.InvokeScript("window.print", Nothing)
         End If
+        If e.Modifiers = Keys.Control And e.KeyCode = Keys.A Then
+            widget.Document.ExecCommand("SelectAll", False, Nothing)
+        End If
     End Sub
+
     Public Sub Save()
         Dim filename = Str(DateTime.Now.ToFileTimeUtc()) + ".htm"
         File.WriteAllText(filename, widget.Document.Body.OuterHtml)
@@ -90,6 +98,7 @@ Public Class ErrorWindow
         Dim realLocation = Path.GetFullPath(location + "\..\..\")
         Return realLocation
     End Function
+
     Private Function ReadXmlAsJson(path As String) As Object
         Dim data = File.ReadAllText(path)
         Dim xmldata As New XmlDocument()
@@ -104,7 +113,6 @@ Public Class ErrorWindow
             widget.Document.InvokeScript("addXMLDiagResult", New String() {filename, filepath})
         End If
     End Sub
-
 
     Private Function GetAssembliesList(searchAlsoInGameBins As Boolean) As List(Of String)
         Dim asm = AppDomain.CurrentDomain.GetAssemblies()
@@ -136,6 +144,7 @@ Public Class ErrorWindow
         Next
         Return out
     End Function
+
     Public Sub DisableProblematicModules()
         Dim myDocument = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         Dim xmlPath = myDocument + "\Mount and Blade II Bannerlord\Configs\LauncherData.xml"
@@ -178,6 +187,7 @@ Public Class ErrorWindow
             MsgBox("mods have been disabled")
         End If
     End Sub
+
     Public Sub AnalyseModules()
         Dim modulePath = Path.GetFullPath("..\..\Modules\")
         Dim myDocument = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
@@ -201,9 +211,16 @@ Public Class ErrorWindow
             'MAYBE NOT AN ARRAY BUT PLAIN OBJECT INSTEAD
             Dim maybeArray = True
             Try
-                jsondata("isFaultingMod") = exceptionData.StackTrace.Contains(jsondata("Module")("SubModules")("SubModule")("SubModuleClassType")("@value").ToString())
+                Dim subModuleClassType As String = jsondata("Module")("SubModules")("SubModule")("Name")("@value")
+                'Dim subModuleClassType As String = jsondata("Module")("SubModules")("SubModule")("SubModuleClassType")("@value")
+                'subModuleClassType = subModuleClassType.Substring(0, subModuleClassType.IndexOf("."))
+                Dim modId = jsondata("Module")("Id")("@value")
+                jsondata("isFaultingMod") = exceptionData.StackTrace.Contains(subModuleClassType)
+                If exceptionData.InnerException IsNot Nothing Then
+                    jsondata("isFaultingMod") = jsondata("isFaultingMod") Or exceptionData.InnerException.StackTrace.Contains(subModuleClassType)
+                End If
                 If (jsondata("isFaultingMod")) Then
-                    problematicModules.Add(jsondata("Module")("Id")("@value").ToString())
+                    problematicModules.Add(modId)
                 End If
                 maybeArray = False
             Catch ex As Exception
@@ -211,7 +228,9 @@ Public Class ErrorWindow
             Try
                 If maybeArray Then
                     For Each dll In jsondata("Module")("SubModules")
-                        jsondata("isFaultingMod") = exceptionData.StackTrace.Contains(dll("SubModule")("SubModuleClassType")("@value").ToString())
+                        Dim subModuleClassType As String = dll("SubModule")("Name")("@value")
+                        'subModuleClassType = subModuleClassType.Substring(0, subModuleClassType.IndexOf("."))
+                        jsondata("isFaultingMod") = exceptionData.StackTrace.Contains(subModuleClassType)
                     Next
                 End If
             Catch ex As Exception
@@ -224,6 +243,7 @@ Public Class ErrorWindow
             widget.Document.InvokeScript("DisplayModulesReport", New String() {JsonConvert.SerializeObject(jsondata)})
         Next
     End Sub
+
     Public Sub ScanAndLintXmls()
         Dim errorDetected = False
         Dim modulePath = Path.GetFullPath("..\..\Modules\")
@@ -243,10 +263,9 @@ Public Class ErrorWindow
             Application.DoEvents() 'bad, but i dont care, TASK.RUN CompleteWith DOESN'T WORK FOR SOME REASONS
         Next
         widget.Document.InvokeScript("finishSearch", New Object() {errorDetected})
-
     End Sub
-    Public Function ForceSave(filename As String)
 
+    Public Function ForceSave(filename As String)
         'TaleWorlds.Core.MBSaveLoad.SaveAsCurrentGame()
         Try
             If TaleWorlds.Core.Game.Current Is Nothing OrElse
@@ -261,8 +280,8 @@ Public Class ErrorWindow
             MsgBox("error while saving! " + vbCrLf + ex.Message, MsgBoxStyle.Critical)
             Return False
         End Try
-
     End Function
+
     Private Sub widget_Navigating(sender As Object, e As WebBrowserNavigatingEventArgs) Handles widget.Navigating
         Dim isUri = Uri.IsWellFormedUriString(e.Url.ToString(), UriKind.RelativeOrAbsolute)
         If (isUri AndAlso (e.Url.ToString().StartsWith("http://") Or e.Url.ToString().StartsWith("https://"))) Then
@@ -282,10 +301,21 @@ Public Class ErrorWindow
             Catch ex As Exception
             End Try
         End If
-
     End Sub
 
     Private Sub widget_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles widget.DocumentCompleted
         'AnalyseModules()
+    End Sub
+
+    Private Sub CopyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CopyToolStripMenuItem.Click
+        widget.Document.ExecCommand("Copy", False, Nothing)
+    End Sub
+
+    Private Sub SelectAllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectAllToolStripMenuItem.Click
+        widget.Document.ExecCommand("SelectAll", False, Nothing)
+    End Sub
+
+    Private Sub SaveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveToolStripMenuItem.Click
+        widget.Document.InvokeScript("window.print", Nothing)
     End Sub
 End Class
