@@ -79,7 +79,7 @@
         <button class='button' onclick='window.external.CloseProgram()'>
             Close the program
         </button>
-        <button class='button' onclick='window.print()'>
+        <button class='button' onclick='window.external.Save()'>
             Save/Print this page
         </button>
     </div>
@@ -205,6 +205,9 @@
         <p id="log">
 
         </p>
+    </div>
+    <div id="jsonData" style="display:none">
+        {jsonData}
     </div>
     <script>
         //https://github.com/douglascrockford/JSON-js/blob/master/json2.js
@@ -669,9 +672,15 @@
             desc.innerHTML = res + "<hr />";
 
         }
-        function DisplayModulesReport(moduleJSON) {
+
+        function AnalyseModule() {
+            var jsonData = JSON.parse(document.getElementById("jsonData").innerText);
+            for (var i = 0; i < jsonData.length; i++) {
+                DisplayModulesReport(jsonData[i]);
+            }
+        }
+        function DisplayModulesReport(data) {
             var d = document.getElementById("log");
-            var data = JSON.parse(moduleJSON);
             try {
                 var modContainer = document.getElementById('mod-container'),
                     newModContent = document.createElement('div'),
@@ -757,7 +766,13 @@
                 else {
                     for (var i = 0; i < data.Module.SubModules.SubModule.length; i++) {
                         var node = document.createElement('li');
-                        node.innerText = data.Module.SubModules.SubModule[i].DLLName["@value"];
+                        if (data.Module.SubModules.SubModule[i].isLoadedInMemory) {
+                            node.innerText = data.Module.SubModules.SubModule[i].DLLName["@value"];
+                        }
+                        else {
+                            node.innerHTML = "<del>" + data.Module.SubModules.SubModule[i].DLLName["@value"] + "</del> (Not loaded in memory)" ;
+                        }
+
                         modSubModulesUl.appendChild(node);
                     }
                 }
@@ -791,7 +806,7 @@
 
         }
 
-        window.external.AnalyseModules();
+        AnalyseModule();
     </script>
 </body>
 </html>

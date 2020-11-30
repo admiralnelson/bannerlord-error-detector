@@ -12,6 +12,7 @@ Imports Newtonsoft.Json
 Public Class ErrorWindow
     Public Shared exceptionData As Exception
     Dim problematicModules = New SortedSet(Of String)
+    Dim html = File.ReadAllText("..\..\Modules\BetterExceptionWindow\errorui.htm")
 
     Private Sub ErrorWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim menu As New Windows.Forms.ContextMenu()
@@ -19,7 +20,6 @@ Public Class ErrorWindow
         widget.ContextMenu = menu
         Me.TopMost = True
         widget.ObjectForScripting = Me
-        Dim html = File.ReadAllText("..\..\Modules\BetterExceptionWindow\errorui.htm")
         html = html.Replace("{errorString}", exceptionData.Message)
         html = html.Replace("{faultingSource}", exceptionData.Source)
         html = html.Replace("{fullStackString}", exceptionData.StackTrace)
@@ -38,12 +38,13 @@ Public Class ErrorWindow
             html = html.Replace("{innerFaultingSource}", "No module")
             html = html.Replace("{innerExceptionCallStack}", "No inner exception was thrown")
         End If
-
+        html = html.Replace("{jsonData}", AnalyseModules())
         widget.DocumentText = html
         AddHandler widget.Document.ContextMenuShowing, AddressOf WebContextMenuShowing
         AddHandler widget.PreviewKeyDown, AddressOf WebShorcut
         widget.WebBrowserShortcutsEnabled = False
         widget.ScriptErrorsSuppressed = True
+        'widget.Document.InvokeScript("AnalyseModule", Nothing)
     End Sub
 
     Private Sub WebContextMenuShowing(ByVal sender As Object, ByVal e As HtmlElementEventArgs)
@@ -66,10 +67,14 @@ Public Class ErrorWindow
     End Sub
 
     Public Sub Save()
-        Dim filename = Str(DateTime.Now.ToFileTimeUtc()) + ".htm"
-        File.WriteAllText(filename, widget.Document.Body.OuterHtml)
-        Dim filePath = Path.GetFullPath(SaveLogPath + filename)
-        MessageBox.Show(filePath, "Saved to")
+        'Dim filename = Str(DateTime.Now.ToFileTimeUtc()) + ".htm"
+        Dim fileDialog As New SaveFileDialog()
+        fileDialog.Filter = "HTML (*.htm)|*.htm|All files (*.*)|*.*"
+        If fileDialog.ShowDialog() = DialogResult.OK AndAlso fileDialog.FileName <> "" Then
+            Dim filename = fileDialog.FileName
+            File.WriteAllText(filename, html)
+            MsgBox(filename, "Saved to", MsgBoxStyle.Information)
+        End If
     End Sub
 
     Public Sub CloseProgram()
@@ -188,12 +193,13 @@ Public Class ErrorWindow
         End If
     End Sub
 
-    Public Sub AnalyseModules()
+    Public Function AnalyseModules()
         Dim modulePath = Path.GetFullPath("..\..\Modules\")
         Dim myDocument = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         Dim loadedModuleJSON = ReadXmlAsJson(myDocument + "\Mount and Blade II Bannerlord\Configs\LauncherData.xml")
         Dim loadedModule = loadedModuleJSON("UserData")("SingleplayerData")("ModDatas")("UserModData")
         Dim loadedModuleList As New List(Of String)
+        Dim analysedModuleJSON As New List(Of Object)
         For Each x In loadedModule
             If x("IsSelected") Then
                 loadedModuleList.Add(x("Id"))
@@ -208,6 +214,10 @@ Public Class ErrorWindow
             Catch ex As Exception
                 Continue For
             End Try
+            jsondata("isModLoaded") = loadedModuleList.Any(Function(f) f.Contains(jsondata("Module")("Id")("@value")))
+            jsondata("isPDBIncluded") = False
+            jsondata("location") = x
+            jsondata("manifest") = x + "\SubModule.xml"
             'MAYBE NOT AN ARRAY BUT PLAIN OBJECT INSTEAD
             Dim maybeArray = True
             Try
@@ -215,7 +225,7 @@ Public Class ErrorWindow
                 'Dim subModuleClassType As String = jsondata("Module")("SubModules")("SubModule")("SubModuleClassType")("@value")
                 'subModuleClassType = subModuleClassType.Substring(0, subModuleClassType.IndexOf("."))
                 Dim modId = jsondata("Module")("Id")("@value")
-                jsondata("isFaultingMod") = exceptionData.StackTrace.Contains(subModuleClassType)
+                jsondata("isFaultingMod") = exceptionData.StackTrace.Contains(subModuleClassType) And jsondata("isModLoaded")
                 If exceptionData.InnerException IsNot Nothing Then
                     jsondata("isFaultingMod") = jsondata("isFaultingMod") Or exceptionData.InnerException.StackTrace.Contains(subModuleClassType)
                 End If
@@ -227,22 +237,32 @@ Public Class ErrorWindow
             End Try
             Try
                 If maybeArray Then
-                    For Each dll In jsondata("Module")("SubModules")
-                        Dim subModuleClassType As String = dll("SubModule")("Name")("@value")
+                    For Each dll In jsondata("Module")("SubModules")("SubModule")
+                        Dim name As String = dll("Name")("@value")
+                        Dim modId = jsondata("Module")("Id")("@value")
                         'subModuleClassType = subModuleClassType.Substring(0, subModuleClassType.IndexOf("."))
-                        jsondata("isFaultingMod") = exceptionData.StackTrace.Contains(subModuleClassType)
+                        jsondata("isFaultingMod") = exceptionData.StackTrace.Contains(name) And jsondata("isModLoaded")
+                        Dim result = CheckIsAssemblyLoaded(dll("DLLName")("@value"))
+                        If result Then
+                            Debug.Print("ok")
+                            Debug.Print(dll("DLLName")("@value"))
+                            dll("isLoadedInMemory") = True
+                        Else
+                            dll("isLoadedInMemory") = False
+                        End If
+                        If (jsondata("isFaultingMod")) Then
+                            problematicModules.Add(modId)
+                        End If
                     Next
                 End If
             Catch ex As Exception
             End Try
 
-            jsondata("isModLoaded") = loadedModuleList.Any(Function(f) f.Contains(jsondata("Module")("Id")("@value")))
-            jsondata("isPDBIncluded") = False
-            jsondata("location") = x
-            jsondata("manifest") = x + "\SubModule.xml"
-            widget.Document.InvokeScript("DisplayModulesReport", New String() {JsonConvert.SerializeObject(jsondata)})
+            'widget.Document.InvokeScript("DisplayModulesReport", New String() {JsonConvert.SerializeObject(jsondata)})
+            analysedModuleJSON.Add(jsondata)
         Next
-    End Sub
+        Return JsonConvert.SerializeObject(analysedModuleJSON)
+    End Function
 
     Public Sub ScanAndLintXmls()
         Dim errorDetected = False

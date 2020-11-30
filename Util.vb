@@ -65,4 +65,18 @@ Module Util
         Next
         Return out
     End Function
+
+    Public Function CheckIsAssemblyLoaded(dllFilename As String)
+        Dim asm As Assembly() = AppDomain.CurrentDomain.GetAssemblies()
+        For Each x In asm
+            Try
+
+                If Path.GetFileName(x.Location) = dllFilename Then
+                    Return True
+                End If
+            Catch ex As Exception
+            End Try
+        Next
+        Return False
+    End Function
 End Module
