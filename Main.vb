@@ -105,24 +105,23 @@ Namespace Global.BetterExceptionWindow
         Protected Overrides Sub OnSubModuleLoad()
             MyBase.OnSubModuleLoad()
             ReadConfig()
-            Dim harmony = New Harmony("org.calradia.admiralnelson.betterexceptionwindow")
             If Debugger.IsAttached And Not AllowInDebugger Then
 
             Else
-                harmony.PatchAll()
+                Dim harmony = New Harmony("org.calradia.admiralnelson.betterexceptionwindow")
+                Harmony.PatchAll()
             End If
-        End Sub
-
-
-
-        Protected Overrides Sub OnBeforeInitialModuleScreenSetAsRoot()
-            MyBase.OnBeforeInitialModuleScreenSetAsRoot()
-
-        End Sub
-        Public Overrides Sub OnCampaignStart(gam As Game, starterObject As Object)
-            MyBase.OnCampaignStart(gam, starterObject)
-            Print("campaign start")
-
+            'Dim harmonyList = Harmony.GetAllPatchedMethods()
+            'Dim list As New List(Of Object)
+            'For Each x In harmonyList
+            '    If x Is Nothing Then Continue For
+            '    Dim patch = Harmony.GetPatchInfo(x)
+            '    Dim d As New Dictionary(Of String, Object)
+            '    d("harmony") = x
+            '    d("patchInfo") = patch
+            '    list.Add(d)
+            'Next
+            'Print(ToJson(list))
         End Sub
     End Class
 End Namespace

@@ -49,6 +49,7 @@ Module Util
     End Function
     Public Sub Print(str As String)
         InformationManager.DisplayMessage(New InformationMessage(str))
+        Debug.Print(str)
     End Sub
     Public Function GetAssembliesData() As List(Of Assembly)
         Dim asm = AppDomain.CurrentDomain.GetAssemblies()
@@ -78,5 +79,9 @@ Module Util
             End Try
         Next
         Return False
+    End Function
+
+    Public Function ToJson(o As Object)
+        Return JsonConvert.SerializeObject(o)
     End Function
 End Module
