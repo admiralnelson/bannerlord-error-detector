@@ -46,6 +46,7 @@
   <ItemGroup>
     <Reference Include="0Harmony, Version=2.0.0.9, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Lib.Harmony.2.0.0.9\lib\net472\0Harmony.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -247,6 +248,12 @@
     <Compile Include="ErrorWindow.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FrmXmlVerifier.Designer.vb">
+      <DependentUpon>FrmXmlVerifier.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FrmXmlVerifier.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Main.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -268,6 +275,9 @@
   <ItemGroup>
     <EmbeddedResource Include="ErrorWindow.resx">
       <DependentUpon>ErrorWindow.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmXmlVerifier.resx">
+      <DependentUpon>FrmXmlVerifier.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
