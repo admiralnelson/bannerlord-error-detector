@@ -238,6 +238,9 @@
     <div id="jsonData" style="display:none">
         {jsonData}
     </div>
+	<div id="harmonyData" style="display:none">
+        {jsonHarmony}
+    </div>
     <div id="takenTroubleshootActions" style="display:none">
         {jsonTroubleshoot}
     </div>
@@ -856,7 +859,11 @@
         function SavePage() {
             alert("tessssttttt!");
             RecordTakenAction();
-            window.external.Save();
+			var name = window.external.Save();
+            if(name)
+			{
+				alert("File saved as " + name);
+			}
         }
         AnalyseModule();
         RecordTakenAction();

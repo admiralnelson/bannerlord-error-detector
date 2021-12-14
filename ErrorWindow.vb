@@ -5,6 +5,7 @@ Imports System.Security.Permissions
 Imports System.Text.RegularExpressions
 Imports System.Windows.Forms
 Imports System.Xml
+Imports HarmonyLib
 Imports Newtonsoft.Json
 
 <PermissionSet(SecurityAction.Demand, Name:="FullTrust")>
@@ -43,6 +44,7 @@ Public Class ErrorWindow
         Sleep(5 * 1000)
         html = html.Replace("{gameLogs}", GetGameLog())
         html = html.Replace("{logtime}", GetGameLogDateTime())
+        html = html.Replace("{jsonHarmony}", GetHarmonyPatches())
         widget.DocumentText = html
         AddHandler widget.Document.ContextMenuShowing, AddressOf WebContextMenuShowing
         AddHandler widget.PreviewKeyDown, AddressOf WebShorcut
@@ -71,16 +73,17 @@ Public Class ErrorWindow
     End Sub
 
 
-    Public Sub Save()
+    Public Function Save()
         'Dim filename = Str(DateTime.Now.ToFileTimeUtc()) + ".htm"
         Dim fileDialog As New SaveFileDialog()
         fileDialog.Filter = "HTML (*.htm)|*.htm|All files (*.*)|*.*"
         If fileDialog.ShowDialog() = DialogResult.OK AndAlso fileDialog.FileName <> "" Then
             Dim filename = fileDialog.FileName
             File.WriteAllText(filename, html)
-            MsgBox(filename, "Saved to", MsgBoxStyle.Information)
+            Return filename
         End If
-    End Sub
+        Return Nothing
+    End Function
 
     Public Sub CloseProgram()
         Dim pid = Process.GetCurrentProcess().Id
@@ -113,6 +116,28 @@ Public Class ErrorWindow
             Return txtreader.ReadToEnd()
         End If
         Return ""
+    End Function
+    Private Class HarmonyPatchInformation
+        Public Finalisers As List(Of Patch)
+        Public Prefixes As List(Of Patch)
+        Public Postfixes As List(Of Patch)
+        Public Transpilers As List(Of Patch)
+    End Class
+    Private Function GetHarmonyPatches()
+        Dim patches = Harmony.GetAllPatchedMethods()
+        Dim listOfPatches As New Dictionary(Of String, HarmonyPatchInformation)
+        For Each p In patches
+            Dim patch = Harmony.GetPatchInfo(p)
+            Dim patchInfo As New HarmonyPatchInformation
+            With patchInfo
+                .Finalisers = patch.Finalizers.ToList()
+                .Postfixes = patch.Postfixes.ToList()
+                .Prefixes = patch.Prefixes.ToList()
+                .Transpilers = patch.Transpilers.ToList()
+            End With
+            listOfPatches(p.FullDescription()) = patchInfo
+        Next
+        Return JsonConvert.SerializeObject(listOfPatches)
     End Function
     Private Function GetGameLogDateTime()
         Dim dataPath = GetBanenrlordProgramDataPath() + "\logs\"
