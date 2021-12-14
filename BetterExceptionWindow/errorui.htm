@@ -42,7 +42,7 @@
             margin-top: 10px;
             margin-bottom: 10px;
         }
-        .mod-list{
+        .mod-list, .harmony-list{
             margin: 5px;
             background-color:whitesmoke;
             border: 1px solid grey;
@@ -73,7 +73,16 @@
             color: darkgrey;
             
         }
+		table {
+		  border-collapse: collapse;
+		  width: 100%;
+		}
 
+		td, th {
+		  border: 1px solid #dddddd;
+		  text-align: left;
+		  padding: 8px;
+		}
     </style>
 </head>
 <body>
@@ -92,13 +101,13 @@
     <br />
     <br />
     <hr />
-    <table style='width: 100%; '>
+    <table style='width: 100%; border: none '>
         <tbody>
             <tr>
-                <td style='width: 64px; '>
+                <td style='width: 64px; border: none '>
                     <img src='http://icons.iconarchive.com/icons/paomedia/small-n-flat/256/sign-error-icon.png' width='64' height='64' />
                 </td>
-                <td>
+                <td style='border: none'>
                     <p>
                         <b>Bannerlord has encountered a problem and needs to close. We are sorry for the inconvenience. </b><br />
                         If you were in the middle of something, the progress you were working on might be lost.<br />
@@ -192,9 +201,9 @@
         </a>
     </h2>
     <div class='msg' id='harmony'>
-        <p>
-            {harmonyLog}
-        </p>
+        <div id="harmony-container">
+            
+        </div>
     </div>
     <h2 name="troubleshoot">
         <a href='#troubleshoot' onclick='spoiler(this, "Troubleshoot" ,"troubleshoot")'>
@@ -853,6 +862,161 @@
 
         }
 		
+		function AnalyseHarmonyPatches(){
+			var jsonData = JSON.parse(document.getElementById("harmonyData").innerText)
+			for (var methodName in jsonData) {
+                DisplayHarmonyRerport(methodName, jsonData[methodName]);
+            }
+		}
+		
+		function GeneratePatchesTable(data)
+		{
+			var table = "<table border='1'>" + 
+			"<tr>" + 
+				"<th>Prio</th>" +
+				"<th>Owner</th>" +
+				"<th>ClassName</th>" +
+				"<th>AssemblyName</th>" +
+			"</tr>" + 
+			"{replace}" +
+			"</table>";
+			var rows = "";
+			for(var i = 0; i < data.length; i++)
+			{
+				var row = "<tr>" +
+							"<td>"+data[i].priority+"</td>" +
+							"<td>"+data[i].owner+"</td>" +
+							"<td>"+data[i].PatchMethod.ClassName+"</td>" +
+							"<td>"+data[i].PatchMethod.AssemblyName+"</td>" +
+						  "</tr>";
+				rows += row;
+			}
+			return table.replace("{replace}", rows);
+			
+		}
+		
+		function DisplayHarmonyRerport(methodName, data){
+			var MethodContainer = document.getElementById('harmony-container'),
+			
+                MethodContent = document.createElement('div'),
+                MethodHeader = document.createElement('b'),
+                AnchorInHeader = document.createElement('a'),
+                HarmonyDetailContainer = document.createElement('div'),
+                HarmonyPrefixesDiv = document.createElement('div'),
+                HarmonyPostfixesDiv = document.createElement('div'),
+				HarmonyFinalisersDiv = document.createElement('div'),
+				HarmonyTranspilersDiv = document.createElement('div');
+				
+			HarmonyDetailContainer.id = methodName;
+			
+			if(data.Prefixes.length > 0){	
+				var HarmonyPrefixesMainDiv = document.createElement('div'),
+					HarmonyPrefixesDivHeader = document.createElement('b'),
+					HarmonyPrefixesDivAnchorHeader = document.createElement('a');
+					
+				HarmonyPrefixesDivHeader.appendChild(HarmonyPrefixesDivAnchorHeader);
+				HarmonyPrefixesMainDiv.appendChild(HarmonyPrefixesDivHeader);
+				HarmonyPrefixesMainDiv.appendChild(HarmonyPrefixesDiv);
+				HarmonyDetailContainer.appendChild(HarmonyPrefixesMainDiv);
+				HarmonyPrefixesMainDiv.className = "harmony-list";
+				
+				HarmonyPrefixesDiv.id = "Prefix_" + methodName; 
+				HarmonyPrefixesDiv.style.display = "none";			
+				HarmonyPrefixesDiv.innerHTML = GeneratePatchesTable(data.Prefixes);
+				
+				HarmonyPrefixesDivAnchorHeader.innerText = "+ Prefixes" + " (" + data.Prefixes.length + ")";
+				HarmonyPrefixesDivAnchorHeader.href = "#Prefixes" + methodName;
+				HarmonyPrefixesDivAnchorHeader.onclick = function () {
+					spoiler(HarmonyPrefixesDivAnchorHeader, "Prefixes " + " (" + data.Prefixes.length + ")", HarmonyPrefixesDiv.id);
+				}
+			}
+				
+			if(data.Postfixes.length > 0){					
+				var HarmonyPostfixesMainDiv = document.createElement('div'),
+					HarmonyPostfixesDivHeader = document.createElement('b'),
+					HarmonyPostfixesDivAnchorHeader = document.createElement('a');
+					
+				HarmonyPostfixesDivHeader.appendChild(HarmonyPostfixesDivAnchorHeader);
+				HarmonyPostfixesMainDiv.appendChild(HarmonyPostfixesDivHeader);
+				HarmonyPostfixesMainDiv.appendChild(HarmonyPostfixesDiv);
+				HarmonyDetailContainer.appendChild(HarmonyPostfixesMainDiv);
+				HarmonyPostfixesMainDiv.className = "harmony-list";
+				
+				HarmonyPostfixesDiv.id = "Postfix_" + methodName; 
+				HarmonyPostfixesDiv.style.display = "none";
+				HarmonyPostfixesDiv.innerHTML = GeneratePatchesTable(data.Postfixes);
+				
+				HarmonyPostfixesDivAnchorHeader.innerText = "+ Postfixes" + " (" + data.Postfixes.length + ")";
+				HarmonyPostfixesDivAnchorHeader.href = "#Postfixes" + methodName;
+				HarmonyPostfixesDivAnchorHeader.onclick = function () {
+					spoiler(HarmonyPostfixesDivAnchorHeader, "Postfixes" + " (" + data.Postfixes.length + ")", HarmonyPostfixesDiv.id);
+				}
+			}
+				
+			if(data.Finalisers.length > 0){
+				var HarmonyFinalisersMainDiv = document.createElement('div'),
+					HarmonyFinalisersDivHeader = document.createElement('b'),
+					HarmonyFinalisersDivAnchorHeader = document.createElement('a');
+					
+				HarmonyFinalisersDivHeader.appendChild(HarmonyFinalisersDivAnchorHeader);
+				HarmonyFinalisersMainDiv.appendChild(HarmonyFinalisersDivHeader);
+				HarmonyFinalisersMainDiv.appendChild(HarmonyFinalisersDiv);
+				HarmonyDetailContainer.appendChild(HarmonyFinalisersMainDiv);
+				HarmonyFinalisersMainDiv.className = "harmony-list";
+				
+				HarmonyFinalisersDiv.id = "Finaliser_" + methodName; 
+				HarmonyFinalisersDiv.style.display = "none";
+				HarmonyFinalisersDiv.innerHTML = GeneratePatchesTable(data.Finalisers);
+				
+				HarmonyFinalisersDivAnchorHeader.innerText = "+ Finalisers" + " (" + data.Finalisers.length + ")";
+				HarmonyFinalisersDivAnchorHeader.href = "#Finalisers" + methodName;
+				HarmonyFinalisersDivAnchorHeader.onclick = function () {
+					spoiler(HarmonyFinalisersDivAnchorHeader, "Finalisers" + " (" + data.Finalisers.length + ")", HarmonyFinalisersDiv.id);
+				}	
+			}
+	
+				
+			if(data.Transpilers.length > 0){					
+				var HarmonyTranspilersMainDiv = document.createElement('div'),
+					HarmonyTranspilersDivHeader = document.createElement('b'),
+					HarmonyTranspilersDivAnchorHeader = document.createElement('a');
+					
+				HarmonyTranspilersDivHeader.appendChild(HarmonyTranspilersDivAnchorHeader);
+				HarmonyTranspilersMainDiv.appendChild(HarmonyTranspilersDivHeader);
+				HarmonyTranspilersMainDiv.appendChild(HarmonyTranspilersDiv);
+				HarmonyDetailContainer.appendChild(HarmonyTranspilersMainDiv);
+				HarmonyTranspilersMainDiv.className = "harmony-list";
+				
+				HarmonyTranspilersDiv.id = "Transpiler_" + methodName; 
+				HarmonyTranspilersDiv.style.display = "none";
+				HarmonyTranspilersDiv.innerHTML = GeneratePatchesTable(data.Transpilers);
+				
+				
+				HarmonyTranspilersDivAnchorHeader.innerText = "+ Transpilers" + " (" + data.Transpilers.length + ")";
+				HarmonyTranspilersDivAnchorHeader.href = "#Transpilers" + methodName;
+				HarmonyTranspilersDivAnchorHeader.onclick = function () {
+					spoiler(HarmonyTranspilersDivAnchorHeader, "Transpilers"+ " (" + data.Transpilers.length + ")", HarmonyTranspilersDiv.id);
+				}
+			}				
+				
+			HarmonyDetailContainer.style.display = "none";
+			
+			var totalPatches = data.Prefixes.length + data.Postfixes.length + data.Transpilers.length + data.Finalisers.length;
+			if(totalPatches == 0) return;
+			
+			MethodContent.className = "harmony-list"
+			AnchorInHeader.innerText = "+ " + methodName+ " (" + totalPatches + " patches)";
+			AnchorInHeader.href = "#" + methodName;
+			
+			MethodHeader.appendChild(AnchorInHeader);
+			MethodContent.appendChild(MethodHeader);
+			MethodContent.appendChild(HarmonyDetailContainer);
+			MethodContainer.appendChild(MethodContent);
+			AnchorInHeader.onclick = function () {
+				spoiler(AnchorInHeader, methodName + " (" + totalPatches + " patches)", methodName);
+			}
+		}
+		
         function RecordTakenAction() {
             document.getElementById("takenTroubleshootActions").innerText = JSON.stringify(TroubleshootAction);
         }
@@ -866,6 +1030,7 @@
 			}
         }
         AnalyseModule();
+		AnalyseHarmonyPatches();
         RecordTakenAction();
     </script>
 </body>
