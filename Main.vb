@@ -132,16 +132,7 @@ Namespace Global.BetterExceptionWindow
         Public Sub New()
 
         End Sub
-
-        Protected Overrides Sub OnSubModuleLoad()
-            MyBase.OnSubModuleLoad()
-            ReadConfig()
-            If Debugger.IsAttached Then
-                If Not AllowInDebugger Then
-
-                End If
-            End If
-
+        Private Sub PatchMe()
             Dim harmony = New Harmony("org.calradia.admiralnelson.betterexceptionwindow")
             harmony.PatchAll()
 
@@ -149,17 +140,19 @@ Namespace Global.BetterExceptionWindow
             AddHandler AppDomain.CurrentDomain.UnhandledException, AddressOf AppDomain_UnhandledException
 
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException)
-            'Dim harmonyList = Harmony.GetAllPatchedMethods()
-            'Dim list As New List(Of Object)
-            'For Each x In harmonyList
-            '    If x Is Nothing Then Continue For
-            '    Dim patch = Harmony.GetPatchInfo(x)
-            '    Dim d As New Dictionary(Of String, Object)
-            '    d("harmony") = x
-            '    d("patchInfo") = patch
-            '    list.Add(d)
-            'Next
-            'Print(ToJson(list))
+        End Sub
+        Protected Overrides Sub OnSubModuleLoad()
+            MyBase.OnSubModuleLoad()
+            ReadConfig()
+
+            If Debugger.IsAttached Then
+                If AllowInDebugger Then
+                    PatchMe()
+                End If
+            Else
+                PatchMe()
+            End If
+
         End Sub
     End Class
 End Namespace

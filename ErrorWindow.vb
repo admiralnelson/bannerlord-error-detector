@@ -7,6 +7,8 @@ Imports System.Windows.Forms
 Imports System.Xml
 Imports HarmonyLib
 Imports Newtonsoft.Json
+Imports TaleWorlds.Core
+Imports TaleWorlds.Library
 
 <PermissionSet(SecurityAction.Demand, Name:="FullTrust")>
 <ComVisibleAttribute(True)>
@@ -237,7 +239,7 @@ Public Class ErrorWindow
             Dim jsonString = JsonConvert.SerializeObject(loadedModuleJSON)
             Debug.Print(jsonString)
             Dim xmlData As XmlDocument = JsonConvert.DeserializeXmlNode(jsonString)
-            Dim stringXml = New StringWriter()
+            Dim stringXml = New IO.StringWriter()
             Dim xmlWriter = New XmlTextWriter(stringXml)
             xmlData.WriteTo(xmlWriter)
             Debug.Print(stringXml.ToString())
@@ -346,8 +348,14 @@ Public Class ErrorWindow
                 MsgBox("Unable to save as this is not a campaign!", MsgBoxStyle.Critical)
                 Return False
             Else
-                TaleWorlds.CampaignSystem.Campaign.Current.SaveHandler.SaveAs(filename)
-                Return True
+                Dim campaignMetaData = TaleWorlds.CampaignSystem.Campaign.Current.SaveHandler
+                Dim dynamicMethod = campaignMetaData.GetType().GetMethod("GetSaveMetaData", BindingFlags.NonPublic Or BindingFlags.Instance)
+                Dim SaveMetaData As CampaignSaveMetaDataArgs = dynamicMethod.Invoke(campaignMetaData, New Object() {})
+                'https://stackoverflow.com/questions/135443/how-do-i-use-reflection-to-invoke-a-private-method
+                'MethodInfo dynMethod = this.GetType().GetMethod("Draw_" + itemType, BindingFlags.NonPublic | BindingFlags.Instance);
+                'dynMethod.Invoke(this, New Object[] { methodParams });
+                'shitty API
+                Return MBSaveLoad.SaveAsCurrentGame(SaveMetaData, filename) = SaveResult.Success
             End If
         Catch ex As Exception
             MsgBox("error while saving! " + vbCrLf + ex.Message, MsgBoxStyle.Critical)
