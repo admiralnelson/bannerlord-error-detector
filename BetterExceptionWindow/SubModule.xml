@@ -1,22 +1,23 @@
 <Module>
-     <Name value="BetterExceptionWindow"/>
-     <Id value="BetterExceptionWindow"/>
-     <Version value="e2.3.0"/>
-     <SingleplayerModule value="true"/>
-     <MultiplayerModule value="false"/>
-     <DependedModules>
+    <Name value="BetterExceptionWindow"/>
+    <Id value="BetterExceptionWindow"/>
+    <Version value="e2.3.0"/>
+    <SingleplayerModule value="true"/>
+    <MultiplayerModule value="false"/>
+    <DependedModules>
+		<DependedModule Id="Bannerlord.Harmony" />
     </DependedModules>
      <SubModules>
          <SubModule>
-             <Name value="BetterExceptionWindow"/>
-             <DLLName value="BetterExceptionWindow.dll"/>             
-             <SubModuleClassType value="BetterExceptionWindow.Main"/>
-             <Tags>
-                 <Tag key="DedicatedServerType" value="none" />
-                 <Tag key="IsNoRenderModeElement" value="false" />
-             </Tags>
-         </SubModule>
-     </SubModules>
-     <Xmls>
-  </Xmls>
- </Module>
+            <Name value="BetterExceptionWindow"/>
+            <DLLName value="BetterExceptionWindow.dll"/>             
+            <SubModuleClassType value="BetterExceptionWindow.Main"/>
+            <Tags>
+                <Tag key="DedicatedServerType" value="none" />
+                <Tag key="IsNoRenderModeElement" value="false" />
+            </Tags>
+        </SubModule>
+    </SubModules>
+    <Xmls>
+    </Xmls>
+</Module>

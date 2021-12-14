@@ -3,6 +3,7 @@ Imports System.IO
 Imports System.Reflection
 Imports System.Security.Cryptography
 Imports System.Xml
+Imports Microsoft.VisualBasic.FileIO
 Imports Newtonsoft.Json
 Imports TaleWorlds.Core
 
@@ -80,7 +81,13 @@ Module Util
         Next
         Return False
     End Function
-
+    Public Sub Sleep(t As Integer)
+        Threading.Thread.Sleep(t)
+    End Sub
+    Public Function GetBanenrlordProgramDataPath()
+        Dim p = SpecialDirectories.AllUsersApplicationData + "\..\..\..\Mount and Blade II Bannerlord\"
+        Return Path.GetFullPath(p) + "\"
+    End Function
     Public Function ToJson(o As Object)
         Return JsonConvert.SerializeObject(o)
     End Function

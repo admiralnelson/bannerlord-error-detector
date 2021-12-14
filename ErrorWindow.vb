@@ -39,6 +39,10 @@ Public Class ErrorWindow
             html = html.Replace("{innerExceptionCallStack}", "No inner exception was thrown")
         End If
         html = html.Replace("{jsonData}", AnalyseModules())
+        'wait a bit to gather game log
+        Sleep(5 * 1000)
+        html = html.Replace("{gameLogs}", GetGameLog())
+        html = html.Replace("{logtime}", GetGameLogDateTime())
         widget.DocumentText = html
         AddHandler widget.Document.ContextMenuShowing, AddressOf WebContextMenuShowing
         AddHandler widget.PreviewKeyDown, AddressOf WebShorcut
@@ -65,6 +69,7 @@ Public Class ErrorWindow
             widget.Document.ExecCommand("SelectAll", False, Nothing)
         End If
     End Sub
+
 
     Public Sub Save()
         'Dim filename = Str(DateTime.Now.ToFileTimeUtc()) + ".htm"
@@ -96,7 +101,30 @@ Public Class ErrorWindow
         Dim p = Path.GetDirectoryName(s)
         Process.Start(p)
     End Sub
-
+    Private Function GetGameLog()
+        Dim dataPath = GetBanenrlordProgramDataPath() + "\logs\"
+        Dim biggestFile = New DirectoryInfo(dataPath).EnumerateFiles() _
+                                                     .Where(Function(x) x.Name.StartsWith("rgl_log_")) _
+                                                     .OrderByDescending(Function(x) x.LastWriteTimeUtc) _
+                                                     .FirstOrDefault()
+        If biggestFile IsNot Nothing Then
+            Dim filestrm As New FileStream(biggestFile.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
+            Dim txtreader As New StreamReader(filestrm)
+            Return txtreader.ReadToEnd()
+        End If
+        Return ""
+    End Function
+    Private Function GetGameLogDateTime()
+        Dim dataPath = GetBanenrlordProgramDataPath() + "\logs\"
+        Dim biggestFile = New DirectoryInfo(dataPath).EnumerateFiles() _
+                                                     .Where(Function(x) x.Name.StartsWith("rgl_log_")) _
+                                                     .OrderByDescending(Function(x) x.LastWriteTimeUtc) _
+                                                     .FirstOrDefault()
+        If biggestFile IsNot Nothing Then
+            Return biggestFile.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss 'GMT'z")
+        End If
+        Return ""
+    End Function
     Private Function GetModulePathFromAssembly(dll As Assembly) As String
         Dim location = dll.Location
         location = Path.GetDirectoryName(location)

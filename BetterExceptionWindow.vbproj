@@ -298,6 +298,9 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="errorui.htm" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
     <PreBuildEvent>xcopy /F /R /Y /I /E  "$(SolutionDir)$(ProjectName)" "F:\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\$(ProjectName)"</PreBuildEvent>
