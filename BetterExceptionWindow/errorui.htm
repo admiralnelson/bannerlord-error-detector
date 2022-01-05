@@ -42,19 +42,21 @@
             margin-top: 10px;
             margin-bottom: 10px;
         }
-        .mod-list, .harmony-list{
+
+        .mod-list, .harmony-list {
             margin: 5px;
-            background-color:whitesmoke;
+            background-color: whitesmoke;
             border: 1px solid grey;
             padding: 5px;
-
         }
+
         .mod-list-tw {
             margin: 5px;
             background-color: whitesmoke;
             border: 1px solid grey;
             padding: 5px;
         }
+
         .mod-list-unloaded {
             margin: 5px;
             background-color: whitesmoke;
@@ -62,27 +64,39 @@
             padding: 5px;
             color: grey
         }
+
         #xml-report-table {
             border-collapse: collapse;
         }
-        td{
-            vertical-align:middle
+
+        td {
+            vertical-align: middle
         }
+
         #bewVersion {
             font-size: small;
             color: darkgrey;
-            
         }
-		table {
-		  border-collapse: collapse;
-		  width: 100%;
-		}
 
-		td, th {
-		  border: 1px solid #dddddd;
-		  text-align: left;
-		  padding: 8px;
-		}
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        .troubleshoot-buttons {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+        }
+        .troubleshoot-desc {
+            max-width: 720px    ;
+        }
     </style>
 </head>
 <body>
@@ -112,7 +126,7 @@
                         <b>Bannerlord has encountered a problem and needs to close. We are sorry for the inconvenience. </b><br />
                         If you were in the middle of something, the progress you were working on might be lost.<br />
                         This error can be caused by a faulty module XMLs, manifest (submodule.xml), or module error (.net execution error or permission error).<br /><br />
-                        
+
                         Or If you are debugging, you can disable the error window individually in <a href='#' onclick='window.external.OpenConfig()'><b>config.json</b></a> in BetterExceptionWindow submodule folder.
                     </p>
                 </td>
@@ -150,9 +164,10 @@
     <div class='msg' id='fullStack'>
         <p>
             <b>Protip: </b>
-            Use a debugger like <a href='https://github.com/0xd4d/dnSpy'>dnSpy</a> or
+            Use a debugger like <a href='https://github.com/dnSpy/dnSpy#:~:text=dnSpy%20is%20a%20debugger%20and.NET%20assembly%20editor.%20You,if%20you%20don%27t%20have%20any%20source%20code%20available.'>dnSpy</a> or
             <a href='https://visualstudio.microsoft.com/'>Visual studio</a> to trace the source of error, by stepping the program
             line by line.
+            <a href="#dnspy" onclick="OpenTroubleshootSection()">You can restart with dnSpy attached.</a>
         </p>
         Inner exception callstack:
         <pre>{innerExceptionCallStack}</pre>
@@ -168,7 +183,7 @@
         <p><input type='checkbox' onclick='hideTWMods(this)' /> Hide taleworlds mods </p>
         <p><input type='checkbox' onclick='hideUnloadedMods(this)' /> Hide unloaded mods</p>
         <div id="mod-container">
-            
+
         </div>
     </div>
     <h2 name='loaded-dll'>
@@ -192,7 +207,7 @@
             <img src="https://icons.iconarchive.com/icons/dtafalonso/modern-xp/256/ModernXP-43-Date-New-icon.png" width="64" height="64" />
             Recorded logs from the game engine (RGL). Taken at {logtime}
         </p>
-        <br/>
+        <br />
         <pre>{gameLogs}</pre>
     </div>
     <h2 name="harmony">
@@ -202,22 +217,24 @@
     </h2>
     <div class='msg' id='harmony'>
         <div id="harmony-container">
-            
+
         </div>
     </div>
     <h2 name="troubleshoot">
-        <a href='#troubleshoot' onclick='spoiler(this, "Troubleshoot" ,"troubleshoot")'>
+        <a href='#troubleshoot' onclick='spoiler(this, "Troubleshoot" ,"troubleshoot-expanded")' id="troubleshoot">
             + Troubleshoot
         </a>
     </h2>
-    <div class='msg' id='troubleshoot'>
+    <div class='msg' id='troubleshoot-expanded'>
         <p>You can try several troubleshoot options down below.</p>
         <div class='border-blue' id='xml-report'>
             <img src='http://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-64-Folder-Check-icon.png' width='48' />
-            Check for XML typos if an error were caused by faulty XMLs, tap the button on the right to validate them.
-            <button onclick='validateXML(this)' id='btn-validate-xml'  style='position:absolute;right:5px;'>Check XML validity</button>
+            <div class="troubleshoot-desc">
+                Check for XML typos if an error were caused by faulty XMLs, tap the button on the right to validate them.
+            </div>
+            <button onclick='validateXML(this)' id='btn-validate-xml' class="troubleshoot-buttons">Check XML validity</button>
             <br />
-            <table id='xml-report-table' style='width:100%; display:none' border='0'>
+            <table id='xml-report-table' style='width:100%; display:none; border:none' border='0'>
                 <tr>
                     <td style='width:30px'><img src='http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png' width='24' /> </td>
                     <td>
@@ -228,17 +245,35 @@
                     </td>
                 </tr>
             </table>
-        </div>        
+        </div>
         <div class='border-blue'>
-            <img src='http://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-70-Window-Settings-icon.png' width='48' />
-            Attempt to disable faulty mods. This option may only work with the original Taleworlds Launcher.
-            <button style='position:absolute;right:5px;' onclick="window.external.DisableProblematicModules()">Disable them</button>
+            <img src='https://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-21-Desktop-icon.png' width='48' />
+            <div class="troubleshoot-desc">
+                Attempt to disable faulty mods. This option may only work with the original Taleworlds Launcher.
+            </div>
+            <button class="troubleshoot-buttons" onclick="window.external.DisableProblematicModules()">Disable them</button>
         </div>
         <div class='border-blue'>
             <img src='http://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-65-Floppy-Save-icon.png' width='48' />
-            Emergency save. <br />
-            Forcefully to save the game. This might not work!
-            <button style='position:absolute;right:5px;' onclick="saveEmergencyCampaign()">Save the game</button>
+            <div class="troubleshoot-desc">
+                Emergency save. <br />
+                Forcefully to save the game. This might not work!
+            </div>
+            <button class="troubleshoot-buttons" onclick="saveEmergencyCampaign()">Save the game</button>
+        </div>
+        <div class='border-blue'>
+            <img src='http://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-70-Window-Settings-icon.png' width='48' />
+            <div class="troubleshoot-desc" id="dnspy">
+                Restart the program in debug mode. <br />
+                Restart the program with dnSpy debugger and decompiler attached. This may helps you debug and even made patches to a faulty mod without a source code. <a href="https://www.dnspy.net/">What is dnSpy?</a>
+                <p style="display:normal">
+                    {reasonDnspyNotAvailable} <br />
+                    <a href="#" onclick="InstallDnspy()">Install dnSpy</a>
+                </p>
+            </div>
+            <br />
+            <br />
+            <button class="troubleshoot-buttons" onclick="saveEmergencyCampaign()">Restart the program with dnSpy attched</button>
         </div>
         <p id="log">
 
@@ -247,17 +282,17 @@
     <div id="jsonData" style="display:none">
         {jsonData}
     </div>
-	<div id="harmonyData" style="display:none">
+    <div id="harmonyData" style="display:none">
         {jsonHarmony}
     </div>
     <div id="takenTroubleshootActions" style="display:none">
         {jsonTroubleshoot}
     </div>
-	<div id="saveblobsBase64" style="display:none">
-	    work in progress
-	</div>
-	<hr />
-	<small id="bewVersion">Generated by BetterExceptionWindow version 3.1.0 f0b3bb0a608eb37dfc349a012ac16f6b69a7c286 </small>
+    <div id="saveblobsBase64" style="display:none">
+        work in progress
+    </div>
+    <hr />
+    <small id="bewVersion">Generated by BetterExceptionWindow version 3.1.0 1b063f4181eaaaf0c989150001127f7cfafb4656 </small>
     <script>
         //https://github.com/douglascrockford/JSON-js/blob/master/json2.js
         if (typeof JSON !== "object") {
@@ -526,7 +561,7 @@
                 };
             }
 
-            
+
 
             if (typeof JSON.parse !== "function") {
                 JSON.parse = function (text, reviver) {
@@ -589,10 +624,10 @@
         }());
     </script>
     <script>
-		var TroubleshootAction = {
-			ForceSave: false,
-			XMLCheck: false
-		}
+        var TroubleshootAction = {
+            ForceSave: false,
+            XMLCheck: false
+        }
 
         if (!document.getElementsByClassName) {
             document.getElementsByClassName = function (search) {
@@ -670,8 +705,8 @@
         function doneScanning() {
             document.getElementById("search-icon").remove();
             document.getElementById("scan-status").innerText = "XML checks done.";
-			TroubleshootAction.XMLCheck = true;
-			
+            TroubleshootAction.XMLCheck = true;
+
         }
         function saveEmergencyCampaign() {
             var result = confirm("Depending on the crash, this might not work!\n Only use this if you're in: Campaign map and the crash is not player data related (i.e caused by corrupt party tables, items, or anything that is stored into save file)! \nContinue to forcefully save the game?");
@@ -685,13 +720,13 @@
                         alert("game saved as " + filename);
                     }
                 }
-                
+
             }
-            
+
         }
         function clearTable() {
             var elmtTable = document.getElementById('xml-report-table');
-                tableRows = elmtTable.getElementsByTagName('tr'),
+            tableRows = elmtTable.getElementsByTagName('tr'),
                 rowCount = tableRows.length;
 
             for (var x = 0; x < rowCount; x++) {
@@ -722,7 +757,7 @@
                 icon.innerHTML = '<img src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png" width="24" /> ';
             else
                 icon.innerHTML = '<img src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-warning-icon.png" width="24" /> ';
-            var res = '<div><b>' + filename + '</b><div><div>' + 'Location: ' + '<a onclick="openPath(\"' + path + '\")">' + path + '</a></div>' ;
+            var res = '<div><b>' + filename + '</b><div><div>' + 'Location: ' + '<a onclick="openPath(\"' + path + '\")">' + path + '</a></div>';
             if (error)
                 res = res + '<div>' + error + '</div>';
             desc.innerHTML = res + "<hr />";
@@ -758,12 +793,12 @@
                     newModContent.style.backgroundColor = "lightpink";
                 }
 
-                anchorInHeader.innerText = "+ " + data.Module.Name["@value"] + " (version: " + data.Module.Version["@value"] + ")";            
-                anchorInHeader.href = "#" + data.Module.Id["@value"];            
+                anchorInHeader.innerText = "+ " + data.Module.Name["@value"] + " (version: " + data.Module.Version["@value"] + ")";
+                anchorInHeader.href = "#" + data.Module.Id["@value"];
 
                 modDetail.id = data.Module.Id["@value"];
                 modDetail.style.display = "none";
-            
+
                 var labelModInformation = document.createElement('div'),
                     modLoadedLi = document.createElement('li'),
                     pdbIncludedLi = document.createElement('li'),
@@ -773,7 +808,7 @@
                     modManifestLocationLi = document.createElement('li'),
                     labelDependsOn = document.createElement('div'),
                     labelSubModules = document.createElement('div');
-                
+
                 labelModInformation.innerText = "Mod manifest data:";
                 modLoadedLi.innerText = (data.isModLoaded) ? "Mod loaded: YES" : "Mod loaded: NO";
                 modIdLi.innerText = "Mod Id: " + data.Module.Id["@value"];
@@ -790,10 +825,10 @@
                 }
                 else if (!Array.isArray(data.Module.DependedModules.DependedModule)) {
                     var node = document.createElement('li');
-                    if ( data.Module.DependedModules.DependedModule) 
+                    if (data.Module.DependedModules.DependedModule)
                         node.innerText = data.Module.DependedModules.DependedModule["@Id"];
                     else
-                        node.innerText = "Does not dependwith other module";                
+                        node.innerText = "Does not dependwith other module";
                     modDependsUl.appendChild(node);
                 }
                 else {
@@ -815,7 +850,7 @@
                         node.innerText = data.Module.SubModules.SubModule.DLLName["@value"];
                     }
                     else
-                        node.innerText = "Does not contain any DLL module";                   
+                        node.innerText = "Does not contain any DLL module";
                     modSubModulesUl.appendChild(node);
 
                 }
@@ -826,13 +861,13 @@
                             node.innerText = data.Module.SubModules.SubModule[i].DLLName["@value"];
                         }
                         else {
-                            node.innerHTML = "<del>" + data.Module.SubModules.SubModule[i].DLLName["@value"] + "</del> (Not loaded in memory)" ;
+                            node.innerHTML = "<del>" + data.Module.SubModules.SubModule[i].DLLName["@value"] + "</del> (Not loaded in memory)";
                         }
 
                         modSubModulesUl.appendChild(node);
                     }
                 }
-            
+
 
                 modDetail.appendChild(labelModInformation);
                 modDetailUl.appendChild(modLoadedLi);
@@ -861,176 +896,177 @@
             }
 
         }
-		
-		function AnalyseHarmonyPatches(){
-			var jsonData = JSON.parse(document.getElementById("harmonyData").innerText)
-			for (var methodName in jsonData) {
+
+        function AnalyseHarmonyPatches() {
+            var jsonData = JSON.parse(document.getElementById("harmonyData").innerText)
+            for (var methodName in jsonData) {
                 DisplayHarmonyRerport(methodName, jsonData[methodName]);
             }
-		}
-		
-		function GeneratePatchesTable(data)
-		{
-			var table = "<table border='1'>" + 
-			"<tr>" + 
-				"<th>Prio</th>" +
-				"<th>Owner</th>" +
-				"<th>ClassName</th>" +
-				"<th>AssemblyName</th>" +
-			"</tr>" + 
-			"{replace}" +
-			"</table>";
-			var rows = "";
-			for(var i = 0; i < data.length; i++)
-			{
-				var row = "<tr>" +
-							"<td>"+data[i].priority+"</td>" +
-							"<td>"+data[i].owner+"</td>" +
-							"<td>"+data[i].PatchMethod.ClassName+"</td>" +
-							"<td>"+data[i].PatchMethod.AssemblyName+"</td>" +
-						  "</tr>";
-				rows += row;
-			}
-			return table.replace("{replace}", rows);
-			
-		}
-		
-		function DisplayHarmonyRerport(methodName, data){
-			var MethodContainer = document.getElementById('harmony-container'),
-			
+        }
+
+        function GeneratePatchesTable(data) {
+            var table = "<table border='1'>" +
+                "<tr>" +
+                "<th>Prio</th>" +
+                "<th>Owner</th>" +
+                "<th>ClassName</th>" +
+                "<th>AssemblyName</th>" +
+                "</tr>" +
+                "{replace}" +
+                "</table>";
+            var rows = "";
+            for (var i = 0; i < data.length; i++) {
+                var row = "<tr>" +
+                    "<td>" + data[i].priority + "</td>" +
+                    "<td>" + data[i].owner + "</td>" +
+                    "<td>" + data[i].PatchMethod.ClassName + "</td>" +
+                    "<td>" + data[i].PatchMethod.AssemblyName + "</td>" +
+                    "</tr>";
+                rows += row;
+            }
+            return table.replace("{replace}", rows);
+
+        }
+
+        function DisplayHarmonyRerport(methodName, data) {
+            var MethodContainer = document.getElementById('harmony-container'),
+
                 MethodContent = document.createElement('div'),
                 MethodHeader = document.createElement('b'),
                 AnchorInHeader = document.createElement('a'),
                 HarmonyDetailContainer = document.createElement('div'),
                 HarmonyPrefixesDiv = document.createElement('div'),
                 HarmonyPostfixesDiv = document.createElement('div'),
-				HarmonyFinalisersDiv = document.createElement('div'),
-				HarmonyTranspilersDiv = document.createElement('div');
-				
-			HarmonyDetailContainer.id = methodName;
-			
-			if(data.Prefixes.length > 0){	
-				var HarmonyPrefixesMainDiv = document.createElement('div'),
-					HarmonyPrefixesDivHeader = document.createElement('b'),
-					HarmonyPrefixesDivAnchorHeader = document.createElement('a');
-					
-				HarmonyPrefixesDivHeader.appendChild(HarmonyPrefixesDivAnchorHeader);
-				HarmonyPrefixesMainDiv.appendChild(HarmonyPrefixesDivHeader);
-				HarmonyPrefixesMainDiv.appendChild(HarmonyPrefixesDiv);
-				HarmonyDetailContainer.appendChild(HarmonyPrefixesMainDiv);
-				HarmonyPrefixesMainDiv.className = "harmony-list";
-				
-				HarmonyPrefixesDiv.id = "Prefix_" + methodName; 
-				HarmonyPrefixesDiv.style.display = "none";			
-				HarmonyPrefixesDiv.innerHTML = GeneratePatchesTable(data.Prefixes);
-				
-				HarmonyPrefixesDivAnchorHeader.innerText = "+ Prefixes" + " (" + data.Prefixes.length + ")";
-				HarmonyPrefixesDivAnchorHeader.href = "#Prefixes" + methodName;
-				HarmonyPrefixesDivAnchorHeader.onclick = function () {
-					spoiler(HarmonyPrefixesDivAnchorHeader, "Prefixes " + " (" + data.Prefixes.length + ")", HarmonyPrefixesDiv.id);
-				}
-			}
-				
-			if(data.Postfixes.length > 0){					
-				var HarmonyPostfixesMainDiv = document.createElement('div'),
-					HarmonyPostfixesDivHeader = document.createElement('b'),
-					HarmonyPostfixesDivAnchorHeader = document.createElement('a');
-					
-				HarmonyPostfixesDivHeader.appendChild(HarmonyPostfixesDivAnchorHeader);
-				HarmonyPostfixesMainDiv.appendChild(HarmonyPostfixesDivHeader);
-				HarmonyPostfixesMainDiv.appendChild(HarmonyPostfixesDiv);
-				HarmonyDetailContainer.appendChild(HarmonyPostfixesMainDiv);
-				HarmonyPostfixesMainDiv.className = "harmony-list";
-				
-				HarmonyPostfixesDiv.id = "Postfix_" + methodName; 
-				HarmonyPostfixesDiv.style.display = "none";
-				HarmonyPostfixesDiv.innerHTML = GeneratePatchesTable(data.Postfixes);
-				
-				HarmonyPostfixesDivAnchorHeader.innerText = "+ Postfixes" + " (" + data.Postfixes.length + ")";
-				HarmonyPostfixesDivAnchorHeader.href = "#Postfixes" + methodName;
-				HarmonyPostfixesDivAnchorHeader.onclick = function () {
-					spoiler(HarmonyPostfixesDivAnchorHeader, "Postfixes" + " (" + data.Postfixes.length + ")", HarmonyPostfixesDiv.id);
-				}
-			}
-				
-			if(data.Finalisers.length > 0){
-				var HarmonyFinalisersMainDiv = document.createElement('div'),
-					HarmonyFinalisersDivHeader = document.createElement('b'),
-					HarmonyFinalisersDivAnchorHeader = document.createElement('a');
-					
-				HarmonyFinalisersDivHeader.appendChild(HarmonyFinalisersDivAnchorHeader);
-				HarmonyFinalisersMainDiv.appendChild(HarmonyFinalisersDivHeader);
-				HarmonyFinalisersMainDiv.appendChild(HarmonyFinalisersDiv);
-				HarmonyDetailContainer.appendChild(HarmonyFinalisersMainDiv);
-				HarmonyFinalisersMainDiv.className = "harmony-list";
-				
-				HarmonyFinalisersDiv.id = "Finaliser_" + methodName; 
-				HarmonyFinalisersDiv.style.display = "none";
-				HarmonyFinalisersDiv.innerHTML = GeneratePatchesTable(data.Finalisers);
-				
-				HarmonyFinalisersDivAnchorHeader.innerText = "+ Finalisers" + " (" + data.Finalisers.length + ")";
-				HarmonyFinalisersDivAnchorHeader.href = "#Finalisers" + methodName;
-				HarmonyFinalisersDivAnchorHeader.onclick = function () {
-					spoiler(HarmonyFinalisersDivAnchorHeader, "Finalisers" + " (" + data.Finalisers.length + ")", HarmonyFinalisersDiv.id);
-				}	
-			}
-	
-				
-			if(data.Transpilers.length > 0){					
-				var HarmonyTranspilersMainDiv = document.createElement('div'),
-					HarmonyTranspilersDivHeader = document.createElement('b'),
-					HarmonyTranspilersDivAnchorHeader = document.createElement('a');
-					
-				HarmonyTranspilersDivHeader.appendChild(HarmonyTranspilersDivAnchorHeader);
-				HarmonyTranspilersMainDiv.appendChild(HarmonyTranspilersDivHeader);
-				HarmonyTranspilersMainDiv.appendChild(HarmonyTranspilersDiv);
-				HarmonyDetailContainer.appendChild(HarmonyTranspilersMainDiv);
-				HarmonyTranspilersMainDiv.className = "harmony-list";
-				
-				HarmonyTranspilersDiv.id = "Transpiler_" + methodName; 
-				HarmonyTranspilersDiv.style.display = "none";
-				HarmonyTranspilersDiv.innerHTML = GeneratePatchesTable(data.Transpilers);
-				
-				
-				HarmonyTranspilersDivAnchorHeader.innerText = "+ Transpilers" + " (" + data.Transpilers.length + ")";
-				HarmonyTranspilersDivAnchorHeader.href = "#Transpilers" + methodName;
-				HarmonyTranspilersDivAnchorHeader.onclick = function () {
-					spoiler(HarmonyTranspilersDivAnchorHeader, "Transpilers"+ " (" + data.Transpilers.length + ")", HarmonyTranspilersDiv.id);
-				}
-			}				
-				
-			HarmonyDetailContainer.style.display = "none";
-			
-			var totalPatches = data.Prefixes.length + data.Postfixes.length + data.Transpilers.length + data.Finalisers.length;
-			if(totalPatches == 0) return;
-			
-			MethodContent.className = "harmony-list"
-			AnchorInHeader.innerText = "+ " + methodName+ " (" + totalPatches + " patches)";
-			AnchorInHeader.href = "#" + methodName;
-			
-			MethodHeader.appendChild(AnchorInHeader);
-			MethodContent.appendChild(MethodHeader);
-			MethodContent.appendChild(HarmonyDetailContainer);
-			MethodContainer.appendChild(MethodContent);
-			AnchorInHeader.onclick = function () {
-				spoiler(AnchorInHeader, methodName + " (" + totalPatches + " patches)", methodName);
-			}
-		}
-		
+                HarmonyFinalisersDiv = document.createElement('div'),
+                HarmonyTranspilersDiv = document.createElement('div');
+
+            HarmonyDetailContainer.id = methodName;
+
+            if (data.Prefixes.length > 0) {
+                var HarmonyPrefixesMainDiv = document.createElement('div'),
+                    HarmonyPrefixesDivHeader = document.createElement('b'),
+                    HarmonyPrefixesDivAnchorHeader = document.createElement('a');
+
+                HarmonyPrefixesDivHeader.appendChild(HarmonyPrefixesDivAnchorHeader);
+                HarmonyPrefixesMainDiv.appendChild(HarmonyPrefixesDivHeader);
+                HarmonyPrefixesMainDiv.appendChild(HarmonyPrefixesDiv);
+                HarmonyDetailContainer.appendChild(HarmonyPrefixesMainDiv);
+                HarmonyPrefixesMainDiv.className = "harmony-list";
+
+                HarmonyPrefixesDiv.id = "Prefix_" + methodName;
+                HarmonyPrefixesDiv.style.display = "none";
+                HarmonyPrefixesDiv.innerHTML = GeneratePatchesTable(data.Prefixes);
+
+                HarmonyPrefixesDivAnchorHeader.innerText = "+ Prefixes" + " (" + data.Prefixes.length + ")";
+                HarmonyPrefixesDivAnchorHeader.href = "#Prefixes" + methodName;
+                HarmonyPrefixesDivAnchorHeader.onclick = function () {
+                    spoiler(HarmonyPrefixesDivAnchorHeader, "Prefixes " + " (" + data.Prefixes.length + ")", HarmonyPrefixesDiv.id);
+                }
+            }
+
+            if (data.Postfixes.length > 0) {
+                var HarmonyPostfixesMainDiv = document.createElement('div'),
+                    HarmonyPostfixesDivHeader = document.createElement('b'),
+                    HarmonyPostfixesDivAnchorHeader = document.createElement('a');
+
+                HarmonyPostfixesDivHeader.appendChild(HarmonyPostfixesDivAnchorHeader);
+                HarmonyPostfixesMainDiv.appendChild(HarmonyPostfixesDivHeader);
+                HarmonyPostfixesMainDiv.appendChild(HarmonyPostfixesDiv);
+                HarmonyDetailContainer.appendChild(HarmonyPostfixesMainDiv);
+                HarmonyPostfixesMainDiv.className = "harmony-list";
+
+                HarmonyPostfixesDiv.id = "Postfix_" + methodName;
+                HarmonyPostfixesDiv.style.display = "none";
+                HarmonyPostfixesDiv.innerHTML = GeneratePatchesTable(data.Postfixes);
+
+                HarmonyPostfixesDivAnchorHeader.innerText = "+ Postfixes" + " (" + data.Postfixes.length + ")";
+                HarmonyPostfixesDivAnchorHeader.href = "#Postfixes" + methodName;
+                HarmonyPostfixesDivAnchorHeader.onclick = function () {
+                    spoiler(HarmonyPostfixesDivAnchorHeader, "Postfixes" + " (" + data.Postfixes.length + ")", HarmonyPostfixesDiv.id);
+                }
+            }
+
+            if (data.Finalisers.length > 0) {
+                var HarmonyFinalisersMainDiv = document.createElement('div'),
+                    HarmonyFinalisersDivHeader = document.createElement('b'),
+                    HarmonyFinalisersDivAnchorHeader = document.createElement('a');
+
+                HarmonyFinalisersDivHeader.appendChild(HarmonyFinalisersDivAnchorHeader);
+                HarmonyFinalisersMainDiv.appendChild(HarmonyFinalisersDivHeader);
+                HarmonyFinalisersMainDiv.appendChild(HarmonyFinalisersDiv);
+                HarmonyDetailContainer.appendChild(HarmonyFinalisersMainDiv);
+                HarmonyFinalisersMainDiv.className = "harmony-list";
+
+                HarmonyFinalisersDiv.id = "Finaliser_" + methodName;
+                HarmonyFinalisersDiv.style.display = "none";
+                HarmonyFinalisersDiv.innerHTML = GeneratePatchesTable(data.Finalisers);
+
+                HarmonyFinalisersDivAnchorHeader.innerText = "+ Finalisers" + " (" + data.Finalisers.length + ")";
+                HarmonyFinalisersDivAnchorHeader.href = "#Finalisers" + methodName;
+                HarmonyFinalisersDivAnchorHeader.onclick = function () {
+                    spoiler(HarmonyFinalisersDivAnchorHeader, "Finalisers" + " (" + data.Finalisers.length + ")", HarmonyFinalisersDiv.id);
+                }
+            }
+
+
+            if (data.Transpilers.length > 0) {
+                var HarmonyTranspilersMainDiv = document.createElement('div'),
+                    HarmonyTranspilersDivHeader = document.createElement('b'),
+                    HarmonyTranspilersDivAnchorHeader = document.createElement('a');
+
+                HarmonyTranspilersDivHeader.appendChild(HarmonyTranspilersDivAnchorHeader);
+                HarmonyTranspilersMainDiv.appendChild(HarmonyTranspilersDivHeader);
+                HarmonyTranspilersMainDiv.appendChild(HarmonyTranspilersDiv);
+                HarmonyDetailContainer.appendChild(HarmonyTranspilersMainDiv);
+                HarmonyTranspilersMainDiv.className = "harmony-list";
+
+                HarmonyTranspilersDiv.id = "Transpiler_" + methodName;
+                HarmonyTranspilersDiv.style.display = "none";
+                HarmonyTranspilersDiv.innerHTML = GeneratePatchesTable(data.Transpilers);
+
+
+                HarmonyTranspilersDivAnchorHeader.innerText = "+ Transpilers" + " (" + data.Transpilers.length + ")";
+                HarmonyTranspilersDivAnchorHeader.href = "#Transpilers" + methodName;
+                HarmonyTranspilersDivAnchorHeader.onclick = function () {
+                    spoiler(HarmonyTranspilersDivAnchorHeader, "Transpilers" + " (" + data.Transpilers.length + ")", HarmonyTranspilersDiv.id);
+                }
+            }
+
+            HarmonyDetailContainer.style.display = "none";
+
+            var totalPatches = data.Prefixes.length + data.Postfixes.length + data.Transpilers.length + data.Finalisers.length;
+            if (totalPatches == 0) return;
+
+            MethodContent.className = "harmony-list"
+            AnchorInHeader.innerText = "+ " + methodName + " (" + totalPatches + " patches)";
+            AnchorInHeader.href = "#" + methodName;
+
+            MethodHeader.appendChild(AnchorInHeader);
+            MethodContent.appendChild(MethodHeader);
+            MethodContent.appendChild(HarmonyDetailContainer);
+            MethodContainer.appendChild(MethodContent);
+            AnchorInHeader.onclick = function () {
+                spoiler(AnchorInHeader, methodName + " (" + totalPatches + " patches)", methodName);
+            }
+        }
+
         function RecordTakenAction() {
             document.getElementById("takenTroubleshootActions").innerText = JSON.stringify(TroubleshootAction);
         }
         function SavePage() {
             alert("tessssttttt!");
             RecordTakenAction();
-			var name = window.external.Save();
-            if(name)
-			{
-				alert("File saved as " + name);
-			}
+            var name = window.external.Save();
+            if (name) {
+                alert("File saved as " + name);
+            }
+        }
+        function OpenTroubleshootSection() {
+            var troubleshoot = document.getElementById("troubleshoot");
+            spoiler(troubleshoot, "Troubleshoot", "troubleshoot-expanded");
         }
         AnalyseModule();
-		AnalyseHarmonyPatches();
+        AnalyseHarmonyPatches();
         RecordTakenAction();
     </script>
 </body>

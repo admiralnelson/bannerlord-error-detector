@@ -355,7 +355,7 @@ Public Class ErrorWindow
                 'MethodInfo dynMethod = this.GetType().GetMethod("Draw_" + itemType, BindingFlags.NonPublic | BindingFlags.Instance);
                 'dynMethod.Invoke(this, New Object[] { methodParams });
                 'shitty API
-                Return MBSaveLoad.SaveAsCurrentGame(SaveMetaData, filename) = SaveResult.Success
+                Return MBSaveLoad.SaveAsCurrentGame(SaveMetaData, filename).Item1 = SaveResult.Success
             End If
         Catch ex As Exception
             MsgBox("error while saving! " + vbCrLf + ex.Message, MsgBoxStyle.Critical)
