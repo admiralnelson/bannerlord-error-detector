@@ -1,0 +1,2786 @@
+{
+   "Url":"https://github.com/dnSpy/dnSpy/releases/download/v6.1.8/dnSpy-netframework.zip",
+   "Files":[
+      {
+         "Name":"cs",
+         "Children":[
+            {
+               "Name":"dnSpy.Analyzer.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.AsmEditor.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.BamlDecompiler.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Console.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.DnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.Logic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.CorDebug.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.Mono.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.Core.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Roslyn.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Scripting.Roslyn.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Scripting.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.VisualStudio.Composition.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.VisualStudio.Validation.resources.dll",
+               "Children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "Name":"de",
+         "Children":[
+            {
+               "Name":"dnSpy.Analyzer.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.AsmEditor.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.BamlDecompiler.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Console.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.DnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.Logic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.CorDebug.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.Mono.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.Core.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Roslyn.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Scripting.Roslyn.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Scripting.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.VisualStudio.Composition.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.VisualStudio.Validation.resources.dll",
+               "Children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "Name":"debug",
+         "Children":[
+            {
+               "Name":"core",
+               "Children":[
+                  {
+                     "Name":"x64",
+                     "Children":[
+                        {
+                           "Name":"dbgshim.dll",
+                           "Children":[
+                              
+                           ]
+                        }
+                     ]
+                  },
+                  {
+                     "Name":"x86",
+                     "Children":[
+                        {
+                           "Name":"dbgshim.dll",
+                           "Children":[
+                              
+                           ]
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "Name":"DotNet.ex.xml",
+               "Children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "Name":"es",
+         "Children":[
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Scripting.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.VisualStudio.Composition.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.VisualStudio.Validation.resources.dll",
+               "Children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "Name":"es-ES",
+         "Children":[
+            {
+               "Name":"dnSpy.Analyzer.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.AsmEditor.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.BamlDecompiler.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Console.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.DnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.Logic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.CorDebug.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.Mono.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.Core.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Roslyn.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Scripting.Roslyn.x.resources.dll",
+               "Children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "Name":"fa",
+         "Children":[
+            {
+               "Name":"dnSpy.Analyzer.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.AsmEditor.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.BamlDecompiler.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Console.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.DnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.Logic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.CorDebug.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.Mono.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.Core.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Roslyn.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Scripting.Roslyn.x.resources.dll",
+               "Children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "Name":"FileLists",
+         "Children":[
+            {
+               "Name":"DOTNET Framework v3.5 Client.FileList.xml",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"DOTNET Framework v4.0 Client.FileList.xml",
+               "Children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "Name":"fr",
+         "Children":[
+            {
+               "Name":"dnSpy.Analyzer.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.AsmEditor.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.BamlDecompiler.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Console.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.DnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.Logic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.CorDebug.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.Mono.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.Core.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Roslyn.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Scripting.Roslyn.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Scripting.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.VisualStudio.Composition.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.VisualStudio.Validation.resources.dll",
+               "Children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "Name":"hu",
+         "Children":[
+            {
+               "Name":"dnSpy.Analyzer.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.AsmEditor.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.BamlDecompiler.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Console.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.DnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.Logic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.CorDebug.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.Mono.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.Core.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Roslyn.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Scripting.Roslyn.x.resources.dll",
+               "Children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "Name":"it",
+         "Children":[
+            {
+               "Name":"dnSpy.Analyzer.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.AsmEditor.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.BamlDecompiler.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Console.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.DnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.Logic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.CorDebug.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.Mono.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.Core.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Roslyn.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Scripting.Roslyn.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Scripting.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.VisualStudio.Composition.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.VisualStudio.Validation.resources.dll",
+               "Children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "Name":"LicenseInfo",
+         "Children":[
+            {
+               "Name":"ApacheV2.txt",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"CREDITS.txt",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"GPLv3.txt",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"LICENSE.txt",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"OtherLicenses.txt",
+               "Children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "Name":"pt-BR",
+         "Children":[
+            {
+               "Name":"dnSpy.Analyzer.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.AsmEditor.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.BamlDecompiler.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Console.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.DnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.Logic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.CorDebug.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.Mono.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.Core.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Roslyn.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Scripting.Roslyn.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Scripting.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.VisualStudio.Composition.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.VisualStudio.Validation.resources.dll",
+               "Children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "Name":"pt-PT",
+         "Children":[
+            {
+               "Name":"dnSpy.Analyzer.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.AsmEditor.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.BamlDecompiler.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Console.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.DnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.Logic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.CorDebug.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.Mono.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.Core.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Roslyn.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Scripting.Roslyn.x.resources.dll",
+               "Children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "Name":"ru",
+         "Children":[
+            {
+               "Name":"dnSpy.Analyzer.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.AsmEditor.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.BamlDecompiler.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Console.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.DnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.Logic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.CorDebug.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.Mono.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.Core.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Roslyn.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Scripting.Roslyn.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Scripting.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.VisualStudio.Composition.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.VisualStudio.Validation.resources.dll",
+               "Children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "Name":"Themes",
+         "Children":[
+            {
+               "Name":"blue.dntheme",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dark.dntheme",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"hc.dntheme",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"light.dntheme",
+               "Children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "Name":"tr",
+         "Children":[
+            {
+               "Name":"dnSpy.Analyzer.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.AsmEditor.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.BamlDecompiler.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Console.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.DnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.Logic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.CorDebug.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.Mono.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.Core.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Roslyn.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Scripting.Roslyn.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Scripting.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.CodeAnalysis.Workspaces.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.VisualStudio.Composition.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"Microsoft.VisualStudio.Validation.resources.dll",
+               "Children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "Name":"uk",
+         "Children":[
+            {
+               "Name":"dnSpy.Analyzer.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.AsmEditor.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.BamlDecompiler.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Console.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.DnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.Logic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.CorDebug.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.Mono.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.Core.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Roslyn.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Scripting.Roslyn.x.resources.dll",
+               "Children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "Name":"zh-CN",
+         "Children":[
+            {
+               "Name":"dnSpy.Analyzer.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.AsmEditor.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.BamlDecompiler.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Console.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.DnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Contracts.Logic.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.CorDebug.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.Mono.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.DotNet.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Debugger.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.Core.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.ILSpy.x.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Decompiler.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Roslyn.resources.dll",
+               "Children":[
+                  
+               ]
+            },
+            {
+               "Name":"dnSpy.Scripting.Roslyn.x.resources.dll",
+               "Children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "Name":"CSharpInteractive.rsp",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnlib.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Analyzer.x.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Analyzer.x.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.AsmEditor.x.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.AsmEditor.x.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.BamlDecompiler.x.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.BamlDecompiler.x.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Contracts.Debugger.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Contracts.Debugger.DotNet.CorDebug.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Contracts.Debugger.DotNet.CorDebug.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Contracts.Debugger.DotNet.CorDebug.xml",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Contracts.Debugger.DotNet.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Contracts.Debugger.DotNet.Mono.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Contracts.Debugger.DotNet.Mono.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Contracts.Debugger.DotNet.Mono.xml",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Contracts.Debugger.DotNet.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Contracts.Debugger.DotNet.xml",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Contracts.Debugger.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Contracts.Debugger.xml",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Contracts.DnSpy.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Contracts.DnSpy.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Contracts.DnSpy.xml",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Contracts.Logic.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Contracts.Logic.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Contracts.Logic.xml",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Debugger.DotNet.CorDebug.x.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Debugger.DotNet.CorDebug.x.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Debugger.DotNet.Interpreter.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Debugger.DotNet.Interpreter.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Debugger.DotNet.Interpreter.xml",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Debugger.DotNet.Metadata.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Debugger.DotNet.Metadata.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Debugger.DotNet.Metadata.xml",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Debugger.DotNet.Mono.x.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Debugger.DotNet.Mono.x.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Debugger.DotNet.x.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Debugger.DotNet.x.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Debugger.x.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Debugger.x.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Decompiler.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Decompiler.ILSpy.Core.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Decompiler.ILSpy.Core.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Decompiler.ILSpy.x.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Decompiler.ILSpy.x.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Decompiler.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Images.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Images.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Roslyn.CSharp.EditorFeatures.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Roslyn.CSharp.EditorFeatures.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Roslyn.CSharp.Internal.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Roslyn.CSharp.Internal.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Roslyn.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Roslyn.EditorFeatures.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Roslyn.EditorFeatures.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Roslyn.Internal.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Roslyn.Internal.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Roslyn.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Roslyn.VisualBasic.EditorFeatures.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Roslyn.VisualBasic.EditorFeatures.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Roslyn.VisualBasic.Internal.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Roslyn.VisualBasic.Internal.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Roslyn.xml",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Scripting.Roslyn.x.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"dnSpy.Scripting.Roslyn.x.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Humanizer.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Iced.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"ICSharpCode.Decompiler.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"ICSharpCode.Decompiler.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"ICSharpCode.NRefactory.CSharp.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"ICSharpCode.NRefactory.CSharp.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"ICSharpCode.NRefactory.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"ICSharpCode.NRefactory.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"ICSharpCode.NRefactory.VB.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"ICSharpCode.NRefactory.VB.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"ICSharpCode.TreeView.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"ICSharpCode.TreeView.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.CodeAnalysis.CSharp.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.CodeAnalysis.CSharp.Features.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.CodeAnalysis.CSharp.Scripting.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.CodeAnalysis.CSharp.Workspaces.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.CodeAnalysis.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.CodeAnalysis.ExpressionEvaluator.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.CodeAnalysis.ExpressionEvaluator.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.CodeAnalysis.Features.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.CodeAnalysis.Scripting.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.CodeAnalysis.VisualBasic.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.CodeAnalysis.VisualBasic.Features.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.CodeAnalysis.Workspaces.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.Diagnostics.Runtime.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.DiaSymReader.Native.amd64.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.DiaSymReader.Native.x86.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.VisualStudio.Composition.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.VisualStudio.Composition.NetFxAttributes.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.VisualStudio.CoreUtility.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.VisualStudio.Language.Intellisense.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.VisualStudio.Text.Data.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.VisualStudio.Text.Logic.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.VisualStudio.Text.UI.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.VisualStudio.Text.UI.Wpf.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Microsoft.VisualStudio.Validation.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Mono.Debugger.Soft.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Mono.Debugger.Soft.pdb",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"Ookii.Dialogs.Wpf.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"System.Collections.Immutable.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"System.Composition.AttributedModel.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"System.Composition.Convention.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"System.Composition.Hosting.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"System.Composition.Runtime.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"System.Composition.TypedParts.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"System.Reflection.Metadata.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"System.Reflection.TypeExtensions.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"System.Text.Encoding.CodePages.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"System.Threading.Tasks.Dataflow.dll",
+         "Children":[
+            
+         ]
+      },
+      {
+         "Name":"System.Threading.Tasks.Extensions.dll",
+         "Children":[
+            
+         ]
+      }
+   ]
+}

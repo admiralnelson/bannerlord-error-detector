@@ -383,7 +383,62 @@ Public Class ErrorWindow
             End Try
         End If
     End Sub
+    <JsonObject>
+    Private Class DnsSpyStructure
+        Public Url As String
+        Public Files As List(Of File)
+        <JsonObject>
+        Public Class File
+            Public Name As String
+            Public Children As List(Of File)
+            Public IsAvailable = False
+        End Class
+        Public Shared Function SetFileAvailability(ByRef files As List(Of File), fileName As String, isAvail As Boolean) As Boolean
+            For Each f In files
+                If f.Name = fileName Then
+                    f.IsAvailable = isAvail
+                    Return True
+                End If
+            Next
+            Return False
+        End Function
+    End Class
+    Public Sub InstallDnspy()
 
+    End Sub
+    Public Function IsUnderdebugger()
+        Return Debugger.IsAttached
+    End Function
+    Public Function IsdnSpyAvailable()
+        Dim DnspyManifestFile = File.ReadAllText(DnspyManifest)
+        Dim DnspyManifestStruct = JsonConvert.DeserializeObject(Of DnsSpyStructure)(DnspyManifestFile)
+        Dim Files = DnspyManifestStruct.Files
+        If Not Directory.Exists(DnspyDir) Then Return False
+        If Not File.Exists(DnspyDir & "dnSpy.exe") Then Return False
+        Return CheckDnspyManifest(DnspyDir & "\bin\", Files)
+    End Function
+    Private Function CheckDnspyManifest(path As String, ByRef files As List(Of DnsSpyStructure.File)) As Boolean
+        TraverseDnspyManifestRecursively(path, files)
+        Return CheckDnspyManifestRecursively(files)
+    End Function
+    Private Function CheckDnspyManifestRecursively(files As List(Of DnsSpyStructure.File)) As Boolean
+        For Each f In files
+            If Not f.IsAvailable Then Return False
+            Return CheckDnspyManifestRecursively(f.Children)
+        Next
+        Return True
+    End Function
+    Private Sub TraverseDnspyManifestRecursively(path As String, ByRef files As List(Of DnsSpyStructure.File))
+        For Each f In files
+            Dim isDirectory = Directory.Exists(path & f.Name)
+            Dim isFile = File.Exists(path & f.Name)
+            If isDirectory Then
+                DnsSpyStructure.SetFileAvailability(files, f.Name, True)
+                TraverseDnspyManifestRecursively(path & "\" & f.Name & "\", f.Children)
+            End If
+            If isFile Then DnsSpyStructure.SetFileAvailability(files, f.Name, True)
+        Next
+    End Sub
     Private Sub widget_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles widget.DocumentCompleted
         'AnalyseModules()
     End Sub

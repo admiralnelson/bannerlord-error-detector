@@ -95,7 +95,7 @@
             top: 5px;
         }
         .troubleshoot-desc {
-            max-width: 720px    ;
+            max-width: 80%    ;
         }
     </style>
 </head>
@@ -261,23 +261,20 @@
             </div>
             <button class="troubleshoot-buttons" onclick="saveEmergencyCampaign()">Save the game</button>
         </div>
-        <div class='border-blue'>
+        <div class='border-blue' id="dnspy">
             <img src='http://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-70-Window-Settings-icon.png' width='48' />
-            <div class="troubleshoot-desc" id="dnspy">
+            <div class="troubleshoot-desc" >
                 Restart the program in debug mode. <br />
                 Restart the program with dnSpy debugger and decompiler attached. This may helps you debug and even made patches to a faulty mod without a source code. <a href="https://www.dnspy.net/">What is dnSpy?</a>
-                <p style="display:normal">
-                    {reasonDnspyNotAvailable} <br />
-                    <a href="#" onclick="InstallDnspy()">Install dnSpy</a>
-                </p>
+                <div style="display:normal" id="dnspyInstall">
+                    <div id="dnspyReason">Dnspy is not installed.</div> <br />
+                    <a href="#" onclick="InstallDnspy()" id="dnspyInstallLink">Install dnSpy</a>
+                </div>
             </div>
             <br />
             <br />
-            <button class="troubleshoot-buttons" onclick="saveEmergencyCampaign()">Restart the program with dnSpy attched</button>
+            <button class="troubleshoot-buttons" onclick="InstallDnspy()" id="dnspyButton" disabled>Restart the program with dnSpy attched</button>
         </div>
-        <p id="log">
-
-        </p>
     </div>
     <div id="jsonData" style="display:none">
         {jsonData}
@@ -1065,9 +1062,56 @@
             var troubleshoot = document.getElementById("troubleshoot");
             spoiler(troubleshoot, "Troubleshoot", "troubleshoot-expanded");
         }
+        function InstallDnspy() {
+            try {
+                if (document.external.IsdnSpyAvailable()) {
+                    var installDnspyOrNot = confirm("Do you want to install dnspy?")
+                    if (installDnspyOrNot) {
+                        alert("install");
+                    }
+                }
+
+            } catch (e) {
+                alert("Error while installing dnspy.");
+                var msg = document.getElementById("dnspyReason");
+                var stack = e.stack;
+                msg.innerHTML = "Error installing dnspy. Reason: <br />" +
+                    "<pre>" + stack + "</pre>";
+                msg.innerHTML = msg;
+            }
+        }
+        function CheckDnspy() {
+            var dnspyMsg = document.getElementById("dnspyInstall"),
+                dnspyButton = document.getElementById("dnspyButton"),
+                dnspyInstallLink = document.getElementById("dnspyInstallLink"),
+                dnspyReason = document.getElementById("dnspyReason"),
+                dnspy = document.getElementById("dnspy");
+
+            if (window.external.IsdnSpyAvailable()) {
+                dnspyMsg.style.display = "none";
+                dnspyButton.disabled = false;
+                dnspy.style.backgroundColor = "lightgoldenrodyellow";
+            }
+            if (window.external.IsUnderdebugger()) {
+                dnspyInstallLink.innerHTML = "";
+                dnspyReason.innerHTML = "dnSpy is not available, because the program is already running under debugger."
+                dnspy.style.backgroundColor = "lightgoldenrodyellow";
+            }
+        }
+
+        function InstallDnspy() {
+            window.external.InstallDnspy();
+        }
+
+        function Callback_InstallDnspyResult(result, message) {
+
+        }
+
+        CheckDnspy();
         AnalyseModule();
         AnalyseHarmonyPatches();
         RecordTakenAction();
+
     </script>
 </body>
 </html>

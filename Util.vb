@@ -91,4 +91,8 @@ Module Util
     Public Function ToJson(o As Object)
         Return JsonConvert.SerializeObject(o)
     End Function
+    Public ReadOnly DnspyDir As String =
+        "..\..\Modules\BetterExceptionWindow\bin\Win64_Shipping_Client\dnspy\"
+    Public ReadOnly DnspyManifest As String =
+        "..\..\Modules\BetterExceptionWindow\dnSpyManifest.json"
 End Module
