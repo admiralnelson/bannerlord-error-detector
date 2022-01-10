@@ -97,6 +97,18 @@
         .troubleshoot-desc {
             max-width: 80%    ;
         }
+
+        .progressbar {
+            min-height: 1em;
+            max-height: 1em;
+            max-width: 100%;
+            width: 0%;
+            background: darkgreen;
+            padding: 5px;
+            margin: -5px;
+            color: white;
+            text-shadow: 1px 1px 1px grey;
+        }
     </style>
 </head>
 <body>
@@ -234,6 +246,7 @@
             </div>
             <button onclick='validateXML(this)' id='btn-validate-xml' class="troubleshoot-buttons">Check XML validity</button>
             <br />
+            <br />
             <table id='xml-report-table' style='width:100%; display:none; border:none' border='0'>
                 <tr>
                     <td style='width:30px'><img src='http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png' width='24' /> </td>
@@ -251,6 +264,8 @@
             <div class="troubleshoot-desc">
                 Attempt to disable faulty mods. This option may only work with the original Taleworlds Launcher.
             </div>
+            <br />
+            <br />
             <button class="troubleshoot-buttons" onclick="window.external.DisableProblematicModules()">Disable them</button>
         </div>
         <div class='border-blue'>
@@ -259,20 +274,23 @@
                 Emergency save. <br />
                 Forcefully to save the game. This might not work!
             </div>
+            <br />
+            <br />
             <button class="troubleshoot-buttons" onclick="saveEmergencyCampaign()">Save the game</button>
         </div>
         <div class='border-blue' id="dnspy">
             <img src='http://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-70-Window-Settings-icon.png' width='48' />
-            <div class="troubleshoot-desc" >
+            <div class="troubleshoot-desc">
                 Restart the program in debug mode. <br />
                 Restart the program with dnSpy debugger and decompiler attached. This may helps you debug and even made patches to a faulty mod without a source code. <a href="https://www.dnspy.net/">What is dnSpy?</a>
                 <div style="display:normal" id="dnspyInstall">
                     <div id="dnspyReason">Dnspy is not installed.</div> <br />
-                    <a href="#" onclick="InstallDnspy()" id="dnspyInstallLink">Install dnSpy</a>
+                    <a href="#dnspy" onclick="InstallDnspy()" id="dnspyInstallLink">Install dnSpy</a>
                 </div>
             </div>
             <br />
             <br />
+            <div class="progressbar" id="dnspyProgressbar" style="display:none">Installing...(0000000K/000000K)</div>
             <button class="troubleshoot-buttons" onclick="InstallDnspy()" id="dnspyButton" disabled>Restart the program with dnSpy attched</button>
         </div>
     </div>
@@ -1090,21 +1108,56 @@
             if (window.external.IsdnSpyAvailable()) {
                 dnspyMsg.style.display = "none";
                 dnspyButton.disabled = false;
-                dnspy.style.backgroundColor = "lightgoldenrodyellow";
             }
-            if (window.external.IsUnderdebugger()) {
-                dnspyInstallLink.innerHTML = "";
+            if (/*window.external.IsUnderdebugger()*/ false) {
+                dnspyInstallLink.style.display = "none";
                 dnspyReason.innerHTML = "dnSpy is not available, because the program is already running under debugger."
                 dnspy.style.backgroundColor = "lightgoldenrodyellow";
             }
         }
 
         function InstallDnspy() {
+            var dnspyInstallLink = document.getElementById("dnspyInstallLink"),
+                dnspyProgressBar = document.getElementById("dnspyProgressbar");
             window.external.InstallDnspy();
+            dnspyProgressBar.style.width = "0%";
+            dnspyProgressBar.style.backgroundColor = "darkgreen";
+            dnspyProgressBar.style.display = "block";
+            dnspyProgressBar.innerText = "Downloading...0K/0K";
+            dnspyInstallLink.style.display = "none";
         }
 
-        function Callback_InstallDnspyResult(result, message) {
+        function Callback_InstallDnspyProgress(currentPercentage, downloadedTotal, totalSize) {
+            var dnspyProgressBar = document.getElementById("dnspyProgressbar"),
+                dnspyReason = document.getElementById("dnspyReason");
+            dnspyReason.innerText = "dnSpy is being downloaded..."
+            currentPercentage = parseInt(currentPercentage);
+            downloadedTotal = parseInt(downloadedTotal);
+            totalSize = parseInt(totalSize);
+            downloadedTotal = Math.ceil(downloadedTotal / 1000);
+            totalSize = Math.ceil(totalSize / 1000);
+            dnspyProgressBar.style.width = currentPercentage+"%";
+            dnspyProgressBar.style.backgroundColor = "darkgreen";
+            dnspyProgressBar.style.display = "block";
+            dnspyProgressBar.innerText = "Downloading..." + downloadedTotal + "K/" + totalSize + "K";
+        }
 
+        function Callback_InstallDnspyComplete(success, errorMessage) {
+            var dnspyButton = document.getElementById("dnspyButton"),
+                dnspyInstallLink = document.getElementById("dnspyInstallLink"),
+                dnspyReason = document.getElementById("dnspyReason"),
+                dnspy = document.getElementById("dnspy"),
+                dnspyProgressBar = document.getElementById("dnspyProgressbar");
+
+            if (success == "1") {
+                dnspyReason.innerText = "dnSpy has been successfully downloaded and installed."
+                dnspyProgressBar.style.display = "none";
+                dnspyButton.disabled = false;
+                return;
+            }
+            dnspyReason.innerHTML = "Error installing dnspy. Reason: <br />" + "<pre>" + errorMessage + "</pre>";
+            dnspyInstallLink.style.display = "block";
+            dnspy.style.backgroundColor = "lightgoldenrodyellow";
         }
 
         CheckDnspy();

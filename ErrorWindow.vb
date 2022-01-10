@@ -403,8 +403,27 @@ Public Class ErrorWindow
             Return False
         End Function
     End Class
+    Dim dnspyInstall As New DnspyInstaller
     Public Sub InstallDnspy()
-
+        dnspyInstall.Download(
+            Sub() widget.Invoke(
+                Sub()
+                    widget.Document.InvokeScript("Callback_InstallDnspyComplete",
+                                                 New String() {1, Nothing})
+                End Sub),
+            Sub(prog As DnspyInstaller.Progress) widget.Invoke(
+            Sub()
+                widget.Document.InvokeScript("Callback_InstallDnspyProgress",
+                                             New String() {
+                                             prog.PercentageDownload,
+                                             prog.TotalDownloadedInByte,
+                                             prog.SizeInByte})
+            End Sub),
+            Sub(ex As Exception) widget.Invoke(
+                Sub()
+                    widget.Document.InvokeScript("Callback_InstallDnspyComplete",
+                                                 New String() {0, ex.Message})
+                End Sub))
     End Sub
     Public Function IsUnderdebugger()
         Return Debugger.IsAttached

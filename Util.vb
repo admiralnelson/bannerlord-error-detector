@@ -6,6 +6,8 @@ Imports System.Xml
 Imports Microsoft.VisualBasic.FileIO
 Imports Newtonsoft.Json
 Imports TaleWorlds.Core
+Imports System.Runtime.CompilerServices
+Imports System.IO.Compression
 
 Module Util
     Public AllowInDebugger As Boolean = True
@@ -95,4 +97,9 @@ Module Util
         "..\..\Modules\BetterExceptionWindow\bin\Win64_Shipping_Client\dnspy\"
     Public ReadOnly DnspyManifest As String =
         "..\..\Modules\BetterExceptionWindow\dnSpyManifest.json"
+    Public ReadOnly BewDir As String =
+        "..\..\Modules\BetterExceptionWindow\"
+    Public ReadOnly BewTemp As String =
+        "..\..\Modules\BetterExceptionWindow\Temp\"
+
 End Module
