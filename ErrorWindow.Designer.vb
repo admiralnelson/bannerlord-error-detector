@@ -23,6 +23,7 @@ Partial Class ErrorWindow
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ErrorWindow))
         Me.widget = New System.Windows.Forms.WebBrowser()
         Me.widgetMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.CopyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -35,42 +36,46 @@ Partial Class ErrorWindow
         '
         Me.widget.Dock = System.Windows.Forms.DockStyle.Fill
         Me.widget.Location = New System.Drawing.Point(0, 0)
-        Me.widget.MinimumSize = New System.Drawing.Size(20, 20)
+        Me.widget.Margin = New System.Windows.Forms.Padding(10, 9, 10, 9)
+        Me.widget.MinimumSize = New System.Drawing.Size(63, 57)
         Me.widget.Name = "widget"
-        Me.widget.Size = New System.Drawing.Size(1189, 457)
+        Me.widget.Size = New System.Drawing.Size(3765, 1301)
         Me.widget.TabIndex = 3
         '
         'widgetMenu
         '
+        Me.widgetMenu.ImageScalingSize = New System.Drawing.Size(48, 48)
         Me.widgetMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CopyToolStripMenuItem, Me.SelectAllToolStripMenuItem, Me.SaveToolStripMenuItem})
         Me.widgetMenu.Name = "widgetMenu"
-        Me.widgetMenu.Size = New System.Drawing.Size(181, 92)
+        Me.widgetMenu.Size = New System.Drawing.Size(247, 172)
         '
         'CopyToolStripMenuItem
         '
         Me.CopyToolStripMenuItem.Name = "CopyToolStripMenuItem"
-        Me.CopyToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.CopyToolStripMenuItem.Size = New System.Drawing.Size(246, 56)
         Me.CopyToolStripMenuItem.Text = "Copy"
         '
         'SelectAllToolStripMenuItem
         '
         Me.SelectAllToolStripMenuItem.Name = "SelectAllToolStripMenuItem"
-        Me.SelectAllToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SelectAllToolStripMenuItem.Size = New System.Drawing.Size(246, 56)
         Me.SelectAllToolStripMenuItem.Text = "Select All"
         '
         'SaveToolStripMenuItem
         '
         Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(246, 56)
         Me.SaveToolStripMenuItem.Text = "Save"
         '
         'ErrorWindow
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(19.0!, 37.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1189, 457)
+        Me.ClientSize = New System.Drawing.Size(3765, 1301)
         Me.ControlBox = False
         Me.Controls.Add(Me.widget)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(10, 9, 10, 9)
         Me.Name = "ErrorWindow"
         Me.Text = "ErrorWindow"
         Me.widgetMenu.ResumeLayout(False)
