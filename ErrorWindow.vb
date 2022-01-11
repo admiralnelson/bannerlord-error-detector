@@ -339,7 +339,9 @@ Public Class ErrorWindow
         Next
         widget.Document.InvokeScript("finishSearch", New Object() {errorDetected})
     End Sub
-
+    Public Function IsCampaignRunning()
+        Return TaleWorlds.CampaignSystem.Campaign.Current IsNot Nothing
+    End Function
     Public Function ForceSave(filename As String)
         'TaleWorlds.Core.MBSaveLoad.SaveAsCurrentGame()
         Try
@@ -424,6 +426,20 @@ Public Class ErrorWindow
                     widget.Document.InvokeScript("Callback_InstallDnspyComplete",
                                                  New String() {0, ex.Message})
                 End Sub))
+    End Sub
+    Public Sub StartDnspyDebugger()
+        Dim PsBannerlord As New ProcessStartInfo()
+        Dim currentpath = Directory.GetCurrentDirectory()
+        PsBannerlord.Arguments = "/C cd """ & currentpath &
+                         """ && ping 127.0.0.1 -n 2 && " &
+                         "start TaleWorlds.MountAndBlade.Launcher.exe --disablebew && " &
+                         " ping 127.0.0.1 -n 3 && " &
+                         DnspyDir & "dnSpy.exe --process-name TaleWorlds.MountAndBlade.Launcher.exe"
+        PsBannerlord.WindowStyle = ProcessWindowStyle.Hidden
+        PsBannerlord.CreateNoWindow = True
+        PsBannerlord.FileName = "cmd.exe"
+        Process.Start(PsBannerlord)
+        CloseProgram()
     End Sub
     Public Function IsUnderdebugger()
         Return Debugger.IsAttached

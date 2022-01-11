@@ -136,10 +136,12 @@
                 <td style='border: none'>
                     <p>
                         <b>Bannerlord has encountered a problem and needs to close. We are sorry for the inconvenience. </b><br />
-                        If you were in the middle of something, the progress you were working on might be lost.<br />
-                        This error can be caused by a faulty module XMLs, manifest (submodule.xml), or module error (.net execution error or permission error).<br /><br />
+                        If you were in the middle of something, the progress you were working on might be lost.<br /><br />
 
-                        Or If you are debugging, you can disable the error window individually in <a href='#' onclick='window.external.OpenConfig()'><b>config.json</b></a> in BetterExceptionWindow submodule folder.
+                        This error can be caused by a faulty XMLs, manifest (submodule.xml), corrupted save game, module, or programming errors.<br />
+                        If this keeps happening, consider saving the error report and send it to the module authors or run a <a href="#troubleshoot" onclick="OpenTroubleshootSection()">troubleshoot</a> to solve the issues.<br /><br />
+
+                        You can disable the error window individually in <a href='#' onclick='window.external.OpenConfig()'><b>config.json</b></a> in BetterExceptionWindow submodule folder.
                     </p>
                 </td>
             </tr>
@@ -176,7 +178,7 @@
     <div class='msg' id='fullStack'>
         <p>
             <b>Protip: </b>
-            Use a debugger like <a href='https://github.com/dnSpy/dnSpy#:~:text=dnSpy%20is%20a%20debugger%20and.NET%20assembly%20editor.%20You,if%20you%20don%27t%20have%20any%20source%20code%20available.'>dnSpy</a> or
+            Use a debugger like <a href='https://github.com/dnSpy/dnSpy'>dnSpy</a> or
             <a href='https://visualstudio.microsoft.com/'>Visual studio</a> to trace the source of error, by stepping the program
             line by line.
             <a href="#dnspy" onclick="OpenTroubleshootSection()">You can restart with dnSpy attached.</a>
@@ -268,21 +270,25 @@
             <br />
             <button class="troubleshoot-buttons" onclick="window.external.DisableProblematicModules()">Disable them</button>
         </div>
-        <div class='border-blue'>
+        <div class='border-blue' id="emergency-save">
             <img src='http://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-65-Floppy-Save-icon.png' width='48' />
             <div class="troubleshoot-desc">
                 Emergency save. <br />
-                Forcefully to save the game. This might not work!
+                Forcefully to save the game. Keep in mind there are some cases where this is not possible to do.
+                <div id="save-reason">
+
+                </div>
             </div>
             <br />
             <br />
-            <button class="troubleshoot-buttons" onclick="saveEmergencyCampaign()">Save the game</button>
+            <button class="troubleshoot-buttons" onclick="saveEmergencyCampaign()" id="savegameButton" disabled>Save the game</button>
         </div>
         <div class='border-blue' id="dnspy">
             <img src='http://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-70-Window-Settings-icon.png' width='48' />
             <div class="troubleshoot-desc">
                 Restart the program in debug mode. <br />
-                Restart the program with dnSpy debugger and decompiler attached. This may helps you debug and even made patches to a faulty mod without a source code. <a href="https://www.dnspy.net/">What is dnSpy?</a>
+                Restart the program with dnSpy debugger and decompiler attached. This may helps you debug and even made patches to a faulty mod without a source code. <a href="https://github.com/dnSpy/dnSpy">What is dnSpy?</a> <br />
+                It will disable BetterExceptionWindow temporarily until the next game restart.
                 <div style="display:normal" id="dnspyInstall">
                     <div id="dnspyReason">Dnspy is not installed.</div> <br />
                     <a href="#dnspy" onclick="InstallDnspy()" id="dnspyInstallLink">Install dnSpy</a>
@@ -291,7 +297,7 @@
             <br />
             <br />
             <div class="progressbar" id="dnspyProgressbar" style="display:none">Installing...(0000000K/000000K)</div>
-            <button class="troubleshoot-buttons" onclick="InstallDnspy()" id="dnspyButton" disabled>Restart the program with dnSpy attched</button>
+            <button class="troubleshoot-buttons" onclick="StartDnspy()" id="dnspyButton" disabled>Restart the program with dnSpy attched</button>
         </div>
     </div>
     <div id="jsonData" style="display:none">
@@ -724,7 +730,7 @@
 
         }
         function saveEmergencyCampaign() {
-            var result = confirm("Depending on the crash, this might not work!\n Only use this if you're in: Campaign map and the crash is not player data related (i.e caused by corrupt party tables, items, or anything that is stored into save file)! \nContinue to forcefully save the game?");
+            var result = confirm("Depending on the crash, the saved file could be on invalid state.\nOnly use this if the crash is not player data related (i.e crash was caused by user interface bugs, not player data or AI state related)\nContinue to forcefully save the game?");
             if (result) {
                 var filename = prompt("Save as");
                 if (!filename) {
@@ -1069,7 +1075,6 @@
             document.getElementById("takenTroubleshootActions").innerText = JSON.stringify(TroubleshootAction);
         }
         function SavePage() {
-            alert("tessssttttt!");
             RecordTakenAction();
             var name = window.external.Save();
             if (name) {
@@ -1080,24 +1085,7 @@
             var troubleshoot = document.getElementById("troubleshoot");
             spoiler(troubleshoot, "Troubleshoot", "troubleshoot-expanded");
         }
-        function InstallDnspy() {
-            try {
-                if (document.external.IsdnSpyAvailable()) {
-                    var installDnspyOrNot = confirm("Do you want to install dnspy?")
-                    if (installDnspyOrNot) {
-                        alert("install");
-                    }
-                }
 
-            } catch (e) {
-                alert("Error while installing dnspy.");
-                var msg = document.getElementById("dnspyReason");
-                var stack = e.stack;
-                msg.innerHTML = "Error installing dnspy. Reason: <br />" +
-                    "<pre>" + stack + "</pre>";
-                msg.innerHTML = msg;
-            }
-        }
         function CheckDnspy() {
             var dnspyMsg = document.getElementById("dnspyInstall"),
                 dnspyButton = document.getElementById("dnspyButton"),
@@ -1105,18 +1093,23 @@
                 dnspyReason = document.getElementById("dnspyReason"),
                 dnspy = document.getElementById("dnspy");
 
+            if (window.external.IsUnderdebugger()) {
+                dnspyInstallLink.style.display = "none";
+                dnspyReason.innerHTML = "dnSpy is not available, because the program is already running under debugger."
+                dnspy.style.backgroundColor = "lightgoldenrodyellow";
+                return;
+            }
             if (window.external.IsdnSpyAvailable()) {
                 dnspyMsg.style.display = "none";
                 dnspyButton.disabled = false;
             }
-            if (/*window.external.IsUnderdebugger()*/ false) {
-                dnspyInstallLink.style.display = "none";
-                dnspyReason.innerHTML = "dnSpy is not available, because the program is already running under debugger."
-                dnspy.style.backgroundColor = "lightgoldenrodyellow";
-            }
         }
 
         function InstallDnspy() {
+            var installDnspyOrNot = confirm("Do you want to install dnSpy?")
+            if (!installDnspyOrNot) {
+                return;
+            }
             var dnspyInstallLink = document.getElementById("dnspyInstallLink"),
                 dnspyProgressBar = document.getElementById("dnspyProgressbar");
             window.external.InstallDnspy();
@@ -1125,6 +1118,13 @@
             dnspyProgressBar.style.display = "block";
             dnspyProgressBar.innerText = "Downloading...0K/0K";
             dnspyInstallLink.style.display = "none";
+        }
+
+        function StartDnspy() {
+            var msgbox = confirm("Are you sure to restart the program? Unsaved game and error logs may be lost!");
+            if (msgbox) {
+                window.external.StartDnspyDebugger();
+            }
         }
 
         function Callback_InstallDnspyProgress(currentPercentage, downloadedTotal, totalSize) {
@@ -1160,6 +1160,18 @@
             dnspy.style.backgroundColor = "lightgoldenrodyellow";
         }
 
+        function CheckCampaignIsRunning() {
+            var emergencySave = document.getElementById("emergency-save"),
+                saveReason = document.getElementById("save-reason"),
+                savegameButton = document.getElementById("savegameButton");
+            if (!window.external.IsCampaignRunning()) {
+                emergencySave.style.backgroundColor = "lightgoldenrodyellow";
+                saveReason.innerHTML = "This option is not available because the game is not running campaign.";
+            }
+            savegameButton.disabled = false;
+        }
+
+        CheckCampaignIsRunning();
         CheckDnspy();
         AnalyseModule();
         AnalyseHarmonyPatches();

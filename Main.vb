@@ -142,6 +142,10 @@ Namespace Global.BetterExceptionWindow
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException)
         End Sub
         Protected Overrides Sub OnSubModuleLoad()
+            If Environment.GetCommandLineArgs.Contains("--disablebew") Then
+                Exit Sub
+            End If
+
             MyBase.OnSubModuleLoad()
             ReadConfig()
 
