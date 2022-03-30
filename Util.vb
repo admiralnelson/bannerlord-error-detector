@@ -17,10 +17,9 @@ Public Module Util
     Public CatchTick As Boolean = True
     Public CatchComponentBehaviourTick As Boolean = True
     Public CatchGlobalTick As Boolean = True
-    Public SaveLogPath As String = ""
     Public Sub ReadConfig()
         Try
-            Dim data = File.ReadAllText("..\..\Modules\BetterExceptionWindow\config.json")
+            Dim data = File.ReadAllText(BewConfigPath)
             Dim configData = JsonConvert.DeserializeObject(data)
             AllowInDebugger = configData("AllowInDebugger")
             CatchOnApplicationTick = configData("CatchOnApplicationTick")
@@ -29,10 +28,20 @@ Public Module Util
             CatchTick = configData("CatchTick")
             CatchComponentBehaviourTick = configData("CatchComponentBehaviourTick")
             CatchGlobalTick = configData("CatchGlobalTick")
-            SaveLogPath = configData("SaveLogPath")
         Catch ex As Exception
             Console.WriteLine("unable to read the config. It's ok")
         End Try
+    End Sub
+    Public Sub SaveSettings()
+        Dim config As New Dictionary(Of String, Boolean)
+        config.Add("AllowInDebugger", AllowInDebugger)
+        config.Add("CatchOnApplicationTick", CatchOnApplicationTick)
+        config.Add("CatchOnMissionScreenTick", CatchOnMissionScreenTick)
+        config.Add("CatchOnFrameTick", CatchOnFrameTick)
+        config.Add("CatchTick", CatchTick)
+        config.Add("CatchComponentBehaviourTick", CatchComponentBehaviourTick)
+        config.Add("CatchGlobalTick", CatchGlobalTick)
+        File.WriteAllText(BewConfigPath, ToJson(config))
     End Sub
     Public Function CalculateMD5(filename As String) As String
         Dim checksum = MD5.Create()
@@ -74,7 +83,6 @@ Public Module Util
         Dim asm As Assembly() = AppDomain.CurrentDomain.GetAssemblies()
         For Each x In asm
             Try
-
                 If Path.GetFileName(x.Location) = dllFilename Then
                     Return True
                 End If
@@ -82,6 +90,28 @@ Public Module Util
             End Try
         Next
         Return False
+    End Function
+    Public Function GetAssemblyByDll(dllFilename As String) As Assembly
+        Dim asm As Assembly() = AppDomain.CurrentDomain.GetAssemblies()
+        For Each x In asm
+            Try
+                If Path.GetFileName(x.Location) = dllFilename Then
+                    Return x
+                End If
+            Catch ex As Exception
+            End Try
+        Next
+        Return Nothing
+    End Function
+    Public Function GetTypeFromAssembly(ByRef assem As Assembly, typeName As String) As Type
+        If assem Is Nothing Then Throw New Exception("assem was nothing!")
+        Dim typ = assem.GetType(typeName)
+        Return typ
+    End Function
+    Public Function GetMethodFromType(ByRef type_ As Type, procedureName As String, Optional flag As BindingFlags = BindingFlags.Public) As MethodInfo
+        If type_ Is Nothing Then Throw New Exception("type was nothing!")
+        Dim method = type_.GetMethod(procedureName, flag)
+        Return method
     End Function
     Public Sub Sleep(t As Integer)
         Threading.Thread.Sleep(t)
@@ -158,6 +188,56 @@ Public Module Util
         Dim proc As Process = Process.GetProcessById(pid)
         proc.Kill()
     End Sub
+    <JsonObject>
+    Private Class DnsSpyStructure
+        Public Url As String
+        Public Files As List(Of File)
+        <JsonObject>
+        Public Class File
+            Public Name As String
+            Public Children As List(Of File)
+            Public IsAvailable = False
+        End Class
+        Public Shared Function SetFileAvailability(ByRef files As List(Of File), fileName As String, isAvail As Boolean) As Boolean
+            For Each f In files
+                If f.Name = fileName Then
+                    f.IsAvailable = isAvail
+                    Return True
+                End If
+            Next
+            Return False
+        End Function
+    End Class
+    Private Function CheckDnspyManifest(path As String, ByRef files As List(Of DnsSpyStructure.File)) As Boolean
+        TraverseDnspyManifestRecursively(path, files)
+        Return CheckDnspyManifestRecursively(files)
+    End Function
+    Private Function CheckDnspyManifestRecursively(files As List(Of DnsSpyStructure.File)) As Boolean
+        For Each f In files
+            If Not f.IsAvailable Then Return False
+            Return CheckDnspyManifestRecursively(f.Children)
+        Next
+        Return True
+    End Function
+    Private Sub TraverseDnspyManifestRecursively(path As String, ByRef files As List(Of DnsSpyStructure.File))
+        For Each f In files
+            Dim isDirectory = Directory.Exists(path & f.Name)
+            Dim isFile = File.Exists(path & f.Name)
+            If isDirectory Then
+                DnsSpyStructure.SetFileAvailability(files, f.Name, True)
+                TraverseDnspyManifestRecursively(path & "\" & f.Name & "\", f.Children)
+            End If
+            If isFile Then DnsSpyStructure.SetFileAvailability(files, f.Name, True)
+        Next
+    End Sub
+    Public Function IsDnspyAvailable()
+        Dim DnspyManifestFile = File.ReadAllText(DnspyManifest)
+        Dim DnspyManifestStruct = JsonConvert.DeserializeObject(Of DnsSpyStructure)(DnspyManifestFile)
+        Dim Files = DnspyManifestStruct.Files
+        If Not Directory.Exists(DnspyDir) Then Return False
+        If Not File.Exists(DnspyDir & "dnSpy.exe") Then Return False
+        Return CheckDnspyManifest(DnspyDir & "\bin\", Files)
+    End Function
 
     Public ReadOnly Version As String = "BetterExceptionWindow version 4.0.0"
     Public ReadOnly Commit As String = My.Resources.CurrentCommit
@@ -171,4 +251,6 @@ Public Module Util
         "..\..\Modules\BetterExceptionWindow\Temp\"
     Public ReadOnly BewBinDir As String =
         "..\..\Modules\BetterExceptionWindow\bin\Win64_Shipping_Client\"
+    Public ReadOnly BewConfigPath As String =
+        "..\..\Modules\BetterExceptionWindow\config.json"
 End Module
