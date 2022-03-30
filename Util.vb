@@ -37,15 +37,21 @@ Public Module Util
         End Try
     End Sub
     Public Sub SaveSettings()
-        Dim config As New Dictionary(Of String, Boolean)
-        config.Add("AllowInDebugger", AllowInDebugger)
-        config.Add("CatchOnApplicationTick", CatchOnApplicationTick)
-        config.Add("CatchOnMissionScreenTick", CatchOnMissionScreenTick)
-        config.Add("CatchOnFrameTick", CatchOnFrameTick)
-        config.Add("CatchTick", CatchTick)
-        config.Add("CatchComponentBehaviourTick", CatchComponentBehaviourTick)
-        config.Add("CatchGlobalTick", CatchGlobalTick)
-        File.WriteAllText(BewConfigPath, ToJson(config))
+        Try
+            Dim config As New Dictionary(Of String, Boolean)
+            config.Add("AllowInDebugger", AllowInDebugger)
+            config.Add("CatchOnApplicationTick", CatchOnApplicationTick)
+            config.Add("CatchOnMissionScreenTick", CatchOnMissionScreenTick)
+            config.Add("CatchOnFrameTick", CatchOnFrameTick)
+            config.Add("CatchTick", CatchTick)
+            config.Add("CatchComponentBehaviourTick", CatchComponentBehaviourTick)
+            config.Add("CatchGlobalTick", CatchGlobalTick)
+            config.Add("IsFirstTime", IsFirstTime)
+            config.Add("DisableBewButterlibException", DisableBewButterlibException)
+            File.WriteAllText(BewConfigPath, ToJson(config))
+        Catch ex As Exception
+            Console.WriteLine("cannot write config " & ex.Message)
+        End Try
     End Sub
     Public Function CalculateMD5(filename As String) As String
         Dim checksum = MD5.Create()
