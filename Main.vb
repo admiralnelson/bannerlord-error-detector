@@ -1,6 +1,9 @@
-﻿Imports System.Threading
+﻿Imports System.IO
+Imports System.Reflection
+Imports System.Threading
 Imports System.Windows.Forms
 Imports HarmonyLib
+Imports TaleWorlds
 Imports TaleWorlds.Core
 Imports TaleWorlds.DotNet
 Imports TaleWorlds.Engine
@@ -38,7 +41,7 @@ Namespace Global.BetterExceptionWindow
             End Sub
         End Class
 
-        <HarmonyPatch(GetType([Module]), "OnApplicationTick")>
+        <HarmonyPatch(GetType(TaleWorlds.MountAndBlade.[Module]), "OnApplicationTick")>
         Public Class OnApplicationTickPatch
             Private Shared Sub Finalizer(ByVal __exception As Exception)
                 If CatchOnApplicationTick Then
@@ -62,7 +65,7 @@ Namespace Global.BetterExceptionWindow
                 End If
             End Sub
         End Class
-        <HarmonyPatch(GetType(Screens.ScreenManager), "Tick")>
+        <HarmonyPatch(GetType(ScreenSystem.ScreenManager), "Tick")>
         Public Class OnFrameTickPatch
             Private Shared Sub Finalizer(ByVal __exception As Exception)
                 If CatchOnFrameTick Then
@@ -129,9 +132,6 @@ Namespace Global.BetterExceptionWindow
                 End If
             End If
         End Sub
-        Public Sub New()
-
-        End Sub
         Private Sub PatchMe()
             Dim harmony = New Harmony("org.calradia.admiralnelson.betterexceptionwindow")
             harmony.PatchAll()
@@ -141,12 +141,29 @@ Namespace Global.BetterExceptionWindow
 
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException)
         End Sub
+        Private Sub LoadBetterExceptionMCMUI()
+            Dim bewUIDllFilePath = BewBinDir & "\BetterExceptionWindowConfigUI.dll"
+            If Not File.Exists(bewUIDllFilePath) Then
+                Print("unable to load better exception window mcm ui. BetterExceptionWindowConfigUI.dll was not found")
+                Exit Sub
+            End If
+            Print("loading BetterExceptionWindowConfigUI")
+            Dim theDll = Assembly.LoadFrom(bewUIDllFilePath)
+            Dim theSpecifiedModule = theDll.GetType("BetterExceptionWindowConfigUI.EntryPoint")
+            Dim methodInf = theSpecifiedModule.GetMethod("Start")
+            methodInf.Invoke(Nothing, New Object() {})
+        End Sub
+        Protected Overrides Sub OnBeforeInitialModuleScreenSetAsRoot()
+            Task.Delay(1000 * 2).ContinueWith(
+                Sub()
+                    LoadBetterExceptionMCMUI()
+                End Sub)
+        End Sub
         Protected Overrides Sub OnSubModuleLoad()
             If Environment.GetCommandLineArgs.Contains("--disablebew") Then
                 Exit Sub
             End If
 
-            MyBase.OnSubModuleLoad()
             ReadConfig()
 
             If Debugger.IsAttached Then
@@ -156,6 +173,7 @@ Namespace Global.BetterExceptionWindow
             Else
                 PatchMe()
             End If
+
 
         End Sub
     End Class

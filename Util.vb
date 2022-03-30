@@ -9,7 +9,7 @@ Imports TaleWorlds.Core
 Imports System.Runtime.CompilerServices
 Imports System.IO.Compression
 
-Module Util
+Public Module Util
     Public AllowInDebugger As Boolean = True
     Public CatchOnApplicationTick As Boolean = True
     Public CatchOnMissionScreenTick As Boolean = True
@@ -52,7 +52,7 @@ Module Util
     End Function
     Public Sub Print(str As String)
         InformationManager.DisplayMessage(New InformationMessage(str))
-        Debug.Print(str)
+        Console.WriteLine(str)
     End Sub
     Public Function GetAssembliesData() As List(Of Assembly)
         Dim asm = AppDomain.CurrentDomain.GetAssemblies()
@@ -93,6 +93,74 @@ Module Util
     Public Function ToJson(o As Object)
         Return JsonConvert.SerializeObject(o)
     End Function
+    Public Sub MsgBoxBannerlord(title As String, Optional message As String = "",
+                                Optional callbackOk As Action = Nothing,
+                                Optional callbackCancel As Action = Nothing,
+                                Optional okMessage As String = "Accept",
+                                Optional cancelMessage As String = "Cancel")
+        If callbackOk Is Nothing Then
+            InformationManager.ShowInquiry(New TaleWorlds.Library.InquiryData(
+                                           title,
+                                           message,
+                                           True, False,
+                                           okMessage, "",
+                                           Sub()
+
+                                           End Sub,
+                                           Sub()
+
+                                           End Sub))
+            Exit Sub
+        End If
+        If callbackOk IsNot Nothing And
+           callbackCancel Is Nothing Then
+            InformationManager.ShowInquiry(New TaleWorlds.Library.InquiryData(
+                                           title,
+                                           message,
+                                           True, False,
+                                           okMessage, "",
+                                           Sub()
+                                               callbackOk()
+                                           End Sub,
+                                           Sub()
+
+                                           End Sub))
+            Exit Sub
+        End If
+        InformationManager.ShowInquiry(New TaleWorlds.Library.InquiryData(
+                                           title,
+                                           message,
+                                           True, True,
+                                           okMessage, cancelMessage,
+                                           Sub()
+                                               callbackOk()
+                                           End Sub,
+                                           Sub()
+                                               callbackCancel()
+                                           End Sub))
+    End Sub
+    Public Sub RestartAndAttachDnspy()
+        Dim PsBannerlord As New ProcessStartInfo()
+        Dim currentpath = Directory.GetCurrentDirectory()
+        PsBannerlord.Arguments = "/C cd """ & currentpath &
+                         """ && ping 127.0.0.1 -n 2 && " &
+                         "start TaleWorlds.MountAndBlade.Launcher.exe --disablebew && " &
+                         " ping 127.0.0.1 -n 3 && " &
+                         DnspyDir & "dnSpy.exe --process-name TaleWorlds.MountAndBlade.Launcher.exe"
+        PsBannerlord.WindowStyle = ProcessWindowStyle.Hidden
+        PsBannerlord.CreateNoWindow = True
+        PsBannerlord.FileName = "cmd.exe"
+        Process.Start(PsBannerlord)
+        KillGame()
+    End Sub
+    Public Sub KillGame()
+        Dim pid = Process.GetCurrentProcess().Id
+        Dim proc As Process = Process.GetProcessById(pid)
+        proc.Kill()
+    End Sub
+
+    Public ReadOnly Version As String = "BetterExceptionWindow version 4.0.0"
+    Public ReadOnly Commit As String = My.Resources.CurrentCommit
     Public ReadOnly DnspyDir As String =
         "..\..\Modules\BetterExceptionWindow\bin\Win64_Shipping_Client\dnspy\"
     Public ReadOnly DnspyManifest As String =
@@ -101,5 +169,6 @@ Module Util
         "..\..\Modules\BetterExceptionWindow\"
     Public ReadOnly BewTemp As String =
         "..\..\Modules\BetterExceptionWindow\Temp\"
-
+    Public ReadOnly BewBinDir As String =
+        "..\..\Modules\BetterExceptionWindow\bin\Win64_Shipping_Client\"
 End Module

@@ -47,6 +47,8 @@ Public Class ErrorWindow
         html = html.Replace("{gameLogs}", GetGameLog())
         html = html.Replace("{logtime}", GetGameLogDateTime())
         html = html.Replace("{jsonHarmony}", GetHarmonyPatches())
+        html = html.Replace("{version}", Version)
+        html = html.Replace("{commit}", Commit)
         widget.DocumentText = html
         AddHandler widget.Document.ContextMenuShowing, AddressOf WebContextMenuShowing
         AddHandler widget.PreviewKeyDown, AddressOf WebShorcut
@@ -88,9 +90,7 @@ Public Class ErrorWindow
     End Function
 
     Public Sub CloseProgram()
-        Dim pid = Process.GetCurrentProcess().Id
-        Dim proc As Process = Process.GetProcessById(pid)
-        proc.Kill()
+        KillGame()
     End Sub
 
     Public Sub OpenConfig()
@@ -428,18 +428,7 @@ Public Class ErrorWindow
                 End Sub))
     End Sub
     Public Sub StartDnspyDebugger()
-        Dim PsBannerlord As New ProcessStartInfo()
-        Dim currentpath = Directory.GetCurrentDirectory()
-        PsBannerlord.Arguments = "/C cd """ & currentpath &
-                         """ && ping 127.0.0.1 -n 2 && " &
-                         "start TaleWorlds.MountAndBlade.Launcher.exe --disablebew && " &
-                         " ping 127.0.0.1 -n 3 && " &
-                         DnspyDir & "dnSpy.exe --process-name TaleWorlds.MountAndBlade.Launcher.exe"
-        PsBannerlord.WindowStyle = ProcessWindowStyle.Hidden
-        PsBannerlord.CreateNoWindow = True
-        PsBannerlord.FileName = "cmd.exe"
-        Process.Start(PsBannerlord)
-        CloseProgram()
+        RestartAndAttachDnspy()
     End Sub
     Public Function IsUnderdebugger()
         Return Debugger.IsAttached

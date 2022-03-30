@@ -218,6 +218,10 @@
       <HintPath>..\..\..\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.SaveSystem.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="TaleWorlds.ScreenSystem">
+      <HintPath>..\..\..\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.ScreenSystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="TaleWorlds.Starter.DotNetCore">
       <HintPath>..\..\..\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.Starter.DotNetCore.dll</HintPath>
       <Private>False</Private>
@@ -305,10 +309,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CurrentCommit.txt" />
     <Content Include="errorui.htm" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
-    <PreBuildEvent>xcopy /F /R /Y /I /E  "$(SolutionDir)$(ProjectName)" "F:\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\$(ProjectName)"</PreBuildEvent>
+    <PreBuildEvent>xcopy /F /R /Y /I /E  "$(SolutionDir)$(ProjectName)" "F:\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\$(ProjectName)"
+cd $(SolutionDir)
+git rev-parse HEAD &gt; "$(ProjectDir)\CurrentCommit.txt"</PreBuildEvent>
   </PropertyGroup>
 </Project>
