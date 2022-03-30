@@ -242,8 +242,8 @@ Public Module Util
         If Not File.Exists(DnspyDir & "dnSpy.exe") Then Return False
         Return CheckDnspyManifest(DnspyDir & "\bin\", Files)
     End Function
-
-    Public ReadOnly Version As String = "BetterExceptionWindow version 4.0.0"
+    'TODO: grab it from xml string
+    Public ReadOnly Version As String = "BetterExceptionWindow version 4.1.0"
     Public ReadOnly Commit As String = My.Resources.CurrentCommit
     Public ReadOnly DnspyDir As String =
         "..\..\Modules\BetterExceptionWindow\bin\Win64_Shipping_Client\dnspy\"
