@@ -17,6 +17,8 @@ Public Module Util
     Public CatchTick As Boolean = True
     Public CatchComponentBehaviourTick As Boolean = True
     Public CatchGlobalTick As Boolean = True
+    Public DisableBewButterlibException As Boolean = True
+    Public IsFirstTime As Boolean = True
     Public Sub ReadConfig()
         Try
             Dim data = File.ReadAllText(BewConfigPath)

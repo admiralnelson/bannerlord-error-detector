@@ -29,6 +29,21 @@ Public Module BewConfigurationUserInterface
                         Return boolBuilder _
                                .SetHintText("{=AllowInDebuggerHint}Better Exception Window will trigger when debugger is attached")
                     End Function) _
+                .AddBool(
+                    "DisableBewButterlibException",
+                    "{=AllowInDebugger}Disable BewButterlib Exception",
+                    New ProxyRef(Of Boolean)(
+                    Function() As Boolean
+                        Return DisableBewButterlibException
+                    End Function,
+                    Sub(o As Boolean)
+                        DisableBewButterlibException = o
+                        SaveSettings()
+                    End Sub),
+                    Function(boolBuilder)
+                        Return boolBuilder _
+                               .SetHintText("{=AllowInDebuggerHint}Uncheck this options if you want to restore the old behaviour, Butterlib exception then followed by BEW window")
+                    End Function) _
                  .AddButton(
                  "Crashtest",
                  "{=CrashTest}Crash Test: Throw an exception",
@@ -93,9 +108,10 @@ Public Module BewConfigurationUserInterface
                    New ProxyRef(Of Action)(
                     Function() As Action
                         Return Sub()
-                                   MsgBoxBannerlord("About Better Exception Window",
-                                                     Version + vbNewLine +
-                                                    "Git commit: " + Commit)
+                                   MsgBoxBannerlord("About this program",
+                                                     Version & vbNewLine &
+                                                    "Git commit: " & Commit & vbNewLine &
+                                                    "Source code: https://github.com/admiralnelson/bannerlord-error-detector")
                                End Sub
                     End Function,
                     Sub(o As Action)

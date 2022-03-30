@@ -17,7 +17,7 @@ Namespace Global.BetterExceptionWindow
 
         <HarmonyPatch(GetType(Managed), "ApplicationTick")>
         Public Class OnApplicationTickCorePatch
-            <HarmonyPriority(Priority.VeryHigh)>
+            <HarmonyPriority(Priority.First)>
             Private Shared Sub Finalizer(ByVal __exception As Exception)
                 If CatchGlobalTick Then
                     If __exception IsNot Nothing Then
@@ -30,7 +30,7 @@ Namespace Global.BetterExceptionWindow
         End Class
         <HarmonyPatch(GetType(ScriptComponentBehavior), "OnTick")>
         Public Class OnComponentBehaviourTickPatch
-            <HarmonyPriority(Priority.VeryHigh)>
+            <HarmonyPriority(Priority.First)>
             Private Shared Sub Finalizer(ByVal __exception As Exception)
                 If CatchComponentBehaviourTick Then
                     If __exception IsNot Nothing Then
@@ -43,7 +43,7 @@ Namespace Global.BetterExceptionWindow
         End Class
         <HarmonyPatch(GetType(TaleWorlds.MountAndBlade.[Module]), "OnApplicationTick")>
         Public Class OnApplicationTickPatch
-            <HarmonyPriority(Priority.VeryHigh)>
+            <HarmonyPriority(Priority.First)>
             Private Shared Sub Finalizer(ByVal __exception As Exception)
                 If CatchOnApplicationTick Then
                     If __exception IsNot Nothing Then
@@ -56,7 +56,7 @@ Namespace Global.BetterExceptionWindow
         End Class
         <HarmonyPatch(GetType(MissionView), "OnMissionScreenTick")>
         Public Class OnMissionScreenTickPatch
-            <HarmonyPriority(Priority.VeryHigh)>
+            <HarmonyPriority(Priority.First)>
             Private Shared Sub Finalizer(ByVal __exception As Exception)
                 If CatchOnMissionScreenTick Then
                     If __exception IsNot Nothing Then
@@ -69,7 +69,7 @@ Namespace Global.BetterExceptionWindow
         End Class
         <HarmonyPatch(GetType(ScreenSystem.ScreenManager), "Tick")>
         Public Class OnFrameTickPatch
-            <HarmonyPriority(Priority.VeryHigh)>
+            <HarmonyPriority(Priority.First)>
             Private Shared Sub Finalizer(ByVal __exception As Exception)
                 If CatchOnFrameTick Then
                     If __exception IsNot Nothing Then
@@ -82,7 +82,7 @@ Namespace Global.BetterExceptionWindow
         End Class
         <HarmonyPatch(GetType(Mission), "Tick")>
         Public Class OnTickMissionPatch
-            <HarmonyPriority(Priority.VeryHigh)>
+            <HarmonyPriority(Priority.First)>
             Private Shared Sub Finalizer(ByVal __exception As Exception)
                 If CatchTick Then
                     If __exception IsNot Nothing Then
@@ -95,7 +95,7 @@ Namespace Global.BetterExceptionWindow
         End Class
         <HarmonyPatch(GetType(MissionBehavior), "OnMissionTick")>
         Public Class OnMissionTickPatch
-            <HarmonyPriority(Priority.VeryHigh)>
+            <HarmonyPriority(Priority.First)>
             Private Shared Sub Finalizer(ByVal __exception As Exception)
                 If CatchTick Then
                     If __exception IsNot Nothing Then
@@ -108,7 +108,7 @@ Namespace Global.BetterExceptionWindow
         End Class
         <HarmonyPatch(GetType(MBSubModuleBase), "OnSubModuleLoad")>
         Public Class OnSubModuleLoadPatch
-            <HarmonyPriority(Priority.VeryHigh)>
+            <HarmonyPriority(Priority.First)>
             Private Shared Sub Finalizer(ByVal __exception As Exception)
                 If CatchTick Then
                     If __exception IsNot Nothing Then
@@ -137,14 +137,17 @@ Namespace Global.BetterExceptionWindow
                 End If
             End If
         End Sub
+        Dim patches
+        Dim harmony_ As Harmony
         Private Sub PatchMe()
-            Dim harmony = New Harmony("org.calradia.admiralnelson.betterexceptionwindow")
-            harmony.PatchAll()
+            harmony_ = New Harmony("org.calradia.admiralnelson.betterexceptionwindow")
+            harmony_.PatchAll()
 
             AddHandler Application.ThreadException, AddressOf AppDomain_UnhandledExceptionThr
             AddHandler AppDomain.CurrentDomain.UnhandledException, AddressOf AppDomain_UnhandledException
 
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException)
+            patches = harmony_.GetPatchedMethods()
         End Sub
         Private Sub LoadBetterExceptionMCMUI()
             Dim bewUIDllFilePath = BewBinDir & "\BetterExceptionWindowConfigUI.dll"
@@ -160,8 +163,25 @@ Namespace Global.BetterExceptionWindow
         Protected Overrides Sub OnBeforeInitialModuleScreenSetAsRoot()
             Task.Delay(1000 * 2).ContinueWith(
                 Sub()
-                    If CheckIsAssemblyLoaded("MCMv4.dll") Then
+                    If CheckIsAssemblyLoaded("MCMv4.dll") AndAlso
+                       CheckIsAssemblyLoaded("MCMv4.UI.dll") Then
                         LoadBetterExceptionMCMUI()
+                    End If
+                    'disable butterlib bew
+                    If DisableBewButterlibException Then
+                        For Each x In patches
+                            harmony_.Unpatch(x, HarmonyPatchType.Finalizer, "Bannerlord.ButterLib.ExceptionHandler.BEW")
+                        Next
+                    End If
+                    If IsFirstTime And DisableBewButterlibException Then
+                        MsgBoxBannerlord("Better Exception Window Behaviour",
+                                        "Better Exception Window detected Butterlib is also installed." & vbNewLine &
+                                        "It will disable Butterlib exception window starting from this version." & vbNewLine & vbNewLine &
+                                        "You can restore to old behaviour by unchecking Disable BewButterlib exception in mod option",
+                                        Sub()
+                                            IsFirstTime = False
+                                            SaveSettings()
+                                        End Sub, Nothing, "I understand")
                     End If
                 End Sub)
         End Sub
