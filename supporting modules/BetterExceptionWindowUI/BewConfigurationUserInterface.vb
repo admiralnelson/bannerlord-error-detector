@@ -42,7 +42,7 @@ Public Module BewConfigurationUserInterface
                     End Sub),
                     Function(boolBuilder)
                         Return boolBuilder _
-                               .SetHintText("{=AllowInDebuggerHint}Uncheck this options if you want to restore the old behaviour, Butterlib exception then followed by BEW window")
+                               .SetHintText("{=AllowInDebuggerHint}Uncheck this options if you want to restore the old behaviour, Butterlib exception then followed by BEW window. Restart the game to take effect.")
                     End Function) _
                  .AddButton(
                  "Crashtest",

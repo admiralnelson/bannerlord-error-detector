@@ -30,6 +30,8 @@ Public Module Util
             CatchTick = configData("CatchTick")
             CatchComponentBehaviourTick = configData("CatchComponentBehaviourTick")
             CatchGlobalTick = configData("CatchGlobalTick")
+            IsFirstTime = configData("IsFirstTime")
+            DisableBewButterlibException = configData("DisableBewButterlibException")
         Catch ex As Exception
             Console.WriteLine("unable to read the config. It's ok")
         End Try
