@@ -5,10 +5,13 @@ Public Module BewConfigurationUserInterface
     Dim registered = False
     Public Sub BuildUI()
         If registered Then Exit Sub
-        BaseSettingsBuilder _
+        Dim basebuilder = BaseSettingsBuilder _
         .Create(
             "org.calradia.admiralnelson.betterexceptionwindow.ui.config",
-            "Better Exception Window") _
+            "Better Exception Window")
+        If basebuilder Is Nothing Then Exit Sub
+
+        basebuilder _
         .SetFormat("json2") _
         .CreateGroup(
             "Behaviour",

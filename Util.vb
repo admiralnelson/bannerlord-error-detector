@@ -249,7 +249,7 @@ Public Module Util
         Return CheckDnspyManifest(DnspyDir & "\bin\", Files)
     End Function
     'TODO: grab it from xml string
-    Public ReadOnly Version As String = "BetterExceptionWindow version 4.1.0"
+    Public ReadOnly Version As String = "BetterExceptionWindow version 4.1.0 for e1.7.1"
     Public ReadOnly Commit As String = My.Resources.CurrentCommit
     Public ReadOnly DnspyDir As String =
         "..\..\Modules\BetterExceptionWindow\bin\Win64_Shipping_Client\dnspy\"
