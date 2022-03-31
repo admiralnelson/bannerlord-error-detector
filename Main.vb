@@ -163,6 +163,9 @@ Namespace Global.BetterExceptionWindow
         Protected Overrides Sub OnBeforeInitialModuleScreenSetAsRoot()
             Task.Delay(1000 * 2).ContinueWith(
                 Sub()
+                    If Not CheckIsAssemblyLoaded("Bannerlord.ButterLib.dll") Then
+                        Exit Sub
+                    End If
                     If CheckIsAssemblyLoaded("MCMv4.dll") AndAlso
                        CheckIsAssemblyLoaded("MCMv4.UI.dll") Then
                         LoadBetterExceptionMCMUI()

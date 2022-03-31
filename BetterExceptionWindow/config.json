@@ -1,10 +1,11 @@
-{  
-    "AllowInDebugger": true,
-    "CatchOnApplicationTick": true,
-    "CatchOnMissionScreenTick": true,
-    "CatchOnFrameTick": true,
-    "CatchComponentBehaviourTick" : true,
-    "CatchGlobalTick": true,
-    "CatchTick": true,
-    "SaveLogPath": ""
+{
+	"AllowInDebugger": true,
+	"CatchOnApplicationTick": true,
+	"CatchOnMissionScreenTick": true,
+	"CatchOnFrameTick": true,
+	"CatchTick": true,
+	"CatchComponentBehaviourTick": true,
+	"CatchGlobalTick": true,
+	"IsFirstTime": true,
+	"DisableBewButterlibException": true
 }
