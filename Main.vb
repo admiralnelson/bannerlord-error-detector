@@ -67,7 +67,7 @@ Namespace Global.BetterExceptionWindow
                 End If
             End Sub
         End Class
-        <HarmonyPatch(GetType(ScreenSystem.ScreenManager), "Tick")>
+        <HarmonyPatch(GetType(Screens.ScreenManager), "Tick")>
         Public Class OnFrameTickPatch
             <HarmonyPriority(Priority.First)>
             Private Shared Sub Finalizer(ByVal __exception As Exception)
