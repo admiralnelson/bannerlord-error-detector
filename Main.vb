@@ -9,7 +9,7 @@ Imports TaleWorlds.DotNet
 Imports TaleWorlds.Engine
 Imports TaleWorlds.InputSystem
 Imports TaleWorlds.MountAndBlade
-Imports TaleWorlds.MountAndBlade.View.Missions
+Imports TaleWorlds.MountAndBlade.View
 
 Namespace Global.BetterExceptionWindow
     Public Class Main
@@ -54,7 +54,7 @@ Namespace Global.BetterExceptionWindow
                 End If
             End Sub
         End Class
-        <HarmonyPatch(GetType(MissionView), "OnMissionScreenTick")>
+        <HarmonyPatch(GetType(MissionViews.MissionView), "OnMissionScreenTick")>
         Public Class OnMissionScreenTickPatch
             <HarmonyPriority(Priority.First)>
             Private Shared Sub Finalizer(ByVal __exception As Exception)
@@ -67,7 +67,7 @@ Namespace Global.BetterExceptionWindow
                 End If
             End Sub
         End Class
-        <HarmonyPatch(GetType(Screens.ScreenManager), "Tick")>
+        <HarmonyPatch(GetType(ScreenSystem.ScreenManager), "Tick")>
         Public Class OnFrameTickPatch
             <HarmonyPriority(Priority.First)>
             Private Shared Sub Finalizer(ByVal __exception As Exception)
@@ -176,24 +176,31 @@ Namespace Global.BetterExceptionWindow
                             harmony_.Unpatch(x, HarmonyPatchType.Finalizer, "Bannerlord.ButterLib.ExceptionHandler.BEW")
                         Next
                     End If
-                    If IsFirstTime And DisableBewButterlibException Then
-                        MsgBoxBannerlord("Better Exception Window Behaviour",
-                                        "Better Exception Window detected Butterlib is also installed." & vbNewLine &
-                                        "It will disable Butterlib exception window starting from this version." & vbNewLine & vbNewLine &
-                                        "You can restore to old behaviour by unchecking Disable BewButterlib exception in mod option",
-                                        Sub()
-                                            IsFirstTime = False
-                                            SaveSettings()
-                                        End Sub, Nothing, "I understand")
-                    End If
+                    Task.Delay(1000 * 3).ContinueWith(
+                        Sub()
+                            If IsFirstTime And DisableBewButterlibException Then
+                                MsgBoxBannerlord("Better Exception Window Behaviour",
+                                                "Better Exception Window detected Butterlib is also installed." & vbNewLine &
+                                                "It will disable Butterlib exception window starting from this version." & vbNewLine & vbNewLine &
+                                                "You can restore to old behaviour by unchecking Disable BewButterlib exception in mod option",
+                                                Sub()
+                                                    IsFirstTime = False
+                                                    SaveSettings()
+                                                End Sub, Nothing, "I understand")
+                            End If
+                        End Sub
+                    )
                 End Sub)
         End Sub
         Protected Overrides Sub OnSubModuleLoad()
+            ReadConfig()
+
+            If EnableStdoutConsole Then SpawnConsole() Else StartLogger()
+
             If Environment.GetCommandLineArgs.Contains("--disablebew") Then
                 Exit Sub
             End If
 
-            ReadConfig()
 
             If Debugger.IsAttached Then
                 If AllowInDebugger Then

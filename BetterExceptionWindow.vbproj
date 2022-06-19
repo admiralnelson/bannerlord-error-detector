@@ -44,8 +44,8 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.0.0.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Lib.Harmony.2.0.0.9\lib\net472\0Harmony.dll</HintPath>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Bannerlord.Harmony\bin\Win64_Shipping_Client\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
@@ -251,6 +251,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleWindow.vb" />
+    <Compile Include="DebugManager.vb" />
     <Compile Include="DnspyInstaller.vb" />
     <Compile Include="ErrorWindow.Designer.vb">
       <DependentUpon>ErrorWindow.vb</DependentUpon>
@@ -314,7 +316,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
-    <PreBuildEvent>xcopy /F /R /Y /I /E  "$(SolutionDir)$(ProjectName)" "F:\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\$(ProjectName)"
+    <PreBuildEvent>xcopy /F /R /Y /I /E  "$(SolutionDir)$(ProjectName)" "D:\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\$(ProjectName)"
 cd $(SolutionDir)
 git rev-parse HEAD &gt; "$(ProjectDir)\CurrentCommit.txt"</PreBuildEvent>
   </PropertyGroup>

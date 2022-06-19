@@ -7,5 +7,6 @@
 	"CatchComponentBehaviourTick": true,
 	"CatchGlobalTick": true,
 	"IsFirstTime": true,
+	"EnableConsole": false,
 	"DisableBewButterlibException": true
 }

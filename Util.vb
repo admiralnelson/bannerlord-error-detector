@@ -6,6 +6,7 @@ Imports System.Xml
 Imports Microsoft.VisualBasic.FileIO
 Imports Newtonsoft.Json
 Imports TaleWorlds.Core
+Imports TaleWorlds.Library
 Imports System.Runtime.CompilerServices
 Imports System.IO.Compression
 
@@ -19,6 +20,8 @@ Public Module Util
     Public CatchGlobalTick As Boolean = True
     Public DisableBewButterlibException As Boolean = True
     Public IsFirstTime As Boolean = True
+    Public EnableStdoutConsole As Boolean = False
+    Public EnableLogger As Boolean = True
     Public Sub ReadConfig()
         Try
             Dim data = File.ReadAllText(BewConfigPath)
@@ -32,6 +35,8 @@ Public Module Util
             CatchGlobalTick = configData("CatchGlobalTick")
             IsFirstTime = configData("IsFirstTime")
             DisableBewButterlibException = configData("DisableBewButterlibException")
+            EnableStdoutConsole = configData("EnableStdoutConsole")
+            EnableLogger = configData("EnableLogger")
         Catch ex As Exception
             Console.WriteLine("unable to read the config. It's ok")
         End Try
@@ -48,6 +53,8 @@ Public Module Util
             config.Add("CatchGlobalTick", CatchGlobalTick)
             config.Add("IsFirstTime", IsFirstTime)
             config.Add("DisableBewButterlibException", DisableBewButterlibException)
+            config.Add("EnableConsole", EnableStdoutConsole)
+            config.Add("EnableLogger", EnableLogger)
             File.WriteAllText(BewConfigPath, ToJson(config))
         Catch ex As Exception
             Console.WriteLine("cannot write config " & ex.Message)
@@ -249,7 +256,7 @@ Public Module Util
         Return CheckDnspyManifest(DnspyDir & "\bin\", Files)
     End Function
     'TODO: grab it from xml string
-    Public ReadOnly Version As String = "BetterExceptionWindow version 4.1.1"
+    Public ReadOnly Version As String = "BetterExceptionWindow version 4.2"
     Public ReadOnly Commit As String = My.Resources.CurrentCommit
     Public ReadOnly DnspyDir As String =
         "..\..\Modules\BetterExceptionWindow\bin\Win64_Shipping_Client\dnspy\"
@@ -263,4 +270,6 @@ Public Module Util
         "..\..\Modules\BetterExceptionWindow\bin\Win64_Shipping_Client\"
     Public ReadOnly BewConfigPath As String =
         "..\..\Modules\BetterExceptionWindow\config.json"
+    Public ReadOnly BewBasePath As String =
+        "..\..\Modules\BetterExceptionWindow\"
 End Module

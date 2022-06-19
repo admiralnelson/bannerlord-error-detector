@@ -9,6 +9,7 @@ Imports HarmonyLib
 Imports Newtonsoft.Json
 Imports TaleWorlds.Core
 Imports TaleWorlds.Library
+Imports TaleWorlds.SaveSystem
 
 <PermissionSet(SecurityAction.Demand, Name:="FullTrust")>
 <ComVisibleAttribute(True)>
@@ -350,14 +351,21 @@ Public Class ErrorWindow
                 MsgBox("Unable to save as this is not a campaign!", MsgBoxStyle.Critical)
                 Return False
             Else
-                Dim campaignMetaData = TaleWorlds.CampaignSystem.Campaign.Current.SaveHandler
-                Dim dynamicMethod = campaignMetaData.GetType().GetMethod("GetSaveMetaData", BindingFlags.NonPublic Or BindingFlags.Instance)
-                Dim SaveMetaData As CampaignSaveMetaDataArgs = dynamicMethod.Invoke(campaignMetaData, New Object() {})
                 'https://stackoverflow.com/questions/135443/how-do-i-use-reflection-to-invoke-a-private-method
-                'MethodInfo dynMethod = this.GetType().GetMethod("Draw_" + itemType, BindingFlags.NonPublic | BindingFlags.Instance);
-                'dynMethod.Invoke(this, New Object[] { methodParams });
-                'shitty API
-                Return MBSaveLoad.SaveAsCurrentGame(SaveMetaData, filename).Item1 = SaveResult.Success
+                Dim campaignMetaData = TaleWorlds.CampaignSystem.Campaign.Current.SaveHandler
+                Dim dynamicMethodGetMetaData = campaignMetaData.GetType().GetMethod("GetSaveMetaData", BindingFlags.NonPublic Or BindingFlags.Instance)
+                Dim CampaignSaveMetaData As CampaignSaveMetaDataArgs = dynamicMethodGetMetaData.Invoke(campaignMetaData, New Object() {})
+
+                'convert to savemetadata in e1.8.0
+                Dim dynamicMethodGetSaveMetaData = GetType(MBSaveLoad).GetMethod("GetSaveMetaData", BindingFlags.NonPublic Or BindingFlags.Static)
+                Dim SaveMetaData As MetaData = dynamicMethodGetSaveMetaData.Invoke(Nothing, {CampaignSaveMetaData})
+
+                'https://docs.microsoft.com/en-us/dotnet/api/system.reflection.fieldinfo.getvalue?view=net-6.0
+                'find the save driver
+                Dim dynamicSaveDriver = GetType(MBSaveLoad).GetField("_saveDriver", BindingFlags.NonPublic Or BindingFlags.Static)
+                Dim saveDriver As ISaveDriver = CType(dynamicSaveDriver.GetValue(Nothing), ISaveDriver)
+
+                Return SaveManager.Save(Game.Current, SaveMetaData, filename, saveDriver).Successful = True
             End If
         Catch ex As Exception
             MsgBox("error while saving! " + vbCrLf + ex.Message, MsgBoxStyle.Critical)

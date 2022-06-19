@@ -33,6 +33,22 @@ Public Module BewConfigurationUserInterface
                                .SetHintText("{=AllowInDebuggerHint}Better Exception Window will trigger when debugger is attached")
                     End Function) _
                 .AddBool(
+                    "EnableStdoutConsole",
+                    "{=EnableStdoutConsole}Enable Stdout/Stdin console",
+                    New ProxyRef(Of Boolean)(
+                    Function() As Boolean
+                        Return EnableStdoutConsole
+                    End Function,
+                    Sub(o As Boolean)
+                        EnableStdoutConsole = o
+                        If EnableStdoutConsole Then SpawnConsole()
+                        SaveSettings()
+                    End Sub),
+                    Function(boolBuilder)
+                        Return boolBuilder _
+                               .SetHintText("{=AllowInDebuggerHint}Checking this will spawn console window.")
+                    End Function) _
+                    .AddBool(
                     "DisableBewButterlibException",
                     "{=AllowInDebugger}Disable BewButterlib Exception",
                     New ProxyRef(Of Boolean)(
