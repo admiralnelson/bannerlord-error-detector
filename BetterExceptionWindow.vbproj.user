@@ -4,7 +4,6 @@
     <StartAction>Program</StartAction>
     <StartProgram>D:\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.Launcher.exe</StartProgram>
     <StartWorkingDirectory>D:\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\</StartWorkingDirectory>
-    <StartArguments>
-    </StartArguments>
+    <StartArguments>--disablebew</StartArguments>
   </PropertyGroup>
 </Project>
