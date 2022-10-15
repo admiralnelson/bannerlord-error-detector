@@ -27,6 +27,13 @@ Public Class DnspyInstaller
             Sub(a As Exception)
             End Sub
 
+        ServicePointManager.Expect100Continue = True
+        ServicePointManager.SecurityProtocol =
+            SecurityProtocolType.Tls Or
+            SecurityProtocolType.Tls11 Or
+            SecurityProtocolType.Tls12 Or
+            SecurityProtocolType.Ssl3
+
         workerThread = New Thread(
             Sub()
                 Dim downloader As New WebClient()
