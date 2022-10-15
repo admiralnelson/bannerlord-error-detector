@@ -16,7 +16,7 @@ Imports TaleWorlds.SaveSystem
 Public Class ErrorWindow
     Public Shared exceptionData As Exception
     Dim problematicModules = New SortedSet(Of String)
-    Dim html = File.ReadAllText("..\..\Modules\BetterExceptionWindow\errorui.htm")
+    Dim html = File.ReadAllText(BewBasePath & "\errorui.htm")
 
     Private Sub ErrorWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim menu As New Windows.Forms.ContextMenu()
@@ -96,7 +96,7 @@ Public Class ErrorWindow
 
     Public Sub OpenConfig()
         Try
-            Dim p = Path.GetFullPath("..\..\Modules\BetterExceptionWindow\config.json")
+            Dim p = Path.GetFullPath(BewBasePath & "\config.json")
             Process.Start(p)
         Catch ex As Exception
 
@@ -252,7 +252,7 @@ Public Class ErrorWindow
     End Sub
 
     Public Function AnalyseModules()
-        Dim modulePath = Path.GetFullPath("..\..\Modules\")
+        Dim modulePath = Path.GetFullPath(BewDir & "\..\..\Modules\")
         Dim myDocument = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         Dim loadedModuleJSON = ReadXmlAsJson(myDocument + "\Mount and Blade II Bannerlord\Configs\LauncherData.xml")
         Dim loadedModule = loadedModuleJSON("UserData")("SingleplayerData")("ModDatas")("UserModData")
@@ -324,7 +324,7 @@ Public Class ErrorWindow
 
     Public Sub ScanAndLintXmls()
         Dim errorDetected = False
-        Dim modulePath = Path.GetFullPath("..\..\Modules\")
+        Dim modulePath = Path.GetFullPath(BewDir & "..\..\Modules\")
         Dim files = Directory.GetFiles(modulePath, "*.xml", SearchOption.AllDirectories)
 
         For Each x In files

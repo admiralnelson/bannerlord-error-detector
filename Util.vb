@@ -9,6 +9,8 @@ Imports TaleWorlds.Core
 Imports TaleWorlds.Library
 Imports System.Runtime.CompilerServices
 Imports System.IO.Compression
+Imports TaleWorlds.ModuleManager
+Imports System.Windows.Forms
 
 Public Module Util
     Public AllowInDebugger As Boolean = True
@@ -256,20 +258,25 @@ Public Module Util
         Return CheckDnspyManifest(DnspyDir & "\bin\", Files)
     End Function
     'TODO: grab it from xml string
-    Public ReadOnly Version As String = "BetterExceptionWindow version 4.3"
+    Public ReadOnly Version As String = "BetterExceptionWindow version " & GetVersionString()
     Public ReadOnly Commit As String = My.Resources.CurrentCommit
     Public ReadOnly DnspyDir As String =
-        "..\..\Modules\BetterExceptionWindow\bin\Win64_Shipping_Client\dnspy\"
+        BewBasePath() & "\bin\Win64_Shipping_Client\dnspy\"
     Public ReadOnly DnspyManifest As String =
-        "..\..\Modules\BetterExceptionWindow\dnSpyManifest.json"
+        BewBasePath() & "\dnSpyManifest.json"
     Public ReadOnly BewDir As String =
-        "..\..\Modules\BetterExceptionWindow\"
+        BewBasePath()
     Public ReadOnly BewTemp As String =
-        "..\..\Modules\BetterExceptionWindow\Temp\"
+        BewBasePath() & "\Temp\"
     Public ReadOnly BewBinDir As String =
-        "..\..\Modules\BetterExceptionWindow\bin\Win64_Shipping_Client\"
+        BewBasePath() & "\bin\Win64_Shipping_Client\"
     Public ReadOnly BewConfigPath As String =
-        "..\..\Modules\BetterExceptionWindow\config.json"
-    Public ReadOnly BewBasePath As String =
-        "..\..\Modules\BetterExceptionWindow\"
+        BewBasePath() & "\config.json"
+    Public Function BewBasePath() As String
+        Return ModuleHelper.GetModuleFullPath("BetterExceptionWindow")
+    End Function
+    Public Function GetVersionString() As String
+        Return Assembly.GetExecutingAssembly().GetName().Version.ToString()
+    End Function
+
 End Module

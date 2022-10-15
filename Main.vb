@@ -229,7 +229,6 @@ Namespace Global.BetterExceptionWindow
             ReadConfig()
 
             If EnableStdoutConsole Then SpawnConsole() Else StartLogger()
-
             If Environment.GetCommandLineArgs.Contains("--disablebew") Or Debugger.IsAttached Then
             Else
                 PatchMe()
