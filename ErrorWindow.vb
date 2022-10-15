@@ -109,12 +109,14 @@ Public Class ErrorWindow
     End Sub
     Private Function GetGameLog()
         Dim dataPath = GetBanenrlordProgramDataPath() + "\logs\"
-        Dim biggestFile = New DirectoryInfo(dataPath).EnumerateFiles() _
-                                                     .Where(Function(x) x.Name.StartsWith("rgl_log_")) _
-                                                     .OrderByDescending(Function(x) x.LastWriteTimeUtc) _
+        Dim temptFile = New DirectoryInfo(dataPath).EnumerateFiles() _
+                                                     .Where(Function(x)
+                                                                Dim reg = New Regex("rgl_log_([0-9])*\.txt")
+                                                                Return reg.Match(x.Name).Success
+                                                            End Function) _
                                                      .FirstOrDefault()
-        If biggestFile IsNot Nothing Then
-            Dim filestrm As New FileStream(biggestFile.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
+        If temptFile IsNot Nothing Then
+            Dim filestrm As New FileStream(temptFile.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
             Dim txtreader As New StreamReader(filestrm)
             Return txtreader.ReadToEnd()
         End If
