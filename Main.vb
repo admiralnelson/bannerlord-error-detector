@@ -143,11 +143,34 @@ Namespace Global.BetterExceptionWindow
             harmony_ = New Harmony("org.calradia.admiralnelson.betterexceptionwindow")
             harmony_.PatchAll()
 
-            AddHandler Application.ThreadException, AddressOf AppDomain_UnhandledExceptionThr
-            AddHandler AppDomain.CurrentDomain.UnhandledException, AddressOf AppDomain_UnhandledException
+            If Not Debugger.IsAttached Then
+                AddHandler Application.ThreadException, AddressOf AppDomain_UnhandledExceptionThr
+                AddHandler AppDomain.CurrentDomain.UnhandledException, AddressOf AppDomain_UnhandledException
 
-            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException)
+                Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException)
+            End If
             patches = harmony_.GetPatchedMethods()
+        End Sub
+        Private Sub DisableButterlibException()
+            Try
+                Dim butterlibItSelf = AppDomain.
+                                  CurrentDomain.
+                                  GetAssemblies().
+                                  Where(Function(ass)
+                                            Return ass.GetName().Name = "Bannerlord.ButterLib"
+                                        End Function).
+                                  FirstOrDefault()
+                If butterlibItSelf IsNot Nothing Then
+                    Dim classItself = butterlibItSelf.GetType("Bannerlord.ButterLib.ExceptionHandler.ExceptionHandlerSubSystem")
+                    Dim method = classItself.GetMethod("Disable")
+                    Dim instance = classItself.GetProperty("Instance", BindingFlags.Static Or BindingFlags.Public).GetValue(Nothing)
+                    method.Invoke(instance, New Object() {})
+                End If
+            Catch ex As Exception
+                MsgBox("unable to disable butterlib exception, please tell admiralnelson about this! " + ex.Message, MsgBoxStyle.Exclamation, "Warning")
+            End Try
+
+
         End Sub
         Private Sub LoadBetterExceptionMCMUI()
             Dim bewUIDllFilePath = BewBinDir & "\BetterExceptionWindowConfigUI.dll"
@@ -161,6 +184,10 @@ Namespace Global.BetterExceptionWindow
             methodInf.Invoke(Nothing, New Object() {})
         End Sub
         Protected Overrides Sub OnBeforeInitialModuleScreenSetAsRoot()
+            DisableButterlibFull()
+            ControlPanelMcmSupport()
+        End Sub
+        Private Sub ControlPanelMcmSupport()
             Task.Delay(1000 * 2).ContinueWith(
                 Sub()
                     If Not CheckIsAssemblyLoaded("Bannerlord.ButterLib.dll") Then
@@ -170,11 +197,12 @@ Namespace Global.BetterExceptionWindow
                        CheckIsAssemblyLoaded("MCMv4.UI.dll") Then
                         LoadBetterExceptionMCMUI()
                     End If
-                    'disable butterlib bew
                     If DisableBewButterlibException Then
-                        For Each x In patches
-                            harmony_.Unpatch(x, HarmonyPatchType.Finalizer, "Bannerlord.ButterLib.ExceptionHandler.BEW")
-                        Next
+                        If patches IsNot Nothing Then
+                            For Each x In patches
+                                harmony_.Unpatch(x, HarmonyPatchType.Finalizer, "Bannerlord.ButterLib.ExceptionHandler.BEW")
+                            Next
+                        End If
                     End If
                     Task.Delay(1000 * 3).ContinueWith(
                         Sub()
@@ -192,25 +220,20 @@ Namespace Global.BetterExceptionWindow
                     )
                 End Sub)
         End Sub
+        Private Sub DisableButterlibFull()
+            If CheckIsAssemblyLoaded("Bannerlord.ButterLib.dll") Then
+                DisableButterlibException()
+            End If
+        End Sub
         Protected Overrides Sub OnSubModuleLoad()
             ReadConfig()
 
             If EnableStdoutConsole Then SpawnConsole() Else StartLogger()
 
-            If Environment.GetCommandLineArgs.Contains("--disablebew") Then
-                Exit Sub
-            End If
-
-
-            If Debugger.IsAttached Then
-                If AllowInDebugger Then
-                    PatchMe()
-                End If
+            If Environment.GetCommandLineArgs.Contains("--disablebew") Or Debugger.IsAttached Then
             Else
                 PatchMe()
             End If
-
-
         End Sub
     End Class
 End Namespace
