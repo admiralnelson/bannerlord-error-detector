@@ -102,7 +102,9 @@ Public Class ErrorWindow
 
         End Try
     End Sub
-
+    Public Sub OpenFile(s As String)
+        Process.Start(s)
+    End Sub
     Public Sub OpenPath(s As String)
         Dim p = Path.GetDirectoryName(s)
         Process.Start(p)
@@ -252,7 +254,9 @@ Public Class ErrorWindow
     End Sub
 
     Public Function AnalyseModules()
-        Dim modulePath = Path.GetFullPath(BewDir & "\..\..\Modules\")
+        'Dim modulePath = Path.GetFullPath(BewDir & "\..\..\Modules\")
+        Dim modulePath = Path.GetFullPath(BaseDir & "\..\..\Modules\")
+
         Dim myDocument = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         Dim loadedModuleJSON = ReadXmlAsJson(myDocument + "\Mount and Blade II Bannerlord\Configs\LauncherData.xml")
         Dim loadedModule = loadedModuleJSON("UserData")("SingleplayerData")("ModDatas")("UserModData")
@@ -264,7 +268,14 @@ Public Class ErrorWindow
             End If
         Next
 
-        Dim directories = Directory.GetDirectories(modulePath)
+        Dim modulesInGameDirectories = Directory.GetDirectories(modulePath)
+        Dim directories = New List(Of String)
+        If IsRunningSteam Then
+            Dim modulesInSteamWorkshopDirectory = Directory.GetDirectories(modulePath & "../../../workshop/content/261550")
+            directories.AddRange(modulesInSteamWorkshopDirectory)
+        End If
+        directories.AddRange(modulesInGameDirectories)
+
         For Each x In directories
             Dim jsondata
             Try
@@ -274,8 +285,8 @@ Public Class ErrorWindow
             End Try
             jsondata("isModLoaded") = loadedModuleList.Any(Function(f) f.Contains(jsondata("Module")("Id")("@value")))
             jsondata("isPDBIncluded") = False
-            jsondata("location") = x
-            jsondata("manifest") = x + "\SubModule.xml"
+            jsondata("location") = Path.GetFullPath(x)
+            jsondata("manifest") = (Path.GetFullPath(x) + "\SubModule.xml").Replace("\", "\\")
             'MAYBE NOT AN ARRAY BUT PLAIN OBJECT INSTEAD
             Dim maybeArray = True
             Try
@@ -283,12 +294,17 @@ Public Class ErrorWindow
                 'Dim subModuleClassType As String = jsondata("Module")("SubModules")("SubModule")("SubModuleClassType")("@value")
                 'subModuleClassType = subModuleClassType.Substring(0, subModuleClassType.IndexOf("."))
                 Dim modId = jsondata("Module")("Id")("@value")
-                jsondata("isFaultingMod") = exceptionData.StackTrace.Contains(subModuleClassType) And jsondata("isModLoaded")
+                jsondata("isFaultingMod") = exceptionData.StackTrace.Contains(subModuleClassType) Or exceptionData.StackTrace.Contains(modId) And jsondata("isModLoaded")
                 If exceptionData.InnerException IsNot Nothing Then
                     jsondata("isFaultingMod") = jsondata("isFaultingMod") Or exceptionData.InnerException.StackTrace.Contains(subModuleClassType)
                 End If
                 If (jsondata("isFaultingMod")) Then
                     problematicModules.Add(modId)
+                End If
+                Dim reg = New Regex(".*workshop\\content\\261550\\([0-9]*)")
+                Dim matches = reg.Match(Path.GetFullPath(x))
+                If matches.Success Then
+                    jsondata("WorkshopUrl") = "https://steamcommunity.com/sharedfiles/filedetails/?id=" & matches.Groups()(1).Value
                 End If
                 maybeArray = False
             Catch ex As Exception
@@ -299,7 +315,7 @@ Public Class ErrorWindow
                         Dim name As String = dll("Name")("@value")
                         Dim modId = jsondata("Module")("Id")("@value")
                         'subModuleClassType = subModuleClassType.Substring(0, subModuleClassType.IndexOf("."))
-                        jsondata("isFaultingMod") = exceptionData.StackTrace.Contains(name) And jsondata("isModLoaded")
+                        jsondata("isFaultingMod") = exceptionData.StackTrace.Contains(name) Or exceptionData.StackTrace.Contains(modId) And jsondata("isModLoaded")
                         Dim result = CheckIsAssemblyLoaded(dll("DLLName")("@value"))
                         If result Then
                             Debug.Print("ok")
@@ -376,6 +392,10 @@ Public Class ErrorWindow
     End Function
 
     Private Sub widget_Navigating(sender As Object, e As WebBrowserNavigatingEventArgs) Handles widget.Navigating
+        If e.Url.ToString() = "about:dummy" Then
+            e.Cancel = True
+            Exit Sub
+        End If
         Dim isUri = Uri.IsWellFormedUriString(e.Url.ToString(), UriKind.RelativeOrAbsolute)
         If (isUri AndAlso (e.Url.ToString().StartsWith("http://") Or e.Url.ToString().StartsWith("https://"))) Then
             e.Cancel = True
