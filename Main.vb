@@ -153,13 +153,7 @@ Namespace Global.BetterExceptionWindow
         End Sub
         Private Sub DisableButterlibException()
             Try
-                Dim butterlibItSelf = AppDomain.
-                                  CurrentDomain.
-                                  GetAssemblies().
-                                  Where(Function(ass)
-                                            Return ass.GetName().Name = "Bannerlord.ButterLib"
-                                        End Function).
-                                  FirstOrDefault()
+                Dim butterlibItSelf = GetAssemblyByDll("Bannerlord.ButterLib.dll")
                 If butterlibItSelf IsNot Nothing Then
                     Dim classItself = butterlibItSelf.GetType("Bannerlord.ButterLib.ExceptionHandler.ExceptionHandlerSubSystem")
                     Dim method = classItself.GetMethod("Disable")
@@ -184,7 +178,9 @@ Namespace Global.BetterExceptionWindow
             methodInf.Invoke(Nothing, New Object() {})
         End Sub
         Protected Overrides Sub OnBeforeInitialModuleScreenSetAsRoot()
-            DisableButterlibFull()
+            If DisableBewButterlibException Or IsDebugged Then
+                DisableButterlibFull()
+            End If
             ControlPanelMcmSupport()
         End Sub
         Private Sub ControlPanelMcmSupport()
@@ -227,9 +223,9 @@ Namespace Global.BetterExceptionWindow
         End Sub
         Protected Overrides Sub OnSubModuleLoad()
             ReadConfig()
-
+            PatchMe()
             If EnableStdoutConsole Then SpawnConsole() Else StartLogger()
-            If Environment.GetCommandLineArgs.Contains("--disablebew") Or Debugger.IsAttached Then
+            If IsDebugged Then
             Else
                 PatchMe()
             End If
