@@ -266,12 +266,16 @@ Public Module Util
         BewBasePath() & "\dnSpyManifest.json"
     Public ReadOnly BewDir As String =
         BewBasePath()
+    Public ReadOnly BaseDir As String =
+        Directory.GetCurrentDirectory()
     Public ReadOnly BewTemp As String =
         BewBasePath() & "\Temp\"
     Public ReadOnly BewBinDir As String =
         BewBasePath() & "\bin\Win64_Shipping_Client\"
     Public ReadOnly BewConfigPath As String =
         BewBasePath() & "\config.json"
+    Public ReadOnly IsDebugged = Debugger.IsAttached Or Environment.GetCommandLineArgs.Contains("--disablebew")
+    Public ReadOnly IsRunningSteam = Environment.GetEnvironmentVariable("SteamEnv")
     Public Function BewBasePath() As String
         Return ModuleHelper.GetModuleFullPath("BetterExceptionWindow")
     End Function
