@@ -245,7 +245,7 @@
     </h2>
     <div class='msg' id='harmony'>
         <div id="harmony-container">
-
+            
         </div>
     </div>
     <h2 name="troubleshoot">
@@ -835,10 +835,14 @@
                     newModContent.style.backgroundColor = "lightpink";
                 }
 
-                anchorInHeader.innerText = "+ " + data.Module.Name["@value"] + " (version: " + data.Module.Version["@value"] + ")";
-                anchorInHeader.href = "#" + data.Module.Id["@value"];
-
-                modDetail.id = data.Module.Id["@value"];
+                var isWorkshop = false;
+                if (data.WorkshopUrl) isWorkshop = true;
+                var moduleName = data.Module.Name["@value"]
+                var caption = moduleName + " (version: " + data.Module.Version["@value"] + ")"
+                if (isWorkshop) moduleName += " (Workshop) "
+                anchorInHeader.innerText = "+ " + caption;
+                modDetail.id = data.Module.Id["@value"] + isWorkshop;
+                anchorInHeader.href = "#" + modDetail.id;
                 modDetail.style.display = "none";
 
                 var labelModInformation = document.createElement('div'),
@@ -849,16 +853,21 @@
                     modLocationLi = document.createElement('li'),
                     modManifestLocationLi = document.createElement('li'),
                     labelDependsOn = document.createElement('div'),
-                    labelSubModules = document.createElement('div');
+                    labelSubModules = document.createElement('div'),
+                    steamWorkshopLinkLi = document.createElement('li');
 
                 labelModInformation.innerText = "Mod manifest data:";
                 modLoadedLi.innerText = (data.isModLoaded) ? "Mod loaded: YES" : "Mod loaded: NO";
                 modIdLi.innerText = "Mod Id: " + data.Module.Id["@value"];
                 modVersionLi.innerText = "Mod Version: " + data.Module.Version["@value"];
                 modLocationLi.innerText = "Mod Location: " + data.location;
-                modManifestLocationLi.innerText = "Mod Manifest location: " + data.manifest;
+                modManifestLocationLi.innerHTML = "Mod Manifest location: <a href='about:dummy' onclick=\"window.external.OpenFile('" + data.manifest + "')\">" + data.manifest + "</a>";
                 labelDependsOn.innerText = "Depends on:";
                 labelSubModules.innerText = "Submodules:";
+
+                if (data.WorkshopUrl) {
+                    steamWorkshopLinkLi.innerHTML = "Steamworkshop URL: <a href='" + data.WorkshopUrl  + "'>" + data.WorkshopUrl + "</a>";
+                }
 
                 if (!data.Module.DependedModules || !data.Module.DependedModules.DependedModule || Array.isArray(data.Module.DependedModules.DependedModule) && data.Module.DependedModules.DependedModule.length == 0) {
                     var node = document.createElement('li');
@@ -916,6 +925,9 @@
                 modDetailUl.appendChild(modIdLi);
                 modDetailUl.appendChild(modVersionLi);
                 modDetailUl.appendChild(modManifestLocationLi);
+                if (data.WorkshopUrl) {
+                    modDetailUl.appendChild(steamWorkshopLinkLi);
+                }
                 modDetail.appendChild(modDetailUl);
                 modDetail.appendChild(labelDependsOn);
                 modDetail.appendChild(modDependsUl);
@@ -928,7 +940,7 @@
 
                 modContainer.appendChild(newModContent);
                 anchorInHeader.onclick = function () {
-                    spoiler(anchorInHeader, data.Module.Name["@value"] + "(version: " + data.Module.Version["@value"] + ")", data.Module.Id["@value"]);
+                    spoiler(anchorInHeader, caption, modDetail.id);
                 }
             }
             catch (e) {
