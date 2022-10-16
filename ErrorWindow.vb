@@ -340,8 +340,12 @@ Public Class ErrorWindow
 
     Public Sub ScanAndLintXmls()
         Dim errorDetected = False
-        Dim modulePath = Path.GetFullPath(BewDir & "..\..\Modules\")
-        Dim files = Directory.GetFiles(modulePath, "*.xml", SearchOption.AllDirectories)
+        Dim modulePath = Path.GetFullPath(BaseDir & "\..\..\Modules\")
+        Dim files = Directory.GetFiles(modulePath, "*.xml", SearchOption.AllDirectories).ToList()
+        If IsRunningSteam Then
+            Dim modulePath2 = Path.GetFullPath(modulePath & "../../../workshop/content/261550")
+            files.AddRange(Directory.GetFiles(modulePath2, "*.xml", SearchOption.AllDirectories))
+        End If
 
         For Each x In files
             Dim filename = Path.GetFileName(x)
