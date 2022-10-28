@@ -11,6 +11,8 @@ Imports System.Runtime.CompilerServices
 Imports System.IO.Compression
 Imports TaleWorlds.ModuleManager
 Imports System.Windows.Forms
+Imports TaleWorlds
+Imports System.Web
 
 Public Module Util
     Public AllowInDebugger As Boolean = True
@@ -98,7 +100,7 @@ Public Module Util
         Return out
     End Function
 
-    Public Function CheckIsAssemblyLoaded(dllFilename As String)
+    Public Function CheckIsAssemblyLoaded(dllFilename As String) As Boolean
         Dim asm As Assembly() = AppDomain.CurrentDomain.GetAssemblies()
         For Each x In asm
             Try
@@ -188,19 +190,52 @@ Public Module Util
                                                callbackCancel()
                                            End Sub))
     End Sub
+    Public Function GetBinFolderOfModule(modId As String) As String
+        Return Path.GetFullPath(ModuleHelper.GetModuleFullPath(modId) & "\bin\Win64_Shipping_Client")
+    End Function
+    Public Sub WriteNewDnspySettings()
+        Dim xml = FileSystem.ReadAllText(Path.GetFullPath(BewDir & "\dnSpy.settings.xml"))
+        If Not Directory.Exists(Path.GetFullPath(BewDir & "\temp\")) Then
+            Directory.CreateDirectory(Path.GetFullPath(BewDir & "\temp\"))
+        End If
+        xml = xml.Replace("{BANNERLORD_MAIN_BIN}", HttpUtility.HtmlEncode(Path.GetFullPath(BaseDir)))
+        xml = xml.Replace("{BANNERLORD_MODULE_NATIVE_BIN}", HttpUtility.HtmlEncode(GetBinFolderOfModule("Native")))
+        xml = xml.Replace("{BANNERLORD_MODULE_DEDICATED_SERVER_BIN}", HttpUtility.HtmlEncode(GetBinFolderOfModule("DedicatedCustomServerHelper")))
+        xml = xml.Replace("{BANNERLORD_MODULE_BIRTH_AND_DEATH_BIN}", HttpUtility.HtmlEncode(GetBinFolderOfModule("BirthAndDeath")))
+        xml = xml.Replace("{BANNERLORD_MODULE_CUSTOM_BATTLE_BIN}", HttpUtility.HtmlEncode(GetBinFolderOfModule("CustomBattle")))
+        xml = xml.Replace("{BANNERLORD_MODULE_SANBOX_BIN}", HttpUtility.HtmlEncode(GetBinFolderOfModule("Sandbox")))
+        xml = xml.Replace("{BANNERLORD_MODULE_STORY_MODE_BIN}", HttpUtility.HtmlEncode(GetBinFolderOfModule("StoryMode")))
+        xml = xml.Replace("{BANNERLORD_MODULE_STORY_MODE_BIN}", HttpUtility.HtmlEncode(GetBinFolderOfModule("StoryMode")))
+        FileSystem.WriteAllText(Path.GetFullPath(BewDir & "\temp\dnSpy.settings.1.xml"), xml, False)
+    End Sub
     Public Sub RestartAndAttachDnspy()
+        WriteNewDnspySettings()
         Dim PsBannerlord As New ProcessStartInfo()
         Dim currentpath = Directory.GetCurrentDirectory()
         PsBannerlord.Arguments = "/C cd """ & currentpath &
                          """ && ping 127.0.0.1 -n 2 && " &
                          "start TaleWorlds.MountAndBlade.Launcher.exe --disablebew && " &
                          " ping 127.0.0.1 -n 3 && " &
-                         DnspyDir & "dnSpy.exe --process-name TaleWorlds.MountAndBlade.Launcher.exe"
+                         """" & Path.GetFullPath(DnspyDir) & "dnSpy.exe"" --process-name TaleWorlds.MountAndBlade.Launcher.exe --settings-file " &
+                         """" & Path.GetFullPath(BewTemp & "dnSpy.settings.1.xml") & """"
         PsBannerlord.WindowStyle = ProcessWindowStyle.Hidden
         PsBannerlord.CreateNoWindow = True
         PsBannerlord.FileName = "cmd.exe"
         Process.Start(PsBannerlord)
         KillGame()
+    End Sub
+    Public Sub AttachDnspy()
+        WriteNewDnspySettings()
+        Dim PsDnspy As New ProcessStartInfo()
+        Dim pid = Process.GetCurrentProcess().Id
+        Dim currentpath = Directory.GetCurrentDirectory()
+        PsDnspy.Arguments = "/C cd """ & currentpath & """ && " &
+                         """" & Path.GetFullPath(DnspyDir) & "dnSpy.exe"" --pid " & pid & " " &
+                         "--settings-file """ & Path.GetFullPath(BewTemp & "dnSpy.settings.1.xml") & """"
+        PsDnspy.WindowStyle = ProcessWindowStyle.Hidden
+        PsDnspy.CreateNoWindow = True
+        PsDnspy.FileName = "cmd.exe"
+        Process.Start(PsDnspy)
     End Sub
     Public Sub KillGame()
         Dim pid = Process.GetCurrentProcess().Id
