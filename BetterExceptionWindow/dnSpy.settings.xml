@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<settings>
+  <section _="0118143a-daaa-4614-9de4-034b028f791e" />
+  <section _="071cf92d-acfa-46a1-8eef-dfac1d01e644" />
+  <section _="0a9208ec-cfab-41c2-82c6-fcda44a8e684" />
+  <section _="102dcd2e-be0a-477c-b4d0-600c5ca28a6a" />
+  <section _="1ace15fd-d689-40dc-b1e7-6eec25b3116f" />
+  <section _="2366a90d-c708-4a10-81af-7887976bc3fb" />
+  <section _="2e163d85-e4b5-419a-a525-010df2bea323" />
+  <section _="2f066064-741b-454e-9d21-b04bcf802018" />
+  <section _="3126ab8a-167a-4071-8335-e16d6188f6c9" />
+  <section _="33608c69-6696-4721-8011-81ecccc80c64" />
+  <section _="33e1988b-8eff-4f4c-a064-fa99a7d0c64d">
+    <section _="MainWindowControlState">
+      <section _="Horizontal" horizontal="True">
+        <section _="Length" l="464" />
+        <section _="Length" l="6" />
+        <section _="Length" l="1.05*" />
+      </section>
+      <section _="Location" g="5495ee9f-1ef2-45f3-a320-22a89bfdf731" l="Left" />
+      <section _="Location" g="d799829f-cae3-4f8f-ad81-1732abc50636" l="Bottom" />
+      <section _="Location" g="8e359be0-c8cd-4ca7-b228-8c836219af85" l="Bottom" />
+      <section _="Location" g="5827d693-a5df-4d65-b1f8-acf249508a96" l="Bottom" />
+      <section _="Location" g="0e53b79d-ec30-44b6-86a3-dffce364eb4a" l="Bottom" />
+      <section _="ToolWindow" index="0" is-horizontal="False" location="Left">
+        <section _="Group" index="0">
+          <section _="Content" g="5495ee9f-1ef2-45f3-a320-22a89bfdf731" />
+        </section>
+        <section _="StackedContent" horizontal="True">
+          <section _="Length" l="0.95*" />
+        </section>
+      </section>
+      <section _="ToolWindow" index="-1" is-horizontal="False" location="Right">
+        <section _="StackedContent" horizontal="True" />
+      </section>
+      <section _="ToolWindow" index="-1" is-horizontal="False" location="Top">
+        <section _="StackedContent" horizontal="True" />
+      </section>
+      <section _="ToolWindow" index="0" is-horizontal="False" location="Bottom">
+        <section _="Group" index="0">
+          <section _="Content" g="d799829f-cae3-4f8f-ad81-1732abc50636" />
+          <section _="Content" g="8e359be0-c8cd-4ca7-b228-8c836219af85" />
+          <section _="Content" g="5827d693-a5df-4d65-b1f8-acf249508a96" />
+          <section _="Content" g="0e53b79d-ec30-44b6-86a3-dffce364eb4a" />
+        </section>
+        <section _="StackedContent" horizontal="True">
+          <section _="Length" l="0.95*" />
+        </section>
+      </section>
+      <section _="Vertical" horizontal="False">
+        <section _="Length" l="0.95*" />
+        <section _="Length" l="6" />
+        <section _="Length" l="256.8" />
+      </section>
+    </section>
+    <section _="SavedWindowState" Bounds="239.00000000000003,0,1300,816" IsFullScreen="False" WindowState="Normal" />
+  </section>
+  <section _="34cf0af5-d265-4393-bc68-9b8c9b8ea622" ShowAllThemes="False" ThemeGuid="64efbb2c-0aca-467c-8389-9fa350376f3f" />
+  <section _="3643ce93-84d5-455a-9183-94b58bc80942" />
+  <section _="3e04abe0-fd5e-4938-b40c-f86aa0fa377d" />
+  <section _="40476b68-2e8a-4507-8f59-727fe87a04ee" />
+  <section _="42cb1310-641d-4eb7-971d-16dc5cf9a40d" />
+  <section _="4d05c47d-3f6a-429e-9cb3-232e10d45468" />
+  <section _="53863c11-df95-43f2-8f86-5e9dfcce6893">
+    <section _="FileLists" name="(Default)">
+      <section _="FileList" name="(Default)">
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.TwoDimension.Standalone.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.PlatformService.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.MountAndBlade.Diamond.Server.PS.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.GauntletUI.Data.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.DotNet.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Core.ViewModelCollection.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Library.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.MountAndBlade.Launcher.Library.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.LinQuick.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Diamond.ChatSystem.Library.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Network.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Diamond.AccessProvider.Test.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.ObjectSystem.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Starter.DotNetCore.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.PlatformService.Epic.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.NavigationSystem.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.MountAndBlade.SaveSystem.CodeGenerator.exe" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.MountAndBlade.Launcher.Singleplayer.exe" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Diamond.AccessProvider.GOG.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.GauntletUI.PrefabSystem.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.PlatformService.Steam.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Diamond.AccessProvider.Steam.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.TwoDimension.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.PSAI.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.MountAndBlade.Helpers.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.PlatformService.GOG.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.PlayerServices.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.MountAndBlade.Launcher.Steam.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.BattlEye.Client.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.ModuleManager.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.MountAndBlade.GauntletUI.CodeGenerator.exe" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Diamond.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.MountAndBlade.SteamWorkshop.exe" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Localization.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.DotNet.AutoGenerated.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.MountAndBlade.Launcher.exe" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Diamond.AccessProvider.Epic.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.AchievementSystem.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Diamond.AccessProvider.GDK.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.InputSystem.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.GauntletUI.TooltipExtensions.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.ActivitySystem.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Starter.Library.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.GauntletUI.ExtraWidgets.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.ScreenSystem.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.SaveSystem.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Engine.GauntletUI.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.MountAndBlade.Launcher.Multiplayer.exe" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.MountAndBlade.ViewModelCollection.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Native.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.MountAndBlade.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.MountAndBlade.GauntletUI.Widgets.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.MountAndBlade.AutoGenerated.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.MountAndBlade.Diamond.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.GauntletUI.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Engine.AutoGenerated.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Engine.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.CampaignSystem.ViewModelCollection.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Core.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.CampaignSystem.dll" />
+        <section _="File" name="{BANNERLORD_MODULE_NATIVE_BIN}\TaleWorlds.MountAndBlade.Platform.PC.dll" />
+        <section _="File" name="{BANNERLORD_MODULE_NATIVE_BIN}\TaleWorlds.MountAndBlade.GauntletUI.dll" />
+        <section _="File" name="{BANNERLORD_MODULE_DEDICATED_SERVER_BIN}\TaleWorlds.MountAndBlade.DedicatedCustomServer.ClientHelper.dll" />
+        <section _="File" name="{BANNERLORD_MODULE_BIRTH_AND_DEATH_BIN}\TaleWorlds.CampaignSystem.ViewModelCollection.BirthAndDeath.dll" />
+        <section _="File" name="{BANNERLORD_MODULE_CUSTOM_BATTLE_BIN}\TaleWorlds.MountAndBlade.CustomBattle.dll" />
+        <section _="File" name="{BANNERLORD_MODULE_NATIVE_BIN}\TaleWorlds.MountAndBlade.GauntletUI.AutoGenerated.dll" />
+        <section _="File" name="{BANNERLORD_MODULE_NATIVE_BIN}\TaleWorlds.MountAndBlade.View.dll" />
+        <section _="File" name="{BANNERLORD_MODULE_SANBOX_BIN}\SandBox.ViewModelCollection.dll" />
+        <section _="File" name="{BANNERLORD_MODULE_SANBOX_BIN}\SandBox.GauntletUI.dll" />
+        <section _="File" name="{BANNERLORD_MODULE_SANBOX_BIN}\SandBox.GauntletUI.AutoGenerated.dll" />
+        <section _="File" name="{BANNERLORD_MODULE_SANBOX_BIN}\SandBox.View.dll" />
+        <section _="File" name="{BANNERLORD_MODULE_SANBOX_BIN}\SandBox.dll" />
+        <section _="File" name="{BANNERLORD_MAIN_BIN}\System.Management.dll" />
+        <section _="File" name="{BANNERLORD_MODULE_STORY_MODE_BIN}\StoryMode.dll" />
+        <section _="File" name="{BANNERLORD_MODULE_STORY_MODE_BIN}\StoryMode.GauntletUI.AutoGenerated.dll" />
+        <section _="File" name="{BANNERLORD_MODULE_STORY_MODE_BIN}\StoryMode.GauntletUI.dll" />
+        <section _="File" name="{BANNERLORD_MODULE_STORY_MODE_BIN}\StoryMode.View.dll" />
+        <section _="File" name="{BANNERLORD_MODULE_STORY_MODE_BIN}\StoryMode.ViewModelCollection.dll" />
+      </section>
+    </section>
+  </section>
+  <section _="5e4c09be-8239-4275-b797-dcbce63aefc4" />
+  <section _="642b9276-3c9a-4efe-9b3b-d62046824b18">
+    <section _="file" name="{BANNERLORD_MODULE_STORY_MODE_BIN}\StoryMode.ViewModelCollection.dll" />
+    <section _="file" name="{BANNERLORD_MODULE_STORY_MODE_BIN}\StoryMode.View.dll" />
+    <section _="file" name="{BANNERLORD_MODULE_STORY_MODE_BIN}\StoryMode.GauntletUI.dll" />
+    <section _="file" name="{BANNERLORD_MODULE_STORY_MODE_BIN}\StoryMode.GauntletUI.AutoGenerated.dll" />
+    <section _="file" name="{BANNERLORD_MODULE_STORY_MODE_BIN}\StoryMode.dll" />
+    <section _="file" name="{BANNERLORD_MODULE_SANBOX_BIN}\SandBox.dll" />
+    <section _="file" name="{BANNERLORD_MODULE_SANBOX_BIN}\SandBox.View.dll" />
+    <section _="file" name="{BANNERLORD_MODULE_SANBOX_BIN}\SandBox.GauntletUI.AutoGenerated.dll" />
+    <section _="file" name="{BANNERLORD_MODULE_SANBOX_BIN}\SandBox.GauntletUI.dll" />
+    <section _="file" name="{BANNERLORD_MODULE_SANBOX_BIN}\SandBox.ViewModelCollection.dll" />
+    <section _="file" name="{BANNERLORD_MODULE_NATIVE_BIN}\TaleWorlds.MountAndBlade.View.dll" />
+    <section _="file" name="{BANNERLORD_MODULE_NATIVE_BIN}\TaleWorlds.MountAndBlade.GauntletUI.AutoGenerated.dll" />
+    <section _="file" name="{BANNERLORD_MODULE_CUSTOM_BATTLE_BIN}\TaleWorlds.MountAndBlade.CustomBattle.dll" />
+    <section _="file" name="{BANNERLORD_MODULE_BIRTH_AND_DEATH_BIN}\TaleWorlds.CampaignSystem.ViewModelCollection.BirthAndDeath.dll" />
+    <section _="file" name="{BANNERLORD_MODULE_DEDICATED_SERVER_BIN}\TaleWorlds.MountAndBlade.DedicatedCustomServer.ClientHelper.dll" />
+    <section _="file" name="{BANNERLORD_MODULE_NATIVE_BIN}\TaleWorlds.MountAndBlade.GauntletUI.dll" />
+    <section _="file" name="{BANNERLORD_MODULE_NATIVE_BIN}\TaleWorlds.MountAndBlade.Platform.PC.dll" />
+    <section _="file" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.CampaignSystem.dll" />
+    <section _="file" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Core.dll" />
+    <section _="file" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.CampaignSystem.ViewModelCollection.dll" />
+    <section _="file" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Engine.dll" />
+    <section _="file" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.Engine.AutoGenerated.dll" />
+    <section _="file" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.GauntletUI.dll" />
+    <section _="file" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.MountAndBlade.Diamond.dll" />
+    <section _="file" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.MountAndBlade.AutoGenerated.dll" />
+    <section _="file" name="{BANNERLORD_MAIN_BIN}\TaleWorlds.MountAndBlade.GauntletUI.Widgets.dll" />
+  </section>
+  <section _="64414b81-ef07-4da1-9d21-1f625a6e0080" SelectedGuid="7b6e802a-b58c-4689-877e-3358fcdcefac" />
+  <section _="6745457f-254b-4b7b-90f1-f948f0721c3b" />
+  <section _="68377c1d-228a-4317-ab10-11796f6deb18" CaseSensitive="False" MatchAnySearchTerm="False" MatchWholeWords="False" SearchDecompiledData="True" SearchFrameworkAssemblies="True" SearchLocation="AllFiles" SearchType="Any" SyntaxHighlight="True" />
+  <section _="686c5cfb-ff63-4aa5-8c92-e08607ae5146" />
+  <section _="6a7e565d-dc09-4aae-a7c8-e86a835fcbfc" LanguageGuid="4162dada-67c3-4de4-a5f3-6552c8353ece" />
+  <section _="6aa691d6-c3b8-4823-87ec-dc2e9134cb3e" />
+  <section _="7280c4eb-1135-4f39-b6e0-57bd0a2454d6" />
+  <section _="7caef193-7f6a-4710-8e47-547a71d6fdbc" />
+  <section _="87c84585-355b-4bf2-b5ee-c61bc1975552" />
+  <section _="8a9e5743-f634-45ce-a841-e2275338dc28" />
+  <section _="91f1ed94-1bea-4853-9240-b542a7d022ca" AntiCheckRemoteDebuggerPresent="False" AntiIsDebuggerPresent="False" AsyncDebugging="True" AutoOpenLocalsWindow="True" BreakAllProcesses="True" EnableManagedDebuggingAssistants="True" FocusActiveProcess="True" FocusDebuggerWhenProcessBreaks="True" FullString="False" GroupParametersAndLocalsTogether="False" HideCompilerGeneratedMembers="True" HideDeprecatedError="False" HighlightChangedVariables="True" IgnoreBreakInstructions="False" IgnoreUnhandledExceptions="False" PreventManagedDebuggerDetection="False" PropertyEvalAndFunctionCalls="True" RedirectGuiConsoleOutput="True" RespectHideMemberAttributes="True" ShowCompilerGeneratedVariables="False" ShowDecompilerGeneratedVariables="True" ShowOnlyPublicMembers="False" ShowRawLocals="False" ShowRawStructureOfObjects="False" ShowReturnValues="True" SortLocals="False" SortParameters="False" StepOverPropertiesAndOperators="True" SuppressJITOptimization_ProgramModules="True" SuppressJITOptimization_SystemModules="True" SyntaxHighlight="True" UseDigitSeparators="False" UseHexadecimal="True" UseMemoryModules="False" UseStringConversionFunction="True" />
+  <section _="a7c5956e-593b-4b04-a237-f837cf17e44e" />
+  <section _="b744ae6d-24e0-47a3-acf6-388eccb1c65a" />
+  <section _="ba10705f-f9a0-4cf6-b3a8-b0e4a76151a6" />
+  <section _="d9809eb3-1605-4e05-a84f-6ee241faad6c" />
+  <section _="dd6752b1-5336-4601-a9b2-0879e18ae9f3" />
+  <section _="eaa1be38-7a55-44af-ad93-5b7ee2327edd" />
+  <section _="eb2d9511-93b9-4985-bb99-1758bf2a5ade" />
+  <section _="ef5c4f77-ac84-413b-93ab-4773f0013514" />
+  <section _="f1634589-21ad-42dc-a729-e23cbd7072d2" />
+  <section _="f70d9afd-0233-4630-a2a7-0c5a157158ff" />
+  <section _="fbc6039c-8a7a-49dc-9c32-52c1b73de0a3">
+    <section _="Breakpoint" IsEnabled="True">
+      <section _="BPL" __BPT="DotNet" AssemblyFullName="StoryMode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Method="System.Void StoryMode.GameComponents.CampaignBehaviors.AchievementsCampaignBehavior::OnNewGameCreatedPartialFollowUpEnd(TaleWorlds.CampaignSystem.CampaignGameStarter)" ModuleName="{BANNERLORD_MODULE_STORY_MODE_BIN}\StoryMode.dll" Offset="0" Token="100664274" />
+    </section>
+    <section _="Breakpoint" IsEnabled="True">
+      <section _="BPL" __BPT="DotNet" AssemblyFullName="StoryMode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Method="System.Void StoryMode.GameComponents.CampaignBehaviors.AchievementsCampaignBehavior::OnSessionLaunched(TaleWorlds.CampaignSystem.CampaignGameStarter)" ModuleName="{BANNERLORD_MODULE_STORY_MODE_BIN}\StoryMode.dll" Offset="0" Token="100664285" />
+    </section>
+    <section _="Breakpoint" IsEnabled="True">
+      <section _="BPL" __BPT="DotNet" AssemblyFullName="StoryMode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Method="System.Void StoryMode.GameComponents.CampaignBehaviors.AchievementsCampaignBehavior::OnGameLoadFinished()" ModuleName="{BANNERLORD_MODULE_STORY_MODE_BIN}\StoryMode.dll" Offset="0" Token="100664272" />
+    </section>
+    <section _="Breakpoint" IsEnabled="True">
+      <section _="BPL" __BPT="DotNet" AssemblyFullName="StoryMode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Method="System.Void StoryMode.GameComponents.CampaignBehaviors.AchievementsCampaignBehavior::OnConfigChanged()" ModuleName="{BANNERLORD_MODULE_STORY_MODE_BIN}\StoryMode.dll" Offset="0" Token="100664270" />
+    </section>
+    <section _="Breakpoint" IsEnabled="True">
+      <section _="BPL" __BPT="DotNet" AssemblyFullName="StoryMode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Method="StoryMode.StoryModeEvents StoryMode.StoryModeEvents::get_Instance()" ModuleName="{BANNERLORD_MODULE_STORY_MODE_BIN}\StoryMode.dll" Offset="0" Token="100663420" />
+    </section>
+  </section>
+</settings>
