@@ -1,9 +1,11 @@
 ﻿Imports MCM.Abstractions.FluentBuilder
-Imports MCM.Abstractions.Ref
+Imports MCM.Common
 Imports BetterExceptionWindow
 Public Module BewConfigurationUserInterface
     Dim registered = False
     Public Sub BuildUI()
+        Dim isDownloading = False
+
         If registered Then Exit Sub
         Dim basebuilder = BaseSettingsBuilder _
         .Create(
@@ -88,9 +90,80 @@ Public Module BewConfigurationUserInterface
                       Return boolBuilder _
                             .SetHintText("{=AllowInDebuggerHint}This will crash your game!")
                   End Function) _
+                   .AddButton(
+                 "InstallDnspy",
+                 "{=InstallDnspyLabel}Install Dnspy now",
+                   New ProxyRef(Of Action)(
+                    Function() As Action
+                        Return Sub()
+                                   If isDownloading Then Exit Sub
+                                   If IsDnspyAvailable() Then
+                                       Print("Dnspy already installed")
+                                       Exit Sub
+                                   End If
+                                   MsgBoxBannerlord("Install Dnspy", "Do you want to install Dnspy now?",
+                                    Sub()
+                                        Dim dnspyInstall As New DnspyInstaller
+                                        isDownloading = True
+                                        dnspyInstall.Download(
+                                            Sub()
+                                                MsgBoxBannerlord("Dnspy install", "...is completed!")
+                                                isDownloading = False
+                                            End Sub,
+                                            Sub(prog As DnspyInstaller.Progress)
+                                                Print($"Downloading...({prog.PercentageDownload}) {CInt(prog.TotalDownloadedInByte / 1000)}K/{CInt(prog.SizeInByte / 1000)}K")
+                                            End Sub,
+                                            Sub(ex As Exception)
+                                                MsgBoxBannerlord("An error occured", $"Installation progress was interrupted. Reason: {ex.Message}")
+                                                isDownloading = False
+                                            End Sub
+                                        )
+                                    End Sub,
+                                    Sub()
+
+                                    End Sub)
+                               End Sub
+                    End Function,
+                    Sub(o As Action)
+
+                    End Sub),
+                  "{=InstallDnspyButton}Install now",
+                  Function(boolBuilder)
+                      Return boolBuilder _
+                            .SetHintText("{=InstallDnspyHint}Install Dnspy debugger")
+                  End Function) _
+                  .AddButton(
+                 "AttachDnspy",
+                 "{=AttachNowLabel}Attach dnSpy now",
+                   New ProxyRef(Of Action)(
+                    Function() As Action
+                        Return Sub()
+                                   If Debugger.IsAttached Then
+                                       Print("The game is running under debugger already")
+                                       Exit Sub
+                                   End If
+                                   If IsDnspyAvailable() Then
+                                       Print("Please wait... Don't spam this button")
+                                       AttachDnspy()
+                                       If Not IsNothing(Main.Instance()) Then
+                                           Main.Instance().Unpatch()
+                                       End If
+                                       Exit Sub
+                                   End If
+                                   Print("Dnspy is not installed in BetterExceptionWindow")
+                               End Sub
+                    End Function,
+                    Sub(o As Action)
+
+                    End Sub),
+                  "{=AttachNowButton}Attach now",
+                  Function(boolBuilder)
+                      Return boolBuilder _
+                            .SetHintText("{=AttachHint}Attach Dnspy debugger now")
+                  End Function) _
                  .AddButton(
                  "Restart",
-                 "{=CrashTest}Restart with dnSpy attached",
+                 "{=RestartDnspyLabel}Restart with dnSpy attached",
                    New ProxyRef(Of Action)(
                     Function() As Action
                         Return Sub()
@@ -116,14 +189,14 @@ Public Module BewConfigurationUserInterface
                     Sub(o As Action)
 
                     End Sub),
-                  "{=TestItNow}Restart",
+                  "{=RestartButton}Restart",
                   Function(boolBuilder)
                       Return boolBuilder _
-                            .SetHintText("{=AllowInDebuggerHint}Restart the game with debugger attached")
+                            .SetHintText("{=RestartDebuggerHint}Restart the game with debugger attached")
                   End Function) _
                  .AddButton(
                  "About",
-                 "{=CrashTest}About BetterExceptionWindow",
+                 "{=AboutBewLabel}About BetterExceptionWindow",
                    New ProxyRef(Of Action)(
                     Function() As Action
                         Return Sub()
@@ -136,10 +209,10 @@ Public Module BewConfigurationUserInterface
                     Sub(o As Action)
 
                     End Sub),
-                  "{=TestItNow}About...",
+                  "{=AboutButton}About...",
                   Function(boolBuilder)
                       Return boolBuilder _
-                            .SetHintText("{=AllowInDebuggerHint}About this program.")
+                            .SetHintText("{=AboutHint}About this program.")
                   End Function)
             End Function) _
             .BuildAsGlobal() _
