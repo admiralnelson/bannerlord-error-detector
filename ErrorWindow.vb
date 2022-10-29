@@ -270,7 +270,8 @@ Public Class ErrorWindow
 
         Dim modulesInGameDirectories = Directory.GetDirectories(modulePath)
         Dim directories = New List(Of String)
-        If IsRunningSteam Then
+        Dim isSteamWorkshopFolderExists = Directory.Exists(Path.GetFullPath(BaseDir & "/../../../../workshop/content/261550"))
+        If IsRunningSteam And isSteamWorkshopFolderExists Then
             Dim modulesInSteamWorkshopDirectory = Directory.GetDirectories(Path.GetFullPath(BaseDir & "/../../../../workshop/content/261550"))
             directories.AddRange(modulesInSteamWorkshopDirectory)
         End If
