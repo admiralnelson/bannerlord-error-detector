@@ -14,177 +14,13 @@ Imports TaleWorlds.MountAndBlade.View
 Namespace Global.BetterExceptionWindow
     Public Class Main
         Inherits MBSubModuleBase
-        <HarmonyPatch(GetType(Managed), "ApplicationTick")>
-        Public Class OnApplicationTickCorePatch
-            <HarmonyPriority(Priority.First)>
-            Private Shared Sub Finalizer(ByVal __exception As Exception)
-                If CatchGlobalTick Then
-                    If __exception IsNot Nothing Then
-                        Dim window As New ErrorWindow
-                        window.exceptionData = __exception
-                        window.ShowDialog()
-                    End If
-                End If
-            End Sub
-        End Class
-        <HarmonyPatch(GetType(ScriptComponentBehavior), "OnTick")>
-        Public Class OnComponentBehaviourTickPatch
-            <HarmonyPriority(Priority.First)>
-            Private Shared Sub Finalizer(ByVal __exception As Exception)
-                If CatchComponentBehaviourTick Then
-                    If __exception IsNot Nothing Then
-                        Dim window As New ErrorWindow
-                        window.exceptionData = __exception
-                        window.ShowDialog()
-                    End If
-                End If
-            End Sub
-        End Class
-        <HarmonyPatch(GetType(TaleWorlds.MountAndBlade.[Module]), "OnApplicationTick")>
-        Public Class OnApplicationTickPatch
-            <HarmonyPriority(Priority.First)>
-            Private Shared Sub Finalizer(ByVal __exception As Exception)
-                If CatchOnApplicationTick Then
-                    If __exception IsNot Nothing Then
-                        Dim window As New ErrorWindow
-                        window.exceptionData = __exception
-                        window.ShowDialog()
-                    End If
-                End If
-            End Sub
-        End Class
-        <HarmonyPatch(GetType(MissionViews.MissionView), "OnMissionScreenTick")>
-        Public Class OnMissionScreenTickPatch
-            <HarmonyPriority(Priority.First)>
-            Private Shared Sub Finalizer(ByVal __exception As Exception)
-                If CatchOnMissionScreenTick Then
-                    If __exception IsNot Nothing Then
-                        Dim window As New ErrorWindow
-                        window.exceptionData = __exception
-                        window.ShowDialog()
-                    End If
-                End If
-            End Sub
-        End Class
-        <HarmonyPatch(GetType(ScreenSystem.ScreenManager), "Tick")>
-        Public Class OnFrameTickPatch
-            <HarmonyPriority(Priority.First)>
-            Private Shared Sub Finalizer(ByVal __exception As Exception)
-                If CatchOnFrameTick Then
-                    If __exception IsNot Nothing Then
-                        Dim window As New ErrorWindow
-                        window.exceptionData = __exception
-                        window.ShowDialog()
-                    End If
-                End If
-            End Sub
-        End Class
-        <HarmonyPatch(GetType(Mission), "Tick")>
-        Public Class OnTickMissionPatch
-            <HarmonyPriority(Priority.First)>
-            Private Shared Sub Finalizer(ByVal __exception As Exception)
-                If CatchTick Then
-                    If __exception IsNot Nothing Then
-                        Dim window As New ErrorWindow
-                        window.exceptionData = __exception
-                        window.ShowDialog()
-                    End If
-                End If
-            End Sub
-        End Class
-        <HarmonyPatch(GetType(MissionBehavior), "OnMissionTick")>
-        Public Class OnMissionTickPatch
-            <HarmonyPriority(Priority.First)>
-            Private Shared Sub Finalizer(ByVal __exception As Exception)
-                If CatchTick Then
-                    If __exception IsNot Nothing Then
-                        Dim window As New ErrorWindow
-                        window.exceptionData = __exception
-                        window.ShowDialog()
-                    End If
-                End If
-            End Sub
-        End Class
-        <HarmonyPatch(GetType(MBSubModuleBase), "OnSubModuleLoad")>
-        Public Class OnSubModuleLoadPatch
-            <HarmonyPriority(Priority.First)>
-            Private Shared Sub Finalizer(ByVal __exception As Exception)
-                If CatchTick Then
-                    If __exception IsNot Nothing Then
-                        Dim window As New ErrorWindow
-                        window.exceptionData = __exception
-                        window.ShowDialog()
-                    End If
-                End If
-            End Sub
-        End Class
-        Public Sub AppDomain_UnhandledException(o As Object, __exception As UnhandledExceptionEventArgs)
-            If CatchTick Then
-                If __exception IsNot Nothing Then
-                    Dim window As New ErrorWindow
-                    window.exceptionData = __exception.ExceptionObject
-                    window.ShowDialog()
-                End If
-            End If
-        End Sub
-        Public Sub AppDomain_UnhandledExceptionThr(o As Object, __exception As ThreadExceptionEventArgs)
-            If CatchTick Then
-                If __exception IsNot Nothing Then
-                    Dim window As New ErrorWindow
-                    window.exceptionData = __exception.Exception
-                    window.ShowDialog()
-                End If
-            End If
-        End Sub
-        Dim patches
-        Dim harmony_ As Harmony
-        Shared main As Main
-        Public Shared Function Instance() As Main
-            Return main
-        End Function
-        Public Sub Unpatch()
-            harmony_.UnpatchAll()
-        End Sub
-        Private Sub PatchNativeAPI2NetBoundaries()
-            Dim callbacksGeneratedTypes = GetAssemblyByDll("TaleWorlds.Engine.AutoGenerated.dll")
-            Dim CallbacksGenerated = callbacksGeneratedTypes.GetTypes().ToList()
-            For Each x In CallbacksGenerated
-                Print(x.Name)
-            Next
-        End Sub
-        Private Sub PatchMe()
-            harmony_ = New Harmony("org.calradia.admiralnelson.betterexceptionwindow")
-            harmony_.PatchAll()
-
-            If Not Debugger.IsAttached Then
-                AddHandler Application.ThreadException, AddressOf AppDomain_UnhandledExceptionThr
-                AddHandler AppDomain.CurrentDomain.UnhandledException, AddressOf AppDomain_UnhandledException
-
-                Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException)
-            End If
-            patches = harmony_.GetPatchedMethods()
-            'PatchNativeAPI2NetBoundaries()
-        End Sub
-        Private Sub DisableButterlibException()
-            If DisableBewButterlibException Then
-                If patches IsNot Nothing Then
-                    For Each x In patches
-                        harmony_.Unpatch(x, HarmonyPatchType.Finalizer, "Bannerlord.ButterLib.ExceptionHandler.BEW")
-                    Next
-                End If
-            End If
-            Try
-                Dim butterlibItSelf = GetAssemblyByDll("Bannerlord.ButterLib.dll")
-                If butterlibItSelf IsNot Nothing Then
-                    Dim classItself = butterlibItSelf.GetType("Bannerlord.ButterLib.ExceptionHandler.ExceptionHandlerSubSystem")
-                    Dim method = classItself.GetMethod("Disable")
-                    Dim instance = classItself.GetProperty("Instance", BindingFlags.Static Or BindingFlags.Public).GetValue(Nothing)
-                    method.Invoke(instance, New Object() {})
-                End If
-            Catch ex As Exception
-                MsgBox("unable to disable butterlib exception, please tell admiralnelson about this! " + ex.Message, MsgBoxStyle.Exclamation, "Warning")
-            End Try
-        End Sub
+        'Private Sub PatchNativeAPI2NetBoundaries()
+        '    Dim callbacksGeneratedTypes = GetAssemblyByDll("TaleWorlds.Engine.AutoGenerated.dll")
+        '    Dim CallbacksGenerated = callbacksGeneratedTypes.GetTypes().ToList()
+        '    For Each x In CallbacksGenerated
+        '        Print(x.Name)
+        '    Next
+        'End Sub
         Private Sub LoadBetterExceptionMCMUI()
             Dim bewUIDllFilePath = BewBinDir & "\BetterExceptionWindowConfigUI.dll"
             If Not File.Exists(bewUIDllFilePath) Then
@@ -236,11 +72,11 @@ Namespace Global.BetterExceptionWindow
         Protected Overrides Sub OnSubModuleLoad()
             ReadConfig()
             If EnableStdoutConsole Then SpawnConsole() Else StartLogger()
+            InitPatch()
             If IsDebugged Then
             Else
-                PatchMe()
+                InitPatch()
             End If
-            Main = Me
         End Sub
     End Class
 End Namespace

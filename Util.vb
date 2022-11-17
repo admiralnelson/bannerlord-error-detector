@@ -14,6 +14,7 @@ Imports System.Windows.Forms
 Imports TaleWorlds
 Imports System.Web
 
+
 Public Module Util
     Public AllowInDebugger As Boolean = True
     Public CatchOnApplicationTick As Boolean = True
@@ -83,6 +84,7 @@ Public Module Util
     Public Sub Print(str As String)
         InformationManager.DisplayMessage(New InformationMessage(str))
         Console.WriteLine(str)
+        Debug.Print(str)
     End Sub
     Public Function GetAssembliesData() As List(Of Assembly)
         Dim asm = AppDomain.CurrentDomain.GetAssemblies()

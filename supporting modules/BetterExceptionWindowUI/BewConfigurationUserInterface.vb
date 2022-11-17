@@ -74,6 +74,7 @@ Public Module BewConfigurationUserInterface
                                    MsgBoxBannerlord("Warning!", "This will crash your game! Are you sure?",
                                      Sub()
                                          Throw New Exception("Exception test on UI event")
+                                         Print("User attempted to continue execution despite unhandled exception!")
                                      End Sub,
                                      Sub()
 
@@ -145,9 +146,7 @@ Public Module BewConfigurationUserInterface
                                    If IsDnspyAvailable() Then
                                        Print("Please wait... Don't spam this button")
                                        AttachDnspy()
-                                       If Not IsNothing(Main.Instance()) Then
-                                           Main.Instance().Unpatch()
-                                       End If
+                                       Unpatch()
                                        Exit Sub
                                    End If
                                    Print("Dnspy is not installed in BetterExceptionWindow")

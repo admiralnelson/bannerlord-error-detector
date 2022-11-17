@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.Drawing
+Imports System.IO
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 Imports System.Security.Permissions
@@ -15,8 +16,10 @@ Imports TaleWorlds.SaveSystem
 <ComVisibleAttribute(True)>
 Public Class ErrorWindow
     Public Shared exceptionData As Exception
+    Public Shared bErrorWasUIRelated = False
+    Shared errorCount = 0
     Dim problematicModules = New SortedSet(Of String)
-    Dim html = File.ReadAllText(BewBasePath & "\errorui.htm")
+    Dim html = File.ReadAllText(BewBasePath() & "\errorui.htm")
 
     Private Sub ErrorWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim menu As New Windows.Forms.ContextMenu()
@@ -24,6 +27,16 @@ Public Class ErrorWindow
         widget.ContextMenu = menu
         Me.TopMost = True
         widget.ObjectForScripting = Me
+        Dim additionalInfo = ""
+        If errorCount > 0 Then
+            additionalInfo = "The game has crashed " & errorCount & IIf(errorCount = 1, " time.", " times.")
+            additionalInfo = additionalInfo & "<br />"
+        End If
+        errorCount = errorCount + 1
+        If bErrorWasUIRelated Then
+            additionalInfo = additionalInfo & "Because the crash is UI related, It is possible to attempt program execution, however your milage may vary."
+        End If
+        html = html.Replace("{additionalMessage}", additionalInfo)
         html = html.Replace("{errorString}", exceptionData.Message)
         html = html.Replace("{faultingSource}", exceptionData.Source)
         html = html.Replace("{fullStackString}", exceptionData.StackTrace)
@@ -56,8 +69,17 @@ Public Class ErrorWindow
         widget.WebBrowserShortcutsEnabled = False
         widget.ScriptErrorsSuppressed = True
         'widget.Document.InvokeScript("AnalyseModule", Nothing)
+        PrintExceptionToDebug()
+        bErrorWasUIRelated = False
     End Sub
-
+    Private Sub PrintExceptionToDebug()
+        Debug.Print("Better exception window unhandled exception: " & exceptionData.Message)
+        Debug.Print(exceptionData.StackTrace)
+        If Not IsNothing(exceptionData.InnerException) Then
+            Debug.Print("Inner exception: " & exceptionData.InnerException.Message)
+            Debug.Print(exceptionData.InnerException.StackTrace)
+        End If
+    End Sub
     Private Sub WebContextMenuShowing(ByVal sender As Object, ByVal e As HtmlElementEventArgs)
         'disables context menu
         widgetMenu.Show(widget, e.MousePosition)
@@ -76,8 +98,9 @@ Public Class ErrorWindow
             widget.Document.ExecCommand("SelectAll", False, Nothing)
         End If
     End Sub
+    Public Function TakeScreenshot()
 
-
+    End Function
     Public Function Save()
         'Dim filename = Str(DateTime.Now.ToFileTimeUtc()) + ".htm"
         Dim fileDialog As New SaveFileDialog()
@@ -89,7 +112,11 @@ Public Class ErrorWindow
         End If
         Return Nothing
     End Function
-
+    Public Sub AttemptToContinue()
+        Me.DialogResult = DialogResult.Retry
+        Print("Better Exception Window WARNING: User attempted to continue program execution despite unhandled exception! This may (or may not) trigger unwanted side effect.")
+        Close()
+    End Sub
     Public Sub CloseProgram()
         KillGame()
     End Sub
@@ -102,6 +129,9 @@ Public Class ErrorWindow
 
         End Try
     End Sub
+    Public Function IsRunningBannerlord()
+        Return True
+    End Function
     Public Sub OpenFile(s As String)
         Process.Start(s)
     End Sub
@@ -319,8 +349,6 @@ Public Class ErrorWindow
                         jsondata("isFaultingMod") = exceptionData.StackTrace.Contains(name) Or exceptionData.StackTrace.Contains(modId) And jsondata("isModLoaded")
                         Dim result = CheckIsAssemblyLoaded(dll("DLLName")("@value"))
                         If result Then
-                            Debug.Print("ok")
-                            Debug.Print(dll("DLLName")("@value"))
                             dll("isLoadedInMemory") = True
                         Else
                             dll("isLoadedInMemory") = False
