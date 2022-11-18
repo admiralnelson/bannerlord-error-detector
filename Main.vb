@@ -73,7 +73,6 @@ Namespace Global.BetterExceptionWindow
         Protected Overrides Sub OnSubModuleLoad()
             ReadConfig()
             If EnableStdoutConsole Then SpawnConsole() Else StartLogger()
-            InitPatch()
             If IsDebugged Then
             Else
                 InitPatch()
