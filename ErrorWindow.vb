@@ -160,6 +160,19 @@ Public Class ErrorWindow
         Print("Better Exception Window WARNING: User attempted to continue program execution despite unhandled exception! This may (or may not) trigger unwanted side effect.")
         Close()
     End Sub
+    Public Function DumpMemory(fullMemory As Boolean) As Integer
+        Dim fileDialog As New SaveFileDialog()
+        fileDialog.Filter = "Memory Dump (*.dmp)|*.dmp|All files (*.*)|*.*"
+        If fileDialog.ShowDialog() = DialogResult.OK AndAlso fileDialog.FileName <> "" Then
+            Dim filename = fileDialog.FileName
+            If DumpFile(filename, fullMemory) Then
+                Return 0
+            Else
+                Return 1
+            End If
+        End If
+        Return 2
+    End Function
     Public Sub CloseProgram()
         KillGame()
     End Sub

@@ -348,10 +348,10 @@
             <img src='https://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-25-Folder-Download-icon.png' width='48' />
             <div class="troubleshoot-desc">
                 Dump the memory content. <br />
-                This will dump the contents of the program memory into a file so you can analyse it later.<br />
+                This will dump the contents of the program memory into a file so it can be analysed later.<br />
                 Memory dump can be quite big so BEW will save this dump seperately. <br />
                 <div style="display:normal" id="">
-                    <input type="checkbox" id="checkDumpHeap" /> Also dump the heap memory.
+                    <input type="checkbox" id="checkDumpHeap" /> Dump full memory.
                 </div>
             </div>
             <br />
@@ -1332,6 +1332,23 @@
                 imageData = document.getElementById("imageBase64").innerText;
             screenshotImage.style.display = "block";
             screenshotImage.src = 'data:image/png;base64,' + imageData;
+        }
+        function DumpMemory() {
+            var checkDumpHeap = document.getElementById("checkDumpHeap").checked,
+                dumpResult = window.external.DumpMemory(checkDumpHeap);
+
+            switch (dumpResult) {
+                case 0:
+                    alert("Memory has been dumped");
+                    break;
+                case 1:
+                    alert("Failed to dump the memory");
+                    break;
+                case 2:
+                    break;
+                default:
+            }
+
         }
 
         LoadScreenshot();
