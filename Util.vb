@@ -198,6 +198,38 @@ Public Module Util
     Public Function GetBinFolderOfModule(modId As String) As String
         Return Path.GetFullPath(ModuleHelper.GetModuleFullPath(modId) & "\bin\Win64_Shipping_Client")
     End Function
+    Public Function GetListOfBannerlordDllModules() As List(Of String)
+        Dim nativeModules = {"Native", "SandBoxCore", "CustomBattle", "StoryMode"}
+        Dim modulesPath = Path.GetFullPath(BaseDir & "\..\..\Modules")
+        Dim modulesDirectories = Directory.EnumerateDirectories(modulesPath)
+        Dim results As New List(Of String)
+        For Each x In modulesDirectories
+            If nativeModules.Contains(x) Then Continue For
+            If Directory.Exists(Path.GetFullPath(x) & "\bin\Win64_Shipping_Client") Then
+                Dim files = Directory.EnumerateFiles(Path.GetFullPath(x) & "\bin\Win64_Shipping_Client").Where(Function(y) y.EndsWith("dll"))
+                results.AddRange(files)
+            End If
+            If Directory.Exists(Path.GetFullPath(x) & "\bin\Win64_Shipping_wEditor") Then
+                Dim files = Directory.EnumerateFiles(Path.GetFullPath(x) & "\bin\Win64_Shipping_wEditor").Where(Function(y) y.EndsWith("dll"))
+                results.AddRange(files)
+            End If
+        Next
+        Dim isSteamWorkshopFolderExists = Directory.Exists(Path.GetFullPath(BaseDir & "/../../../../workshop/content/261550"))
+        If IsRunningSteam And isSteamWorkshopFolderExists Then
+            Dim modulesInSteamWorkshopDirectory = Directory.GetDirectories(Path.GetFullPath(BaseDir & "/../../../../workshop/content/261550"))
+            For Each x In modulesInSteamWorkshopDirectory
+                If Directory.Exists(Path.GetFullPath(x) & "\bin\Win64_Shipping_Client") Then
+                    Dim files = Directory.EnumerateFiles(Path.GetFullPath(x) & "\bin\Win64_Shipping_Client").Where(Function(y) y.EndsWith("dll"))
+                    results.AddRange(files)
+                End If
+                If Directory.Exists(Path.GetFullPath(x) & "\bin\Win64_Shipping_wEditor") Then
+                    Dim files = Directory.EnumerateFiles(Path.GetFullPath(x) & "\bin\Win64_Shipping_wEditor").Where(Function(y) y.EndsWith("dll"))
+                    results.AddRange(files)
+                End If
+            Next
+        End If
+        Return results
+    End Function
     Public Sub WriteNewDnspySettings()
         Dim xml = FileSystem.ReadAllText(Path.GetFullPath(BewDir & "\dnSpy.settings.xml"))
         If Not Directory.Exists(Path.GetFullPath(BewDir & "\temp\")) Then
@@ -211,6 +243,15 @@ Public Module Util
         xml = xml.Replace("{BANNERLORD_MODULE_SANBOX_BIN}", HttpUtility.HtmlEncode(GetBinFolderOfModule("Sandbox")))
         xml = xml.Replace("{BANNERLORD_MODULE_STORY_MODE_BIN}", HttpUtility.HtmlEncode(GetBinFolderOfModule("StoryMode")))
         xml = xml.Replace("{BANNERLORD_MODULE_STORY_MODE_BIN}", HttpUtility.HtmlEncode(GetBinFolderOfModule("StoryMode")))
+
+        Dim thirdPartiesDll = GetListOfBannerlordDllModules()
+        Dim section = ""
+        For Each x In thirdPartiesDll
+            section = section & vbNewLine & "<section _=""File"" name=""" & x & """ />"
+        Next
+        section = section.Replace("&", "&amp;")
+        xml = xml.Replace("{THIRD_PARTY_MODULES}", section)
+
         FileSystem.WriteAllText(Path.GetFullPath(BewDir & "\temp\dnSpy.settings.1.xml"), xml, False)
     End Sub
     Public Sub RestartAndAttachDnspy()
