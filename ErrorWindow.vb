@@ -35,7 +35,7 @@ Public Class ErrorWindow
         End If
         errorCount = errorCount + 1
         If bErrorWasUIRelated Then
-            additionalInfo = additionalInfo & "Because the crash is UI related, It is possible to attempt program execution, however your milage may vary."
+            additionalInfo = additionalInfo & "Because the crash is UI related, it is possible to attempt program execution, however your milage may vary."
         End If
         html = html.Replace("{additionalMessage}", additionalInfo)
         html = html.Replace("{errorString}", exceptionData.Message)
