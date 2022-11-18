@@ -324,6 +324,9 @@
             <div class="troubleshoot-desc">
                 Attach screenshot. <br />
                 Capture current game screenshot and attach it to this error report.<br />
+                <div>
+                    <div id="noPictureMessage" style="display:none">No screenshot was attached on this report.</div>
+                </div>
             </div>
             <br />
             <br />
@@ -1262,15 +1265,15 @@
         function SaveGameAttachement() {
             var attachSaveGameButton = document.getElementById("attachSaveGameButton"),
                 attachDownloadSaveGameButton = document.getElementById("attachDownloadSaveGameButton"),
-                saveGameFilename = document.getElementById("saveGameFileName"),
+                saveGameFilename = document.getElementById("saveGameFileName").innerText,
                 saveGameAttach = document.getElementById("savegameattach"),
                 attachSaveMessage = document.getElementById("attachSaveMessage");
 
             if (!isRunningInGame()) {
                 attachSaveGameButton.style.display = "none";
-                if (saveGameFilename.innerText == "{saveGameFileName}" || saveGameFilename.length == 0) {
-                    attachSaveMessage.style.display = "block";
+                if (saveGameFilename.indexOf("{saveGameFileName}") >= 0 || saveGameFilename.length == 0) {
                     attachSaveMessage.innerText = "No save game was attached.";
+                    attachSaveMessage.style.display = "block";
                 } else {
                     attachDownloadSaveGameButton.style.display = "block";
                     attachSaveMessage.style.display = "block";
@@ -1329,7 +1332,12 @@
         function LoadScreenshot() {
             if (isRunningInGame()) return;
             var screenshotImage = document.getElementById("screenshotImage"),
+                noPictureMessage = document.getElementById("noPictureMessage"),
                 imageData = document.getElementById("imageBase64").innerText;
+            if (imageData.indexOf("{screenshotBase64}") >= 0) {
+                noPictureMessage.style.display = "block";
+                return;
+            }
             screenshotImage.style.display = "block";
             screenshotImage.src = 'data:image/png;base64,' + imageData;
         }
