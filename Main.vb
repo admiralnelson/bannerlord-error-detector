@@ -56,10 +56,10 @@ Namespace Global.BetterExceptionWindow
                                                 "It will disable Butterlib exception window starting from this version." & vbNewLine & vbNewLine &
                                                 "You can restore to old behaviour by unchecking Disable BewButterlib exception in mod option",
                                                 Sub()
-                                                    IsFirstTime = False
                                                     SaveSettings()
                                                 End Sub, Nothing, "I understand")
                             End If
+                            IsFirstTime = False
                         End Sub
                     )
                 End Sub)

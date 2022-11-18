@@ -37,6 +37,11 @@ Public Class ErrorWindow
         If bErrorWasUIRelated Then
             additionalInfo = additionalInfo & "Because the crash is UI related, it is possible to attempt program execution, however your milage may vary."
         End If
+        If CheckIsAssemblyLoaded("Bannerlord.ButterLib.dll") And Not DisableBewButterlibException Then
+            html = html.Replace("{butterlibMessage}", "<a href='#' onclick='window.external.Close()'>Click here</a> to show Butterlib exception.<br /><br />")
+        Else
+            html = html.Replace("{butterlibMessage}", "")
+        End If
         html = html.Replace("{additionalMessage}", additionalInfo)
         html = html.Replace("{errorString}", exceptionData.Message)
         html = html.Replace("{faultingSource}", exceptionData.Source)
@@ -73,6 +78,9 @@ Public Class ErrorWindow
         PrintExceptionToDebug()
         bErrorWasUIRelated = False
     End Sub
+    Public Sub ShowButterlibException()
+        'HtmlBuilder.BuildAndShow(new CrashReport(__exception))
+    End Sub
     Private Sub PrintExceptionToDebug()
         Debug.Print("Better exception window unhandled exception: " & exceptionData.Message)
         Debug.Print(exceptionData.StackTrace)
@@ -87,7 +95,6 @@ Public Class ErrorWindow
         'Me.widget.ContextMenuStrip.Show(Cursor.Position)
         e.ReturnValue = False
     End Sub
-
     Private Sub WebShorcut(ByVal sender As Object, ByVal e As PreviewKeyDownEventArgs)
         If e.Modifiers = Keys.Control And e.KeyCode = Keys.C Then
             widget.Document.ExecCommand("Copy", False, Nothing)
