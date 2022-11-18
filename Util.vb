@@ -356,6 +356,7 @@ Public Module Util
         image.Save(szFileName, ici, eps)
     End Sub
     Public Sub TakeScreenshot(filename As String)
+        If Not Directory.Exists(Path.GetFullPath(BewDir & "\temp\")) Then Directory.CreateDirectory(Path.GetFullPath(BewDir & "\temp\"))
         Dim filenameAndPath = BewTemp & "\" & filename & ".jpg"
         Engine.Utilities.TakeScreenshot(filenameAndPath)
         Dim filenameAndPathCompressed = BewTemp & "\" & filename & ".compressed.jpg"
