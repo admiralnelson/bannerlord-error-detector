@@ -98,8 +98,11 @@ Public Class ErrorWindow
             widget.Document.ExecCommand("SelectAll", False, Nothing)
         End If
     End Sub
-    Public Function TakeScreenshot()
-
+    Public Function Screenshot()
+        TakeScreenshot("temporary")
+        Dim b64image = FileToBase64String(BewTemp & "\temporary.compressed.jpg")
+        html = html.Replace("{screenshotBase64}", b64image)
+        Return "file://" & BewTemp & "/temporary.compressed.jpg"
     End Function
     Public Function Save()
         'Dim filename = Str(DateTime.Now.ToFileTimeUtc()) + ".htm"

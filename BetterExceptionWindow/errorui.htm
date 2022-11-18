@@ -128,7 +128,7 @@
 <body>
     <div style='clear:both;' id="top">
         <h1 id='title'> An unhandled exception occured! </h1>
-        <button class='button' onclick='window.external.Close()'>
+        <button class='button' onclick='window.external.AttemptToContinue()'>
             Attempt to continue
         </button>
         <button class='button' onclick='window.external.CloseProgram()'>
@@ -155,7 +155,9 @@
                         This error can be caused by a faulty XMLs, manifest (submodule.xml), corrupted save game, module, or programming errors.<br />
                         If this keeps happening, consider saving the error report and send it to the module authors or run a <a href="#troubleshoot" onclick="OpenTroubleshootSection()">troubleshoot</a> to solve the issues.<br /><br />
 
-                        You can disable the error window individually in <a href='#' onclick='window.external.OpenConfig()'><b>config.json</b></a> in BetterExceptionWindow submodule folder.
+                        You can control Better Exception Window behaviour by editing <a href='#' onclick='window.external.OpenConfig()'><b>config.json</b></a> in BetterExceptionWindow submodule folder.<br /><br />
+
+                        {additionalMessage}
                     </p>
                 </td>
             </tr>
@@ -245,7 +247,7 @@
     </h2>
     <div class='msg' id='harmony'>
         <div id="harmony-container">
-            
+
         </div>
     </div>
     <h2 name="troubleshoot">
@@ -313,6 +315,46 @@
             <div class="progressbar" id="dnspyProgressbar" style="display:none">Installing...(0000000K/000000K)</div>
             <button class="troubleshoot-buttons" onclick="StartDnspy()" id="dnspyButton" disabled>Restart the program with dnSpy attached</button>
         </div>
+        <div class='border-blue' id="screenshotattach">
+            <img src='https://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-28-Filetype-jpg-icon.png' width='48' />
+            <div class="troubleshoot-desc">
+                Attach screenshot. <br />
+                Capture current game screenshot and attach it to this error report.<br />
+            </div>
+            <br />
+            <br />
+            <img src="" style="width:80%;display:none;float:none" id="screenshotImage" />
+            <button class="troubleshoot-buttons" onclick="Screenshot()" id="screenshotButton">Screenshot now</button>
+        </div>
+        <div class='border-blue' id="savegameattach">
+            <img src='https://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-16-Folder-Documents-icon.png' width='48' />
+            <div class="troubleshoot-desc">
+                Attach latest save game to this error report. <br />
+                You can extract the save game by opening this error report in the browser.<br />
+                <div>
+                    <div style="display:none" id="saveGameFileName">{saveGameFileName}</div> <br />
+                    <div id="cannotAttachSave" style="display:none">Cannot attach because current game is not running campaign.</div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <button class="troubleshoot-buttons" onclick="AttachSaveGame()" id="attachSaveGameButton">Click to attach</button>
+            <button class="troubleshoot-buttons" onclick="DownloadSaveGame()" id="attachDownloadSaveGameButton" style="display:none">Download the save data</button>
+        </div>
+        <div class='border-blue' id="memorydump">
+            <img src='https://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-25-Folder-Download-icon.png' width='48' />
+            <div class="troubleshoot-desc">
+                Dump the memory content. <br />
+                This will dump the contents of the program memory into a file so you can analyse it later.<br />
+                Memory dump can be quite big so BEW will save this dump seperately. <br />
+                <div style="display:normal" id="">
+                    <input type="checkbox" id="checkDumpHeap" /> Also dump the heap memory.
+                </div>
+            </div>
+            <br />
+            <br />
+            <button class="troubleshoot-buttons" onclick="DumpMemory()" id="dumpHeapButton">Dump now</button>
+        </div>
     </div>
     <div id="jsonData" style="display:none">
         {jsonData}
@@ -323,13 +365,16 @@
     <div id="takenTroubleshootActions" style="display:none">
         {jsonTroubleshoot}
     </div>
-    <div id="saveblobsBase64" style="display:none">
-        work in progress
+    <div id="imageBase64" style="display:none">
+        {screenshotBase64}
+    </div>
+    <div id="saveGameBase64" style="display:none">
+        {saveGameBase64}
     </div>
     <div class="GoToTop">
         <img src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/256/sign-up-icon.png" style="vertical-align: middle;" width="16" height="16" />
         <span style="vertical-align:middle"><a href="#top">Go to the top</a></span>
-    
+
     </div>
     <hr />
     <small id="bewVersion">Generated by {version} {commit} </small>
@@ -698,6 +743,9 @@
                 return Object.prototype.toString.call(obj) === '[object Array]';
             }
         };
+        function isRunningInGame() {
+            return window.external.IsRunningBannerlord != null;
+        }
         function spoiler(e, msg, el) {
             if (document.getElementById(el).style.display == 'block') {
                 document.getElementById(el).style.display = 'none';
@@ -866,7 +914,7 @@
                 labelSubModules.innerText = "Submodules:";
 
                 if (data.WorkshopUrl) {
-                    steamWorkshopLinkLi.innerHTML = "Steamworkshop URL: <a href='" + data.WorkshopUrl  + "'>" + data.WorkshopUrl + "</a>";
+                    steamWorkshopLinkLi.innerHTML = "Steamworkshop URL: <a href='" + data.WorkshopUrl + "'>" + data.WorkshopUrl + "</a>";
                 }
 
                 if (!data.Module.DependedModules || !data.Module.DependedModules.DependedModule || Array.isArray(data.Module.DependedModules.DependedModule) && data.Module.DependedModules.DependedModule.length == 0) {
@@ -1169,7 +1217,7 @@
             totalSize = parseInt(totalSize);
             downloadedTotal = Math.ceil(downloadedTotal / 1000);
             totalSize = Math.ceil(totalSize / 1000);
-            dnspyProgressBar.style.width = currentPercentage+"%";
+            dnspyProgressBar.style.width = currentPercentage + "%";
             dnspyProgressBar.style.backgroundColor = "darkgreen";
             dnspyProgressBar.style.display = "block";
             dnspyProgressBar.innerText = "Downloading..." + downloadedTotal + "K/" + totalSize + "K";
@@ -1205,6 +1253,58 @@
             savegameButton.disabled = false;
         }
 
+        function SaveGameAttachement() {
+            var attachSaveGameBtn = document.getElementById("attachSaveGameButton"),
+                downloadSaveGameBtn = document.getElementById("attachDownloadSaveGameButton"),
+                saveGameFilename = document.getElementById("saveGameFileName"),
+                saveGameAttach = document.getElementById("savegameattach"),
+                cannotAttachSave = document.getElementById("cannotAttachSave");
+
+            if (!isRunningInGame()) {
+                downloadSaveGameBtn.style.display = "block";
+                attachSaveGameBtn.style.display = "none";
+                if (saveGameFilename.innerText == "{saveGameFileName}" || saveGameFilename.length == 0) {
+                    downloadSaveGameBtn.style.display = "none";
+                    saveGameFilename.style.display = "block";
+                    saveGameFilename.innerText = "No save game was attached.";
+                }
+                return
+            }
+            if (!window.external.IsCampaignRunning()) {
+                saveGameAttach.style.backgroundColor = "lightgoldenrodyellow";
+                cannotAttachSave.style.display = "block";
+                attachSaveGameBtn.disabled = true;
+                return;
+            }
+        }
+        function AttachSaveGame() {
+            if (window.external.AttachSaveGame()) {
+                alert("The save game has been attached to this error report.")
+            }
+        }
+        function Screenshot() {
+            var url = window.external.Screenshot();
+            if (url) {
+                alert("Screenshot has been taken and attached to this error report")
+            }
+            var screenshotImage = document.getElementById("screenshotImage"),
+                screenshotButton = document.getElementById("screenshotButton");
+            screenshotImage.style.display = "block";
+            screenshotImage.src = url;
+            screenshotButton.disabled = true;
+
+        }
+
+        function LoadScreenshot() {
+            if (isRunningInGame()) return;
+            var screenshotImage = document.getElementById("screenshotImage"),
+                imageData = document.getElementById("imageBase64").innerText;
+            screenshotImage.style.display = "block";
+            screenshotImage.src = 'data:image/png;base64,' + imageData;
+        }
+
+        LoadScreenshot();
+        SaveGameAttachement();
         AnalyseModule();
         AnalyseHarmonyPatches();
 

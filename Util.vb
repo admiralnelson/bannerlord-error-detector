@@ -13,7 +13,10 @@ Imports TaleWorlds.ModuleManager
 Imports System.Windows.Forms
 Imports TaleWorlds
 Imports System.Web
-
+Imports System.Drawing
+Imports System.Drawing.Imaging
+Imports System.Text
+Imports Encoder = System.Drawing.Imaging.Encoder
 
 Public Module Util
     Public AllowInDebugger As Boolean = True
@@ -293,6 +296,34 @@ Public Module Util
         If Not Directory.Exists(DnspyDir) Then Return False
         If Not File.Exists(DnspyDir & "dnSpy.exe") Then Return False
         Return CheckDnspyManifest(DnspyDir & "\bin\", Files)
+    End Function
+    Private Function GetEncoderInfo(mimeType As String) As ImageCodecInfo
+        Dim j As Integer
+        Dim encoders As ImageCodecInfo()
+        encoders = ImageCodecInfo.GetImageEncoders()
+        For j = 0 To encoders.Length
+            If encoders(j).MimeType = mimeType Then
+                Return encoders(j)
+            End If
+        Next j
+        Return Nothing
+    End Function
+    Private Sub SaveJPGWithCompressionSetting(image As Image, szFileName As String, lCompression As Long)
+        Dim eps As EncoderParameters = New EncoderParameters(1)
+        eps.Param(0) = New EncoderParameter(Encoder.Quality, lCompression)
+        Dim ici As ImageCodecInfo = GetEncoderInfo("image/jpeg")
+        image.Save(szFileName, ici, eps)
+    End Sub
+    Public Sub TakeScreenshot(filename As String)
+        Dim filenameAndPath = BewTemp & "\" & filename & ".jpg"
+        Engine.Utilities.TakeScreenshot(filenameAndPath)
+        Dim filenameAndPathCompressed = BewTemp & "\" & filename & ".compressed.jpg"
+        SaveJPGWithCompressionSetting(Image.FromFile(filenameAndPath), filenameAndPathCompressed, 80L)
+    End Sub
+    Public Function FileToBase64String(filename As String) As String
+        Dim bytes = File.ReadAllBytes(filename)
+        Dim strB64Encoded As String = Convert.ToBase64String(bytes)
+        Return strB64Encoded
     End Function
     'TODO: grab it from xml string
     Public ReadOnly Version As String = "BetterExceptionWindow version " & GetVersionString()
