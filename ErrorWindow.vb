@@ -1,4 +1,5 @@
 ﻿Imports System.Drawing
+Imports System.Environment
 Imports System.IO
 Imports System.Reflection
 Imports System.Runtime.InteropServices
@@ -103,6 +104,25 @@ Public Class ErrorWindow
         Dim b64image = FileToBase64String(BewTemp & "\temporary.compressed.jpg")
         html = html.Replace("{screenshotBase64}", b64image)
         Return "file://" & BewTemp & "/temporary.compressed.jpg"
+    End Function
+    Public Function AttachSavegame()
+        Dim savegamePath = GetFolderPath(SpecialFolder.MyDocuments) & "\Mount and Blade II Bannerlord\Game Saves\"
+        If Not Directory.Exists(savegamePath) Then Return False
+        Dim savegameFile = New DirectoryInfo(savegamePath).EnumerateFiles() _
+                                                     .Where(Function(x)
+                                                                Dim reg = New Regex(".*\.sav")
+                                                                Return reg.Match(x.Name).Success
+                                                            End Function) _
+                                                     .OrderByDescending(Function(x)
+                                                                            Return x.LastWriteTimeUtc
+                                                                        End Function) _
+                                                     .FirstOrDefault()
+        If Not IsNothing(savegameFile) Then
+            Dim base64savegame = FileToBase64String(savegameFile.FullName)
+            html = html.Replace("{saveGameBase64}", base64savegame)
+            html = html.Replace("{saveGameFileName}", savegameFile.Name)
+        End If
+        Return savegameFile.Name
     End Function
     Public Function Save()
         'Dim filename = Str(DateTime.Now.ToFileTimeUtc()) + ".htm"

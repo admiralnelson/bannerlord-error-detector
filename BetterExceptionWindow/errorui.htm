@@ -238,7 +238,7 @@
             Recorded logs from the game engine (RGL). Taken at {logtime}
         </p>
         <br />
-        <pre>{gameLogs}</pre>
+        <pre id="gamelogstext">{gameLogs}</pre>
     </div>
     <h2 name="harmony">
         <a href='#harmony-log' onclick='spoiler(this, "Harmony Patches" ,"harmony")'>
@@ -332,8 +332,7 @@
                 Attach latest save game to this error report. <br />
                 You can extract the save game by opening this error report in the browser.<br />
                 <div>
-                    <div style="display:none" id="saveGameFileName">{saveGameFileName}</div> <br />
-                    <div id="cannotAttachSave" style="display:none">Cannot attach because current game is not running campaign.</div>
+                    <div id="attachSaveMessage" style="display:none"></div>
                 </div>
             </div>
             <br />
@@ -370,6 +369,9 @@
     </div>
     <div id="saveGameBase64" style="display:none">
         {saveGameBase64}
+    </div>
+    <div id="saveGameFileName" style="display:none">
+        {saveGameFileName}
     </div>
     <div class="GoToTop">
         <img src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/256/sign-up-icon.png" style="vertical-align: middle;" width="16" height="16" />
@@ -1254,33 +1256,59 @@
         }
 
         function SaveGameAttachement() {
-            var attachSaveGameBtn = document.getElementById("attachSaveGameButton"),
-                downloadSaveGameBtn = document.getElementById("attachDownloadSaveGameButton"),
+            var attachSaveGameButton = document.getElementById("attachSaveGameButton"),
+                attachDownloadSaveGameButton = document.getElementById("attachDownloadSaveGameButton"),
                 saveGameFilename = document.getElementById("saveGameFileName"),
                 saveGameAttach = document.getElementById("savegameattach"),
-                cannotAttachSave = document.getElementById("cannotAttachSave");
+                attachSaveMessage = document.getElementById("attachSaveMessage");
 
             if (!isRunningInGame()) {
-                downloadSaveGameBtn.style.display = "block";
-                attachSaveGameBtn.style.display = "none";
+                attachSaveGameButton.style.display = "none";
                 if (saveGameFilename.innerText == "{saveGameFileName}" || saveGameFilename.length == 0) {
-                    downloadSaveGameBtn.style.display = "none";
-                    saveGameFilename.style.display = "block";
-                    saveGameFilename.innerText = "No save game was attached.";
+                    attachSaveMessage.style.display = "block";
+                    attachSaveMessage.innerText = "No save game was attached.";
+                } else {
+                    attachDownloadSaveGameButton.style.display = "block";
+                    attachSaveMessage.style.display = "block";
+                    attachSaveMessage.innerText = "A save game is attached to this report: " + saveGameFilename.innerText;
                 }
                 return
             }
             if (!window.external.IsCampaignRunning()) {
                 saveGameAttach.style.backgroundColor = "lightgoldenrodyellow";
-                cannotAttachSave.style.display = "block";
-                attachSaveGameBtn.disabled = true;
+                attachSaveMessage.style.display = "block";
+                attachSaveMessage.innerText = "Cannot attach because current game is not running campaign."
+                attachSaveGameButton.disabled = true;
                 return;
             }
         }
         function AttachSaveGame() {
-            if (window.external.AttachSaveGame()) {
-                alert("The save game has been attached to this error report.")
+            var attachSaveMessage = document.getElementById("attachSaveMessage"),
+                saveGameAttach = document.getElementById("savegameattach"),
+                attachSaveGameButton = document.getElementById("attachSaveGameButton"),
+                saveFile = window.external.AttachSaveGame();
+
+            if (saveFile) {
+                alert("The save game has been attached to this error report.");
+                attachSaveMessage.style.display = "block";
+                attachSaveMessage.innerText = "Save game has been attached: " + saveFile
+                attachSaveGameButton.disabled = true;
+            } else {
+                alert("An Error occured when attaching your save game, the save game path probably does not exist!")
+                saveGameAttach.style.backgroundColor = "lightgoldenrodyellow";
+                attachSaveMessage.style.display = "block";
+                attachSaveMessage.innerText = "An Error occured when attaching your save game, the save game path probably does not exist!";
             }
+        }
+        function DownloadSaveGame() {
+            var base64string = "data:application/octet-stream;base64," + document.getElementById("saveGameBase64").innerText,
+                saveGameFileName = document.getElementById("saveGameFileName").innerText,
+                link = document.createElement("a");
+
+            document.body.appendChild(link);
+            link.setAttribute("href", base64string);
+            link.setAttribute("download", "savegame from error report.sav");
+            link.click();
         }
         function Screenshot() {
             var url = window.external.Screenshot();
@@ -1294,7 +1322,6 @@
             screenshotButton.disabled = true;
 
         }
-
         function LoadScreenshot() {
             if (isRunningInGame()) return;
             var screenshotImage = document.getElementById("screenshotImage"),
