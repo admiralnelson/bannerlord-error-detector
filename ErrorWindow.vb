@@ -23,10 +23,10 @@ Public Class ErrorWindow
     Dim html = File.ReadAllText(BewBasePath() & "\errorui.htm")
 
     Private Sub ErrorWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.TopMost = True
         Dim menu As New Windows.Forms.ContextMenu()
         menu.MenuItems.Add("none")
         widget.ContextMenu = menu
-        Me.TopMost = True
         widget.ObjectForScripting = Me
         Dim additionalInfo = ""
         If errorCount > 0 Then
@@ -37,8 +37,8 @@ Public Class ErrorWindow
         If bErrorWasUIRelated Then
             additionalInfo = additionalInfo & "Because the crash is UI related, it is possible to attempt program execution, however your milage may vary."
         End If
-        If CheckIsAssemblyLoaded("Bannerlord.ButterLib.dll") And Not DisableBewButterlibException Then
-            html = html.Replace("{butterlibMessage}", "<a href='#' onclick='window.external.Close()'>Click here</a> to show Butterlib exception.<br /><br />")
+        If CheckIsAssemblyLoaded("Bannerlord.ButterLib.dll") Then
+            html = html.Replace("{butterlibMessage}", "<a href='#' onclick='window.external.ShowButterlibException()'>Click here</a> to show Butterlib exception.<br /><br />")
         Else
             html = html.Replace("{butterlibMessage}", "")
         End If
@@ -80,6 +80,19 @@ Public Class ErrorWindow
     End Sub
     Public Sub ShowButterlibException()
         'HtmlBuilder.BuildAndShow(new CrashReport(__exception))
+        Me.TopMost = False
+        Dim butterlibAsm = GetAssemblyByDll("Bannerlord.ButterLib.dll")
+        If IsNothing(butterlibAsm) Then Exit Sub
+        Dim BannerlordButterLibExceptionHandlerHtmlBuilder = GetTypeFromAssembly(butterlibAsm, "Bannerlord.ButterLib.ExceptionHandler.HtmlBuilder")
+        If IsNothing(BannerlordButterLibExceptionHandlerHtmlBuilder) Then Exit Sub
+        Dim BuildAndShow = BannerlordButterLibExceptionHandlerHtmlBuilder.GetMethod("BuildAndShow", BindingFlags.Static Or BindingFlags.Public)
+        If IsNothing(BuildAndShow) Then Exit Sub
+        Dim BannerlordButterLibExceptionHandlerCrashReport = GetTypeFromAssembly(butterlibAsm, "Bannerlord.ButterLib.ExceptionHandler.CrashReport")
+        If IsNothing(BannerlordButterLibExceptionHandlerCrashReport) Then Exit Sub
+        Dim CrashReportCtor = BannerlordButterLibExceptionHandlerCrashReport.GetConstructor(New Type() {GetType(Exception)})
+        If IsNothing(CrashReportCtor) Then Exit Sub
+        Dim crashReportInstance = CrashReportCtor.Invoke(New Object() {exceptionData})
+        BuildAndShow.Invoke(Nothing, New Object() {crashReportInstance})
     End Sub
     Private Sub PrintExceptionToDebug()
         Debug.Print("Better exception window unhandled exception: " & exceptionData.Message)
