@@ -530,7 +530,7 @@ Public Class ErrorWindow
         RestartAndAttachDnspy()
     End Sub
     Public Function IsUnderdebugger()
-        Return IsDebugged
+        Return Debugger.IsAttached
     End Function
     Public Function IsdnSpyAvailable()
         Return Util.IsDnspyAvailable()

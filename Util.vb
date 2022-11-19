@@ -26,6 +26,7 @@ Public Module Util
     Public CatchTick As Boolean = True
     Public CatchComponentBehaviourTick As Boolean = True
     Public CatchGlobalTick As Boolean = True
+    Public CatchNative2Managed As Boolean = True
     Public DisableBewButterlibException As Boolean = True
     Public IsFirstTime As Boolean = True
     Public EnableStdoutConsole As Boolean = False
@@ -41,6 +42,7 @@ Public Module Util
             CatchTick = configData("CatchTick")
             CatchComponentBehaviourTick = configData("CatchComponentBehaviourTick")
             CatchGlobalTick = configData("CatchGlobalTick")
+            CatchNative2Managed = configData("CatchNative2Managed")
             IsFirstTime = configData("IsFirstTime")
             DisableBewButterlibException = configData("DisableBewButterlibException")
             EnableStdoutConsole = configData("EnableStdoutConsole")
@@ -59,6 +61,7 @@ Public Module Util
             config.Add("CatchTick", CatchTick)
             config.Add("CatchComponentBehaviourTick", CatchComponentBehaviourTick)
             config.Add("CatchGlobalTick", CatchGlobalTick)
+            config.Add("CatchNative2Managed", CatchNative2Managed)
             config.Add("IsFirstTime", IsFirstTime)
             config.Add("DisableBewButterlibException", DisableBewButterlibException)
             config.Add("EnableConsole", EnableStdoutConsole)
@@ -84,10 +87,9 @@ Public Module Util
             Return False
         End Try
     End Function
-    Public Sub Print(str As String)
+    Public Sub Print(str As String, Optional submitIntoDebugSpool As Boolean = True)
         InformationManager.DisplayMessage(New InformationMessage(str))
-        Console.WriteLine(str)
-        Debug.Print(str)
+        If submitIntoDebugSpool Then Debug.Print(str)
     End Sub
     Public Function GetAssembliesData() As List(Of Assembly)
         Dim asm = AppDomain.CurrentDomain.GetAssemblies()
@@ -367,6 +369,10 @@ Public Module Util
         Dim strB64Encoded As String = Convert.ToBase64String(bytes)
         Return strB64Encoded
     End Function
+    Public Function IsMcmLoaded() As Boolean
+        Return CheckIsAssemblyLoaded("MCMv5.dll") AndAlso
+               CheckIsAssemblyLoaded("MCMv5.UI.dll")
+    End Function
     'TODO: grab it from xml string
     Public ReadOnly Version As String = "BetterExceptionWindow version " & GetVersionString()
     Public ReadOnly Commit As String = My.Resources.CurrentCommit
@@ -384,7 +390,7 @@ Public Module Util
         BewBasePath() & "\bin\Win64_Shipping_Client\"
     Public ReadOnly BewConfigPath As String =
         BewBasePath() & "\config.json"
-    Public ReadOnly IsDebugged = Debugger.IsAttached Or Environment.GetCommandLineArgs.Contains("--disablebew")
+    Public ReadOnly IsDebuggedByDnspy = Debugger.IsAttached And Environment.GetCommandLineArgs.Contains("--disablebew")
     Public ReadOnly IsRunningSteam = Environment.GetEnvironmentVariable("SteamEnv")
     Public Function BewBasePath() As String
         Return ModuleHelper.GetModuleFullPath("BetterExceptionWindow")
