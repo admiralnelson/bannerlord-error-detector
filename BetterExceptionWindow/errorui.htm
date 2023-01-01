@@ -128,10 +128,10 @@
 <body>
     <div style='clear:both;' id="top">
         <h1 id='title'> An unhandled exception occured! </h1>
-        <button class='button' onclick='window.external.AttemptToContinue()'>
+        <button class='button' onclick='AttemptToContinue()'>
             Attempt to continue
         </button>
-        <button class='button' onclick='window.external.CloseProgram()'>
+        <button class='button' onclick='CloseProgram()'>
             Close the program
         </button>
         <button class='button' onclick='SavePage()'>
@@ -1363,7 +1363,11 @@
                 var result = confirm("You have attached screenshot or save game.\nDo you want to discard them and close the program?");
                 if (result) {
                     window.external.CloseProgram();
+                    return;
                 }
+            }
+            else {
+                window.external.CloseProgram();
             }
         }
         function AttemptToContinue() {
@@ -1372,6 +1376,8 @@
                 if (result) {
                     window.external.AttemptToContinue();
                 }
+            } else {
+                window.external.AttemptToContinue();
             }
         }
 
