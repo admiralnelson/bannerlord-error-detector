@@ -17,10 +17,10 @@ Imports TaleWorlds.SaveSystem
 <ComVisibleAttribute(True)>
 Public Class ErrorWindow
     Public Shared exceptionData As Exception
-    Public Shared bErrorWasUIRelated = False
     Shared errorCount = 0
     Dim problematicModules = New SortedSet(Of String)
     Dim html = File.ReadAllText(BewBasePath() & "\errorui.htm")
+    Dim bAttachedFileNotSavedYet = False
 
     Private Sub ErrorWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.TopMost = True
@@ -34,9 +34,7 @@ Public Class ErrorWindow
             additionalInfo = additionalInfo & "<br />"
         End If
         errorCount = errorCount + 1
-        If bErrorWasUIRelated Then
-            additionalInfo = additionalInfo & "Because the crash is UI related, it is possible to attempt program execution, however your milage may vary."
-        End If
+        additionalInfo = additionalInfo & GetAdviseOnAttemptContinue()
         If CheckIsAssemblyLoaded("Bannerlord.ButterLib.dll") Then
             html = html.Replace("{butterlibMessage}", "<a href='#' onclick='window.external.ShowButterlibException()'>Click here</a> to show Butterlib exception.<br /><br />")
         Else
@@ -76,8 +74,39 @@ Public Class ErrorWindow
         widget.ScriptErrorsSuppressed = True
         'widget.Document.InvokeScript("AnalyseModule", Nothing)
         PrintExceptionToDebug()
-        bErrorWasUIRelated = False
     End Sub
+    Public Function GetAdviseOnAttemptContinue()
+        If Not File.Exists(BewBasePath() & "\solutions.json") Then
+            Print("Error loading solutions.json to explain the current crash")
+            Return ""
+        End If
+        Try
+            Dim text = File.ReadAllText(BewBasePath() & "\solutions.json")
+            Dim jsonData = JsonConvert.DeserializeObject(text)
+            For Each x In jsonData
+                If IsNothing(x("Keywords")) Then Continue For
+                If IsNothing(x("Reason")) Then Continue For
+                Dim foundReasonOnOuterException = True
+                With exceptionData.InnerException.StackTrace
+                    For Each y In x("Keywords")
+                        foundReasonOnOuterException = foundReasonOnOuterException And .Contains(y)
+                    Next
+                End With
+                Dim foundReasonOnInnerException = True
+                With exceptionData.StackTrace
+                    For Each y In x("Keywords")
+                        foundReasonOnInnerException = foundReasonOnInnerException And .Contains(y)
+                    Next
+                End With
+                If foundReasonOnOuterException Or foundReasonOnInnerException Then
+                    Return x("Reason")
+                End If
+            Next
+        Catch ex As Exception
+            Print("Error parsing solution.json " & ex.Message)
+        End Try
+        Return ""
+    End Function
     Public Sub ShowButterlibException()
         'HtmlBuilder.BuildAndShow(new CrashReport(__exception))
         Me.TopMost = False
@@ -123,6 +152,7 @@ Public Class ErrorWindow
         TakeScreenshot("temporary")
         Dim b64image = FileToBase64String(BewTemp & "\temporary.compressed.jpg")
         html = html.Replace("{screenshotBase64}", b64image)
+        bAttachedFileNotSavedYet = True
         Return "file://" & BewTemp & "/temporary.compressed.jpg"
     End Function
     Public Function AttachSavegame()
@@ -142,6 +172,7 @@ Public Class ErrorWindow
             html = html.Replace("{saveGameBase64}", base64savegame)
             html = html.Replace("{saveGameFileName}", savegameFile.Name)
         End If
+        bAttachedFileNotSavedYet = True
         Return savegameFile.Name
     End Function
     Public Function Save()
@@ -151,6 +182,7 @@ Public Class ErrorWindow
         If fileDialog.ShowDialog() = DialogResult.OK AndAlso fileDialog.FileName <> "" Then
             Dim filename = fileDialog.FileName
             File.WriteAllText(filename, html)
+            bAttachedFileNotSavedYet = False
             Return filename
         End If
         Return Nothing
@@ -172,6 +204,9 @@ Public Class ErrorWindow
             End If
         End If
         Return 2
+    End Function
+    Public Function IsPageModified() As Boolean
+        Return bAttachedFileNotSavedYet
     End Function
     Public Sub CloseProgram()
         KillGame()
@@ -362,7 +397,7 @@ Public Class ErrorWindow
             directories.AddRange(modulesInSteamWorkshopDirectory)
         End If
         directories.AddRange(modulesInGameDirectories)
-
+        '2875090166\\SubModule.xml
         For Each x In directories
             Dim jsondata
             Try
@@ -388,32 +423,33 @@ Public Class ErrorWindow
                 If (jsondata("isFaultingMod")) Then
                     problematicModules.Add(modId)
                 End If
+                maybeArray = False
+            Catch ex As Exception
+            End Try
+            Try
                 Dim reg = New Regex(".*workshop\\content\\261550\\([0-9]*)")
                 Dim matches = reg.Match(Path.GetFullPath(x))
                 If matches.Success Then
                     jsondata("WorkshopUrl") = "https://steamcommunity.com/sharedfiles/filedetails/?id=" & matches.Groups()(1).Value
                 End If
-                maybeArray = False
-            Catch ex As Exception
-            End Try
-            Try
-                If maybeArray Then
-                    For Each dll In jsondata("Module")("SubModules")("SubModule")
-                        Dim name As String = dll("Name")("@value")
-                        Dim modId = jsondata("Module")("Id")("@value")
-                        'subModuleClassType = subModuleClassType.Substring(0, subModuleClassType.IndexOf("."))
-                        jsondata("isFaultingMod") = exceptionData.StackTrace.Contains(name) Or exceptionData.StackTrace.Contains(modId) And jsondata("isModLoaded")
-                        Dim result = CheckIsAssemblyLoaded(dll("DLLName")("@value"))
-                        If result Then
-                            dll("isLoadedInMemory") = True
-                        Else
-                            dll("isLoadedInMemory") = False
-                        End If
-                        If (jsondata("isFaultingMod")) Then
-                            problematicModules.Add(modId)
-                        End If
-                    Next
+                If Not maybeArray Then
+                    Continue For
                 End If
+                For Each dll In jsondata("Module")("SubModules")("SubModule")
+                    Dim name As String = dll("Name")("@value")
+                    Dim modId = jsondata("Module")("Id")("@value")
+                    'subModuleClassType = subModuleClassType.Substring(0, subModuleClassType.IndexOf("."))
+                    jsondata("isFaultingMod") = exceptionData.StackTrace.Contains(name) Or exceptionData.StackTrace.Contains(modId) And jsondata("isModLoaded")
+                    Dim result = CheckIsAssemblyLoaded(dll("DLLName")("@value"))
+                    If result Then
+                        dll("isLoadedInMemory") = True
+                    Else
+                        dll("isLoadedInMemory") = False
+                    End If
+                    If (jsondata("isFaultingMod")) Then
+                        problematicModules.Add(modId)
+                    End If
+                Next
             Catch ex As Exception
             End Try
 

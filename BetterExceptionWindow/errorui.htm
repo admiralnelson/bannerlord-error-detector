@@ -1271,7 +1271,7 @@
 
             if (!isRunningInGame()) {
                 attachSaveGameButton.style.display = "none";
-                if (saveGameFilename.indexOf("{saveGameFileName}") >= 0 || saveGameFilename.length == 0) {
+                if (saveGameFilename.indexOf("saveGameFileName") >= 0 || saveGameFilename.length == 0) {
                     attachSaveMessage.innerText = "No save game was attached.";
                     attachSaveMessage.style.display = "block";
                 } else {
@@ -1357,6 +1357,22 @@
                 default:
             }
 
+        }
+        function CloseProgram() {
+            if (window.external.IsPageModified()) {
+                var result = confirm("You have attached screenshot or save game.\nDo you want to discard them and close the program?");
+                if (result) {
+                    window.external.CloseProgram();
+                }
+            }
+        }
+        function AttemptToContinue() {
+            if (window.external.IsPageModified()) {
+                var result = confirm("You have attached screenshot or save game.\nDo you want to discard them and return to game?");
+                if (result) {
+                    window.external.AttemptToContinue();
+                }
+            }
         }
 
         LoadScreenshot();

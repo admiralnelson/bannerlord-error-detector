@@ -1,0 +1,11 @@
+[
+  {
+    "Keywords": [ "ScreenManager.Update" ],
+    "Reason": "Because the crash is UI related, it is possible to attempt program execution, however your milage may vary."
+  },
+  {
+    "Keywords": [ "MissionManager.Update" ],
+    "Reason": "Because the crash occurs in Mission tick, you can continue the program execution, however agents or mission triggers probably not behaving as expected (subtle or obvious)."
+  }
+  
+]
