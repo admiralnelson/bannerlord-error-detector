@@ -112,16 +112,11 @@ Public Class ErrorWindow
         Me.TopMost = False
         Dim butterlibAsm = GetAssemblyByDll("Bannerlord.ButterLib.dll")
         If IsNothing(butterlibAsm) Then Exit Sub
-        Dim BannerlordButterLibExceptionHandlerHtmlBuilder = GetTypeFromAssembly(butterlibAsm, "Bannerlord.ButterLib.ExceptionHandler.HtmlBuilder")
-        If IsNothing(BannerlordButterLibExceptionHandlerHtmlBuilder) Then Exit Sub
-        Dim BuildAndShow = BannerlordButterLibExceptionHandlerHtmlBuilder.GetMethod("BuildAndShow", BindingFlags.Static Or BindingFlags.Public)
-        If IsNothing(BuildAndShow) Then Exit Sub
-        Dim BannerlordButterLibExceptionHandlerCrashReport = GetTypeFromAssembly(butterlibAsm, "Bannerlord.ButterLib.ExceptionHandler.CrashReport")
-        If IsNothing(BannerlordButterLibExceptionHandlerCrashReport) Then Exit Sub
-        Dim CrashReportCtor = BannerlordButterLibExceptionHandlerCrashReport.GetConstructor(New Type() {GetType(Exception)})
-        If IsNothing(CrashReportCtor) Then Exit Sub
-        Dim crashReportInstance = CrashReportCtor.Invoke(New Object() {exceptionData})
-        BuildAndShow.Invoke(Nothing, New Object() {crashReportInstance})
+        Dim BannerlordButterLibExceptionHandler = GetTypeFromAssembly(butterlibAsm, "Bannerlord.ButterLib.ExceptionHandler.ExceptionReporter")
+        If IsNothing(BannerlordButterLibExceptionHandler) Then Exit Sub
+        Dim Show = BannerlordButterLibExceptionHandler.GetMethod("Show", BindingFlags.Static Or BindingFlags.Public)
+        If IsNothing(Show) Then Exit Sub
+        Show.Invoke(Nothing, New Object() {exceptionData})
     End Sub
     Private Sub PrintExceptionToDebug()
         Debug.Print("Better exception window unhandled exception: " & exceptionData.Message)
