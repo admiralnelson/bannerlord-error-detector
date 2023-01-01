@@ -847,18 +847,15 @@
             searchBtn.disabled = false;
         }
         function addXMLDiagResult(filename, path, error) {
+            if (!error) return;
             var table = document.getElementById('xml-report-table'),
                 row = table.insertRow(-1),
                 icon = row.insertCell(0),
                 desc = row.insertCell(1);
             icon.style.width = '30px';
-            if (!error)
-                icon.innerHTML = '<img src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png" width="24" /> ';
-            else
-                icon.innerHTML = '<img src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-warning-icon.png" width="24" /> ';
+            icon.innerHTML = '<img src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-warning-icon.png" width="24" /> ';
             var res = '<div><b>' + filename + '</b><div><div>' + 'Location: ' + '<a onclick="openPath(\"' + path + '\")">' + path + '</a></div>';
-            if (error)
-                res = res + '<div>' + error + '</div>';
+            res = res + '<div>' + error + '</div>';
             desc.innerHTML = res + "<hr />";
 
         }

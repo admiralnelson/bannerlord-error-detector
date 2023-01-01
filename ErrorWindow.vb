@@ -481,7 +481,7 @@ Public Class ErrorWindow
             End Try
             Application.DoEvents() 'bad, but i dont care, TASK.RUN CompleteWith DOESN'T WORK FOR SOME REASONS
         Next
-        widget.Document.InvokeScript("finishSearch", New Object() {errorDetected})
+        If errorDetected Then widget.Document.InvokeScript("finishSearch", New Object() {errorDetected})
     End Sub
     Public Function IsCampaignRunning()
         Return TaleWorlds.CampaignSystem.Campaign.Current IsNot Nothing
