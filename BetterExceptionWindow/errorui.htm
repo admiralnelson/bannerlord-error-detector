@@ -1180,7 +1180,7 @@
                 dnspyReason = document.getElementById("dnspyReason"),
                 dnspy = document.getElementById("dnspy");
 
-            if (window.external.IsUnderdebugger()) {
+            if (isRunningInGame() && window.external.IsUnderdebugger()) {
                 dnspyInstallLink.style.display = "none";
                 dnspyReason.innerHTML = "dnSpy is not available, because the program is already running under debugger."
                 dnspy.style.backgroundColor = "lightgoldenrodyellow";
@@ -1251,7 +1251,7 @@
             var emergencySave = document.getElementById("emergency-save"),
                 saveReason = document.getElementById("save-reason"),
                 savegameButton = document.getElementById("savegameButton");
-            if (!window.external.IsCampaignRunning()) {
+            if (isRunningInGame() && !window.external.IsCampaignRunning()) {
                 emergencySave.style.backgroundColor = "lightgoldenrodyellow";
                 saveReason.innerHTML = "This option is not available because the game is not running campaign.";
                 return;
@@ -1274,7 +1274,7 @@
                 } else {
                     attachDownloadSaveGameButton.style.display = "block";
                     attachSaveMessage.style.display = "block";
-                    attachSaveMessage.innerText = "A save game is attached to this report: " + saveGameFilename.innerText;
+                    attachSaveMessage.innerText = "A save game is attached to this report: " + saveGameFilename;
                 }
                 return
             }
@@ -1331,7 +1331,7 @@
             var screenshotImage = document.getElementById("screenshotImage"),
                 noPictureMessage = document.getElementById("noPictureMessage"),
                 imageData = document.getElementById("imageBase64").innerText;
-            if (imageData.indexOf("{screenshotBase64}") >= 0) {
+            if (imageData.indexOf("screenshotBase64") >= 0) {
                 noPictureMessage.style.display = "block";
                 return;
             }
