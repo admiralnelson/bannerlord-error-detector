@@ -62,20 +62,6 @@ Namespace Global.BetterExceptionWindow
                     If IsMcmLoaded() Then
                         LoadBetterExceptionMCMUI()
                     End If
-                    Task.Delay(1000 * 3).ContinueWith(
-                        Sub()
-                            If IsFirstTime And DisableBewButterlibException Then
-                                MsgBoxBannerlord("Better Exception Window Behaviour",
-                                                "Better Exception Window detected Butterlib is also installed." & vbNewLine &
-                                                "It will disable Butterlib exception window starting from this version." & vbNewLine & vbNewLine &
-                                                "You can restore to old behaviour by unchecking Disable BewButterlib exception in mod option",
-                                                Sub()
-                                                    DisableBewButterlibException = True
-                                                    SaveSettings()
-                                                End Sub, Nothing, "I understand")
-                            End If
-                        End Sub
-                    )
                 End Sub)
         End Sub
         Private Sub DisableButterlibFull()
@@ -86,6 +72,7 @@ Namespace Global.BetterExceptionWindow
         Protected Overrides Sub OnSubModuleLoad()
             ReadConfig()
             If EnableStdoutConsole Then SpawnConsole() Else StartLogger()
+            'InitPatch()
             If IsDebuggedByDnspy Then
             Else
                 If AllowInDebugger Then InitPatch()
