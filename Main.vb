@@ -55,7 +55,7 @@ Namespace Global.BetterExceptionWindow
                                                 IsFirstTime = False
                                                 SaveSettings()
                                             End Sub,
-                                            "Keept it enabled", "Disable it")
+                                            "Keep it enabled", "Disable it")
                         End Sub)
                     End If
                     If Not CheckIsAssemblyLoaded("Bannerlord.ButterLib.dll") Then
