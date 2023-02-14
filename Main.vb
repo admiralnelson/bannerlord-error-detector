@@ -1,4 +1,6 @@
-﻿Imports System.IO
+﻿Imports System.ComponentModel
+Imports System.IO
+Imports System.Net
 Imports System.Reflection
 Imports System.Threading
 Imports System.Windows.Forms
@@ -69,10 +71,32 @@ Namespace Global.BetterExceptionWindow
                 DisableButterlibException()
             End If
         End Sub
+        Private Sub DownloadExceptionDefinitions()
+            Dim client As New WebClient
+            Dim url = DefinitionsDownloadUrl
+            Dim file = BewExceptionDefinitionsPath
+            ServicePointManager.Expect100Continue = True
+            ServicePointManager.SecurityProtocol =
+                SecurityProtocolType.Tls Or
+                SecurityProtocolType.Tls11 Or
+                SecurityProtocolType.Tls12 Or
+                SecurityProtocolType.Ssl3
+
+            Task.Delay(1000 * 1).ContinueWith(
+                Sub()
+                    Try
+                        Console.WriteLine("Updating exception definitions")
+                        client.DownloadFile(New Uri(url), file)
+                    Catch ex As Exception
+                        Console.WriteLine("Failed to update exception definitons due to this error " + ex.Message)
+                    End Try
+                End Sub)
+        End Sub
         Protected Overrides Sub OnSubModuleLoad()
             ReadConfig()
             If EnableStdoutConsole Then SpawnConsole() Else StartLogger()
-            'InitPatch()
+            DownloadExceptionDefinitions()
+            InitPatch()
             If IsDebuggedByDnspy Then
             Else
                 If AllowInDebugger Then InitPatch()

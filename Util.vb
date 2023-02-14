@@ -390,6 +390,10 @@ Public Module Util
         BewBasePath() & "\bin\Win64_Shipping_Client\"
     Public ReadOnly BewConfigPath As String =
         BewBasePath() & "\config.json"
+    Public ReadOnly BewExceptionDefinitionsPath As String =
+        BewBasePath() & "\solutions.json"
+    Public ReadOnly DefinitionsDownloadUrl As String =
+        "https://raw.githubusercontent.com/admiralnelson/bannerlord-error-detector/master/BetterExceptionWindow/solutions.json"
     Public ReadOnly IsDebuggedByDnspy = Debugger.IsAttached And Environment.GetCommandLineArgs.Contains("--disablebew")
     Public ReadOnly IsRunningSteam = Environment.GetEnvironmentVariable("SteamEnv")
     Public Function BewBasePath() As String
