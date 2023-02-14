@@ -6,6 +6,10 @@
   {
     "Keywords": [ "MissionManager.Update" ],
     "Reason": "Because the crash occurs in Mission tick, you can continue the program execution, however agents or mission triggers probably not behaving as expected (subtle or obvious)."
+  },
+  {
+    "Keywords": [ "MissionState.TickMission" ],
+    "Reason": "Because the crash occurs in Mission tick, you can continue the program execution, however agents or mission triggers probably not behaving as expected (subtle or obvious)."
   }
   
 ]
