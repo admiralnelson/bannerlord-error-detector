@@ -102,22 +102,6 @@ Public Class DebugManager
         Console.WriteLine("Variable ", name, " = ", value)
     End Sub
 
-    Public Sub BeginTelemetryScopeInternal(levelMask As TelemetryLevelMask, scopeName As String) Implements IDebugManager.BeginTelemetryScopeInternal
-
-    End Sub
-
-    Public Sub BeginTelemetryScopeBaseLevelInternal(levelMask As TelemetryLevelMask, scopeName As String) Implements IDebugManager.BeginTelemetryScopeBaseLevelInternal
-
-    End Sub
-
-    Public Sub EndTelemetryScopeInternal() Implements IDebugManager.EndTelemetryScopeInternal
-
-    End Sub
-
-    Public Sub EndTelemetryScopeBaseLevelInternal() Implements IDebugManager.EndTelemetryScopeBaseLevelInternal
-
-    End Sub
-
     Public Sub WriteDebugLineOnScreen(message As String) Implements IDebugManager.WriteDebugLineOnScreen
         Util.Print(message)
     End Sub
