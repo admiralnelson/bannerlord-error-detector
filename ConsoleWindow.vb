@@ -5,6 +5,9 @@ Public Module ConsoleWindow
     Dim consoleSpawned = False
     Dim loggerStarted = False
     Declare Function AllocConsole Lib "kernel32.dll" () As Boolean
+    Declare Function GetStdHandle Lib "kernel32.dll" (nStdHandle As Integer) As IntPtr
+    Declare Function SetStdHandle Lib "kernel32.dll" (nStdHandle As Integer, hHandle As IntPtr) As Boolean
+
     Dim consoleCopyInstance
     Public Sub StartLogger()
         If loggerStarted Then Exit Sub
@@ -18,7 +21,10 @@ Public Module ConsoleWindow
     Public Sub SpawnConsole()
         If consoleSpawned Then Exit Sub
         AllocConsole()
-        StartLogger()
+        Dim writer As New StreamWriter(Console.OpenStandardOutput())
+        writer.AutoFlush = True
+        Console.SetOut(writer)
+
         Console.Title = "Bannerlord stdout/stdin console. Do not close this window!"
 
         Trace.Listeners.Clear()
