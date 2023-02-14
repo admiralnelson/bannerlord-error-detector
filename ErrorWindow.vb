@@ -427,9 +427,6 @@ Public Class ErrorWindow
                 If matches.Success Then
                     jsondata("WorkshopUrl") = "https://steamcommunity.com/sharedfiles/filedetails/?id=" & matches.Groups()(1).Value
                 End If
-                If Not maybeArray Then
-                    Continue For
-                End If
                 For Each dll In jsondata("Module")("SubModules")("SubModule")
                     Dim name As String = dll("Name")("@value")
                     Dim modId = jsondata("Module")("Id")("@value")
