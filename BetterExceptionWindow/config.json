@@ -8,5 +8,6 @@
 	"CatchGlobalTick": true,
 	"IsFirstTime": true,
 	"EnableConsole": false,
-	"DisableBewButterlibException": true
+	"DisableBewButterlibException": true,
+	"CatchNative2Managed": true
 }
