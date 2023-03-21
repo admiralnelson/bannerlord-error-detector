@@ -305,7 +305,10 @@
     <ProjectReference Include="..\..\BetterExceptionWindow.vbproj">
       <Project>{2d54458b-3d6e-4023-8423-6aaa4e92a55e}</Project>
       <Name>BetterExceptionWindow</Name>
-      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\BetterExceptionWindowUnsafeExceptionTester\BewUnsafeExceptionTester\BewUnsafeExceptionTester.csproj">
+      <Project>{fd6495fc-06f9-42d9-9c68-b10add03c57f}</Project>
+      <Name>BewUnsafeExceptionTester</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

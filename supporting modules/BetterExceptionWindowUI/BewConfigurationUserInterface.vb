@@ -228,6 +228,31 @@ Public Module BewConfigurationUserInterface
                     Return boolBuilder _
                         .SetHintText("{=AllowInDebuggerHint}This will crash your game!")
                 End Function) _
+                 .AddButton(
+                "CrashtestNativeCode",
+                "{=CrashTest}Crash Test: Throw native code exception",
+                New ProxyRef(Of Action)(
+                    Function() As Action
+                        Return Sub()
+                                   MsgBoxBannerlord("Warning!", "This will crash your game! Are you sure?",
+                                Sub()
+                                    BewUnsafeExceptionTester.Unsafe.TriggerAccessViolation()
+                                End Sub,
+                                Sub()
+
+                                End Sub,
+                                "Do as I say!"
+                            )
+                               End Sub
+                    End Function,
+                Sub(o As Action)
+
+                End Sub),
+                "{=TestItNow}Test it now",
+                Function(boolBuilder)
+                    Return boolBuilder _
+                        .SetHintText("{=AllowInDebuggerHint}This will crash your game!")
+                End Function) _
                 .AddButton(
                     "About",
                     "{=AboutBewLabel}About BetterExceptionWindow",

@@ -74,6 +74,7 @@ Namespace Global.BetterExceptionWindow
             ReadConfig()
             If EnableStdoutConsole Then SpawnConsole() Else StartLogger()
             DownloadExceptionDefinitions()
+            InitPatch()
             If IsDebuggedByDnspy Then
             Else
                 If AllowInDebugger Then InitPatch()

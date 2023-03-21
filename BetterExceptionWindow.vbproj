@@ -288,6 +288,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="NativeCodeHandler.vb" />
     <Compile Include="Patches.vb" />
     <Compile Include="Util.vb" />
   </ItemGroup>

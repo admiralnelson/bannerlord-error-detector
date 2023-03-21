@@ -1,5 +1,6 @@
 ﻿Imports System.Reflection
 Imports System.Reflection.Emit
+Imports System.Runtime.InteropServices
 Imports System.Threading
 Imports System.Windows.Forms
 Imports HarmonyLib
@@ -36,6 +37,8 @@ Public Module Patches
             PatchNative2Managed2()
         End If
         patches = harmony_.GetPatchedMethods()
+
+        NativeCodeHandler.Install()
     End Sub
     Public Sub DisableButterlibException()
         If DisableBewButterlibException Then
