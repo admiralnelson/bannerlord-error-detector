@@ -5,6 +5,9 @@ Public Module BewConfigurationUserInterface
     Dim registered = False
     Dim dontshowMessageBox = False
     ReadOnly BewConfigUIVersion = GetAssemblyByDll("BetterExceptionWindowConfigUI.dll").GetName().Version.ToString()
+    Private Declare Sub CrashMe Lib "BewNativeCodeCrashTest.dll" ()
+
+
     Private Sub ShowRestartMessageBox()
         If dontshowMessageBox Then Exit Sub
         MsgBoxBannerlord("Restart", "Restart Bannerlord to take effect")
@@ -236,7 +239,7 @@ Public Module BewConfigurationUserInterface
                         Return Sub()
                                    MsgBoxBannerlord("Warning!", "This will crash your game! Are you sure?",
                                 Sub()
-                                    BewUnsafeExceptionTester.Unsafe.TriggerAccessViolation()
+                                    CrashMe()
                                 End Sub,
                                 Sub()
 
