@@ -1,14 +1,36 @@
 ﻿Imports System.Runtime.InteropServices
 
 Public Class NativeCodeHandler
-    Private Delegate Function VectoredHandler(ByVal pExceptionInfo As IntPtr) As UInteger
+    Private Delegate Function VectoredHandler(pExceptionInfo As IntPtr) As UInteger
     Private Declare Function AddVectoredExceptionHandler Lib "kernel32.dll" (ByVal First As UInteger, ByVal Handler As VectoredHandler) As IntPtr
     Private Declare Function RemoveVectoredExceptionHandler Lib "kernel32.dll" (ByVal Handler As IntPtr) As UInteger
     Private Const EXCEPTION_ACCESS_VIOLATION As UInteger = &HC0000005UI
-    Private Const EXCEPTION_CONTINUE_EXECUTION = 1
     Private Const EXCEPTION_CONTINUE_SEARCH = 0
+    Private Const EXCEPTION_EXECUTE_HANDLER = 1
+    Private Const EXCEPTION_CONTINUE_EXECUTION = -1
+    Private Const REDIRECT = &HF00000FDUI
+
     Private Shared singleton As NativeCodeHandler = Nothing
     Private handlerDelegate As VectoredHandler
+
+    ' Define the EXCEPTION_RECORD structure
+    <StructLayout(LayoutKind.Sequential)>
+    Public Structure EXCEPTION_RECORD
+        Public ExceptionCode As UInteger
+        Public ExceptionFlags As UInteger
+        Public ExceptionRecord As IntPtr
+        Public ExceptionAddress As IntPtr
+        Public NumberParameters As UInteger
+        <MarshalAs(UnmanagedType.ByValArray, SizeConst:=15)>
+        Public ExceptionInformation As UInteger()
+    End Structure
+
+    ' Define the EXCEPTION_POINTERS structure
+    <StructLayout(LayoutKind.Sequential)>
+    Public Structure EXCEPTION_POINTERS
+        Public ExceptionRecord As IntPtr
+        Public ContextRecord As IntPtr
+    End Structure
 
     Public Shared Function Install()
         If IsNothing(singleton) Then singleton = New NativeCodeHandler()
@@ -17,19 +39,30 @@ Public Class NativeCodeHandler
     Private Sub New()
         InstallVectoredExceptionHandler()
     End Sub
-    Private Function BewVectoredHandler(ptrExceptionInfo As IntPtr) As UInteger
-        Dim ptrRecord = Marshal.ReadIntPtr(ptrExceptionInfo)
-        Dim exceptionCode = CUInt(Marshal.ReadInt32(ptrExceptionInfo))
+    Private Function BewVectoredHandler(ptrExceptionInfo As IntPtr) As Integer
+        Dim exceptionPointers = CType(Marshal.PtrToStructure(ptrExceptionInfo, GetType(EXCEPTION_POINTERS)), EXCEPTION_POINTERS)
+        Dim exceptionRecord = CType(Marshal.PtrToStructure(exceptionPointers.ExceptionRecord, GetType(EXCEPTION_RECORD)), EXCEPTION_RECORD)
+        Dim exceptionCode = exceptionRecord.ExceptionCode
         If exceptionCode <> EXCEPTION_ACCESS_VIOLATION Then
-            Return EXCEPTION_CONTINUE_EXECUTION
+            Return EXCEPTION_EXECUTE_HANDLER
         End If
-        Dim result As MsgBoxResult = MsgBox("An error has occurred. Do you want to retry?", MsgBoxStyle.AbortRetryIgnore, "Error")
+        ' Capture a snapshot of the current call stack
+        Dim traceString = ""
+        Dim trace As New StackTrace(True)
+        For Each frame As StackFrame In trace.GetFrames()
+            Console.WriteLine(frame.GetMethod().Name)
+            traceString = traceString & frame.GetMethod().Name & vbNewLine
+        Next
+
+        Dim result As MsgBoxResult = MsgBox("A critical has occurred. Do you want to retry?" & vbNewLine & "Traceback:" & vbNewLine & traceString, MsgBoxStyle.AbortRetryIgnore, "Error")
         Select Case result
             Case MsgBoxResult.Abort
                 KillGame()
                 Return EXCEPTION_CONTINUE_SEARCH
             Case MsgBoxResult.Retry
-                Return EXCEPTION_CONTINUE_EXECUTION
+                'exceptionRecord.ExceptionCode = REDIRECT
+                'Marshal.StructureToPtr(exceptionRecord, ptrExceptionInfo, False)
+                Return EXCEPTION_EXECUTE_HANDLER
             Case MsgBoxResult.Ignore
                 Return EXCEPTION_CONTINUE_SEARCH
         End Select

@@ -187,6 +187,20 @@ Public Module Patches
             Return __exception
         End Function
     End Class
+    <HarmonyPatch(GetType(ScreenSystem.ScreenManager), "Update", New Type() {})>
+    Public Class OnUpdatePatch
+        <HarmonyPriority(Priority.First)>
+        Private Shared Function Finalizer(ByVal __exception As Exception) As Exception
+            If __exception IsNot Nothing Then
+                Dim window As New ErrorWindow
+                window.exceptionData = __exception
+                If window.ShowDialog() = DialogResult.Retry Then
+                    Return Nothing
+                End If
+            End If
+            Return __exception
+        End Function
+    End Class
     <HarmonyPatch(GetType(Mission), "Tick")>
     Public Class OnTickMissionPatch
         <HarmonyPriority(Priority.First)>
