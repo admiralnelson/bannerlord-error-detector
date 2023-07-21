@@ -80,8 +80,7 @@ Public Class NativeCodeHandler
     End Function
 
     Private Sub WriteGracefulHandlerIntoGameLauncher()
-        Dim config = "
-<?xml version=""1.0"" encoding=""utf-8"" ?>
+        Dim config = "<?xml version=""1.0"" encoding=""utf-8"" ?>
 <configuration>
   <runtime>
     <legacyCorruptedStateExceptionsPolicy enabled=""True""/>
