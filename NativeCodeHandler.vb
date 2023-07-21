@@ -1,4 +1,5 @@
-﻿Imports System.Runtime.InteropServices
+﻿Imports System.IO
+Imports System.Runtime.InteropServices
 
 Public Class NativeCodeHandler
     Private Delegate Function VectoredHandler(pExceptionInfo As IntPtr) As UInteger
@@ -36,9 +37,13 @@ Public Class NativeCodeHandler
         If IsNothing(singleton) Then singleton = New NativeCodeHandler()
         Return singleton
     End Function
+
     Private Sub New()
         InstallVectoredExceptionHandler()
+        TaleWorlds.Engine.Utilities.DetachWatchdog()
+        WriteGracefulHandlerIntoGameLauncher()
     End Sub
+
     Private Function BewVectoredHandler(ptrExceptionInfo As IntPtr) As Integer
         Dim exceptionPointers = CType(Marshal.PtrToStructure(ptrExceptionInfo, GetType(EXCEPTION_POINTERS)), EXCEPTION_POINTERS)
         Dim exceptionRecord = CType(Marshal.PtrToStructure(exceptionPointers.ExceptionRecord, GetType(EXCEPTION_RECORD)), EXCEPTION_RECORD)
@@ -54,7 +59,12 @@ Public Class NativeCodeHandler
             traceString = traceString & frame.GetMethod().Name & vbNewLine
         Next
 
-        Dim result As MsgBoxResult = MsgBox("A critical has occurred. Do you want to retry?" & vbNewLine & "Traceback:" & vbNewLine & traceString, MsgBoxStyle.AbortRetryIgnore, "Error")
+        Dim result As MsgBoxResult = MsgBox("A critical has occurred from the game engine. Do you want to retry?" & vbNewLine &
+                                            "Traceback:" & vbNewLine &
+                                            traceString & vbNewLine &
+                                            "Abort = Close the program" & vbNewLine &
+                                            "Retry = Opens exception window" & vbNewLine &
+                                            "Ignore = Crash the program anyway", MsgBoxStyle.AbortRetryIgnore, "Error")
         Select Case result
             Case MsgBoxResult.Abort
                 KillGame()
@@ -68,6 +78,20 @@ Public Class NativeCodeHandler
         End Select
         Return EXCEPTION_CONTINUE_SEARCH
     End Function
+
+    Private Sub WriteGracefulHandlerIntoGameLauncher()
+        Dim config = "
+<?xml version=""1.0"" encoding=""utf-8"" ?>
+<configuration>
+  <runtime>
+    <legacyCorruptedStateExceptionsPolicy enabled=""True""/>
+  </runtime>
+</configuration>"
+        Dim fileToWrite = BaseDir & "\TaleWorlds.MountAndBlade.Launcher.exe.config"
+        fileToWrite = Path.GetFullPath(fileToWrite)
+        FileIO.FileSystem.WriteAllText(fileToWrite, config, False)
+
+    End Sub
 
     Private Sub InstallVectoredExceptionHandler()
         GC.KeepAlive(Me)

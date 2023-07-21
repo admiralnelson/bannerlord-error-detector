@@ -1,7 +1,7 @@
 <Module>
     <Name value="BetterExceptionWindow"/>
     <Id value="BetterExceptionWindow"/>
-    <Version value="v6.5.0"/>
+    <Version value="v7.0.0"/>
     <SingleplayerModule value="true"/>
     <MultiplayerModule value="false"/>
     <DependedModules>
