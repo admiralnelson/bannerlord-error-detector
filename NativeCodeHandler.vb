@@ -58,25 +58,28 @@ Public Class NativeCodeHandler
             Console.WriteLine(frame.GetMethod().Name)
             traceString = traceString & frame.GetMethod().Name & vbNewLine
         Next
-
-        Dim result As MsgBoxResult = MsgBox("A critical has occurred from the game engine. Do you want to retry?" & vbNewLine &
+        If ShowHardCrashPrompt Then
+            Dim result As MsgBoxResult = MsgBox("A critical has occurred from the game engine. Do you want to retry?" & vbNewLine &
                                             "Traceback:" & vbNewLine &
                                             traceString & vbNewLine &
                                             "Abort = Close the program" & vbNewLine &
                                             "Retry = Opens exception window" & vbNewLine &
                                             "Ignore = Crash the program anyway", MsgBoxStyle.AbortRetryIgnore, "Error")
-        Select Case result
-            Case MsgBoxResult.Abort
-                KillGame()
-                Return EXCEPTION_CONTINUE_SEARCH
-            Case MsgBoxResult.Retry
-                'exceptionRecord.ExceptionCode = REDIRECT
-                'Marshal.StructureToPtr(exceptionRecord, ptrExceptionInfo, False)
-                Return EXCEPTION_EXECUTE_HANDLER
-            Case MsgBoxResult.Ignore
-                Return EXCEPTION_CONTINUE_SEARCH
-        End Select
-        Return EXCEPTION_CONTINUE_SEARCH
+            Select Case result
+                Case MsgBoxResult.Abort
+                    KillGame()
+                    Return EXCEPTION_CONTINUE_SEARCH
+                Case MsgBoxResult.Retry
+                    'exceptionRecord.ExceptionCode = REDIRECT
+                    'Marshal.StructureToPtr(exceptionRecord, ptrExceptionInfo, False)
+                    Return EXCEPTION_EXECUTE_HANDLER
+                Case MsgBoxResult.Ignore
+                    Return EXCEPTION_CONTINUE_SEARCH
+            End Select
+            Return EXCEPTION_CONTINUE_SEARCH
+        Else
+            Return EXCEPTION_EXECUTE_HANDLER
+        End If
     End Function
 
     Private Sub WriteGracefulHandlerIntoGameLauncher()
