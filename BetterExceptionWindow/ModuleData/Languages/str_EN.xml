@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base>
+ <tags>
+  <tag language="English"/>
+ </tags>
+ <strings>
+  <string id="AllowInDebugger" text="Allow In Debugger"/>
+  <string id="AllowInDebuggerHint" text="Better Exception Window will trigger when debugger is attached"/>
+  <string id="EnableStdoutConsole" text="Enable Stdout/Stdin console"/>
+  <string id="EnableStdoutConsoleHint" text="Checking this will spawn console window."/>
+  <string id="DisableBewButterlibException" text="Disable BewButterlib Exception"/>
+  <string id="DisableBewButterlibExceptionHint" text="Uncheck this options if you want to restore the old behaviour, Butterlib exception then followed by BEW window. Restart the game to take effect."/>
+  <string id="EnableNative2Managed" text="Enable Native code to Managed code exception handler"/>
+  <string id="CatchNative2ManagedHint" text="This will put exception handlers in Native code to Managed code procedures. Uncheck this if you're experiencing slowdowns in mission or battles."/>
+  <string id="InstallDnspyLabel" text="Install Dnspy now"/>
+  <string id="InstallDnspyButton" text="Install "/>
+  <string id="AttachNowLabel" text="Attach dnSpy now"/>
+  <string id="AttachNowButton" text="Attach now"/>
+  <string id="AttachHint" text="Attach Dnspy debugger now"/>
+  <string id="RestartDnspyLabel" text="Restart with dnSpy attached"/>
+  <string id="RestartButton" text="Restart"/>
+  <string id="RestartDebuggerHint" text="Restart the game with debugger attached"/>
+  <string id="CrashTest" text="Crash Test: Throw an exception"/>
+  <string id="TestItNow" text="Test it now"/>
+  <string id="TestItNowHint" text="This will crash your game!"/>
+  <string id="CrashTestCode" text="Crash Test: Throw native code exception"/>
+  <string id="AboutBewLabel" text="About BetterExceptionWindow"/>
+  <string id="AboutButton" text="About..."/>
+  <string id="AboutHint" text="About this program."/>
+  <string id="AboutBewLabel" text="Send anonymous feedback"/>
+  <string id="AboutButton" text="Send feedback..."/>
+  <string id="AboutHint" text="Submit your thoughts and feedback about the current state of Better Exception Window via online survey forms. It takes less than a minute to complete."/>
+ </strings>
+</base>

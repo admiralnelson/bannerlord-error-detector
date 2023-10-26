@@ -64,7 +64,7 @@ Public Module BewConfigurationUserInterface
                     End Function) _
                     .AddBool(
                     "DisableBewButterlibException",
-                    "{=AllowInDebugger}Disable BewButterlib Exception",
+                    "{=DisableBewButterlibException}Disable BewButterlib Exception",
                     New ProxyRef(Of Boolean)(
                     Function() As Boolean
                         Return DisableBewButterlibException
@@ -76,7 +76,7 @@ Public Module BewConfigurationUserInterface
                     End Sub),
                     Function(boolBuilder)
                         Return boolBuilder _
-                               .SetHintText("{=AllowInDebuggerHint}Uncheck this options if you want to restore the old behaviour, Butterlib exception then followed by BEW window. Restart the game to take effect.")
+                               .SetHintText("{=DisableBewButterlibExceptionHint}Uncheck this options if you want to restore the old behaviour, Butterlib exception then followed by BEW window. Restart the game to take effect.")
                     End Function) _
                     .AddBool(
                     "CatchNative2Managed",
@@ -229,11 +229,11 @@ Public Module BewConfigurationUserInterface
                 "{=TestItNow}Test it now",
                 Function(boolBuilder)
                     Return boolBuilder _
-                        .SetHintText("{=AllowInDebuggerHint}This will crash your game!")
+                        .SetHintText("{=TestItNowHint}This will crash your game!")
                 End Function) _
                  .AddButton(
                 "CrashtestNativeCode",
-                "{=CrashTest}Crash Test: Throw native code exception",
+                "{=CrashTestCode}Crash Test: Throw native code exception",
                 New ProxyRef(Of Action)(
                     Function() As Action
                         Return Sub()
@@ -254,7 +254,7 @@ Public Module BewConfigurationUserInterface
                 "{=TestItNow}Test it now",
                 Function(boolBuilder)
                     Return boolBuilder _
-                        .SetHintText("{=AllowInDebuggerHint}This will crash your game!")
+                        .SetHintText("{=TestItNowHint}This will crash your game!")
                 End Function) _
                 .AddButton(
                     "About",

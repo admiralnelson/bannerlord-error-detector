@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base>
+ <tags>
+  <tag language="日本語"/>
+ </tags>
+ <strings>
+  <string id="AllowInDebugger" text="デバッガー内での実行を許可"/>
+  <string id="AllowInDebuggerHint" text="デバッガーを接続した際にBetter Exception Windowを起動します。"/>
+  <string id="EnableStdoutConsole" text="コンソールの標準入出力を有効"/>
+  <string id="EnableStdoutConsoleHint" text="チェックを入れるとコンソールウィンドウの生成を有効にします。"/>
+  <string id="DisableBewButterlibException" text="Butterlib の例外を無効"/>
+  <string id="DisableBewButterlibExceptionHint" text="古いバージョンの挙動を復活させたい場合はチェックを外してください。ButterLibの例外はBetter Exception Windowに準じたものになります。ゲームの再起動後に有効になります。"/>
+  <string id="EnableNative2Managed" text="例外ハンドラのためにネイティヴコードを有効"/>
+  <string id="CatchNative2ManagedHint" text="マネージドコードの管理のためにネイティヴコードの例外ハンドラを配置します。ミッションまたは戦闘シーンで遅延を感じる場合はチェックを外してください。"/>
+  <string id="InstallDnspyLabel" text="Dnspyをインストール"/>
+  <string id="InstallDnspyButton" text="Dnspyをインストール"/>
+  <string id="AttachNowLabel" text="Dnspyデバッガーをただちにインストールします。"/>
+  <string id="AttachNowButton" text="接続"/>
+  <string id="AttachHint" text="今すぐDnspyを接続します"/>
+  <string id="RestartDnspyLabel" text="dnSpnyを接続して再起動"/>
+  <string id="RestartButton" text="再起動"/>
+  <string id="RestartDebuggerHint" text="デバッガーを接続した状態でゲームを再起動します。"/>
+  <string id="CrashTest" text="クラッシュテスト: 例外を投げる"/>
+  <string id="TestItNow" text="今すぐテストする"/>
+  <string id="TestItNowHint" text="これによりゲームがクラッシュします!"/>
+  <string id="CrashTestCode" text="クラッシュテスト: コード例外を投げる"/>
+  <string id="AboutBewLabel" text="BetterExceptionWindow について"/>
+  <string id="AboutButton" text="About..."/>
+  <string id="AboutHint" text="このプログラムについて。"/>
+  <string id="AboutBewLabel" text="匿名でフィードバックを送る"/>
+  <string id="AboutButton" text="フィードバックを送る..."/>
+  <string id="AboutHint" text="オンラインサーベイのフォームから、Better Exception Window の現状に関してあなたの意見やフィードバックを提出します。記入は1分未満で終わります。"/>
+ </strings>
+</base>
