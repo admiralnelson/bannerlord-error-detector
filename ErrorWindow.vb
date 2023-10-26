@@ -6,6 +6,7 @@ Imports System.Runtime.InteropServices
 Imports System.Security.Permissions
 Imports System.Text.RegularExpressions
 Imports System.Windows.Forms
+Imports System.Windows.Forms.LinkLabel
 Imports System.Xml
 Imports HarmonyLib
 Imports Newtonsoft.Json
@@ -184,7 +185,7 @@ Public Class ErrorWindow
     End Function
     Public Sub AttemptToContinue()
         Me.DialogResult = DialogResult.Retry
-        Print("Better Exception Window WARNING: User attempted to continue program execution despite unhandled exception! This may (or may not) trigger unwanted side effect.")
+        ShowToastMessage("Better Exception Window WARNING: User attempted to continue program execution despite unhandled exception! This may (or may not) trigger unwanted side effect.")
         Close()
     End Sub
     Public Function DumpMemory(fullMemory As Boolean) As Integer
@@ -209,7 +210,7 @@ Public Class ErrorWindow
 
     Public Sub OpenConfig()
         Try
-            Dim p = Path.GetFullPath(BewBasePath & "\config.json")
+            Dim p = Path.GetFullPath(BewBasePath() & "\config.json")
             Process.Start(p)
         Catch ex As Exception
 
@@ -296,17 +297,36 @@ Public Class ErrorWindow
     End Sub
 
     Private Function GetAssembliesList(searchAlsoInGameBins As Boolean) As List(Of String)
-        Dim asm = AppDomain.CurrentDomain.GetAssemblies()
+        Dim dlls = Process.GetCurrentProcess().Modules
         Dim out As New List(Of String)
-        For Each x In asm
+        For Each dll As ProcessModule In dlls
             Try
-                If Not x.Location.ToLower().Contains("Mount & Blade II Bannerlord".ToLower()) Then
-                    Continue For
-                End If
-                Dim name = x.GetName().Name
-                Dim assmeblyVer = x.GetName().Version
-                Dim location = x.Location
-                Dim link = x.Location.Replace("\", "\\")
+                Dim asm = AssemblyName.GetAssemblyName(dll.FileName)
+                Dim version = asm.Version
+                Dim name = asm.Name
+                Dim location = dll.FileName
+                Dim link = location.Replace("\", "\\")
+                Dim li = $"Managed Assembly {name}, version: {version}. Location: <a href='#' onclick='window.external.OpenPath(""{link}"")'>{location}</a>"
+                Dim output = ""
+                output = $"<li class='taleworlds_ul'>{li}</li>" & vbNewLine
+                out.Add(output)
+            Catch ex As BadImageFormatException
+                Dim name = Path.GetFileNameWithoutExtension(dll.ModuleName)
+                Dim location = dll.FileName
+                Dim link = location.Replace("\", "\\")
+                Dim li = $"Native Code {name}. Location: <a href='#' onclick='window.external.OpenPath(""{link}"")'>{location}</a>"
+                Dim output = ""
+                output = $"<li class='taleworlds_ul'>{li}</li>" & vbNewLine
+                out.Add(output)
+            End Try
+        Next
+        Dim appdomainDlls = AppDomain.CurrentDomain.GetAssemblies()
+        For Each dll In appdomainDlls
+            Try
+                Dim name = dll.GetName().Name
+                Dim assmeblyVer = dll.GetName().Version
+                Dim location = dll.Location
+                Dim link = dll.Location.Replace("\", "\\")
                 Dim version = assmeblyVer
                 Dim li = $"Assembly {name}, version: {version}. Location: <a href='#' onclick='window.external.OpenPath(""{link}"")'>{location}</a>"
                 Dim output = ""
