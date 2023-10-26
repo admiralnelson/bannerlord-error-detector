@@ -31,6 +31,8 @@ Public Module Util
     Public IsFirstTime As Boolean = True
     Public EnableStdoutConsole As Boolean = False
     Public EnableLogger As Boolean = True
+    Public ShowHardCrashPrompt As Boolean = False
+
     Public Sub ReadConfig()
         Try
             Dim data = File.ReadAllText(BewConfigPath)
@@ -91,6 +93,11 @@ Public Module Util
         InformationManager.DisplayMessage(New InformationMessage(str))
         If submitIntoDebugSpool Then Debug.Print(str)
     End Sub
+
+    Public Sub ShowToastMessage(str As String)
+        MBInformationManager.AddQuickInformation(New Localization.TextObject(str))
+    End Sub
+
     Public Function GetAssembliesData() As List(Of Assembly)
         Dim asm = AppDomain.CurrentDomain.GetAssemblies()
         Dim out As New List(Of Assembly)
