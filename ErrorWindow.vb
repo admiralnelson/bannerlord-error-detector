@@ -69,7 +69,7 @@ Public Class ErrorWindow
         'wait a bit to gather game log
         Sleep(5 * 1000)
         html = html.Replace("{gameLogs}", GetGameLog())
-        html = html.Replace("{logtime}", GetGameLogDateTime())
+        html = html.Replace("(logtime)", GetGameLogDateTime())
         html = html.Replace("{jsonHarmony}", GetHarmonyPatches())
         html = html.Replace("{version}", Version)
         html = html.Replace("{commit}", Commit)
@@ -542,11 +542,8 @@ Public Class ErrorWindow
                 Return False
             Else
                 'https://stackoverflow.com/questions/135443/how-do-i-use-reflection-to-invoke-a-private-method
-                Dim campaignMetaData = TaleWorlds.CampaignSystem.Campaign.Current.SaveHandler
-                Dim dynamicMethodGetMetaData = campaignMetaData.GetType().GetMethod("GetSaveMetaData", BindingFlags.NonPublic Or BindingFlags.Instance)
-                Dim CampaignSaveMetaData As CampaignSaveMetaDataArgs = dynamicMethodGetMetaData.Invoke(campaignMetaData, New Object() {})
+                Dim CampaignSaveMetaData = TaleWorlds.CampaignSystem.Campaign.Current.SaveHandler.GetSaveMetaData()
 
-                'convert to savemetadata in e1.8.0
                 Dim dynamicMethodGetSaveMetaData = GetType(MBSaveLoad).GetMethod("GetSaveMetaData", BindingFlags.NonPublic Or BindingFlags.Static)
                 Dim SaveMetaData As MetaData = dynamicMethodGetSaveMetaData.Invoke(Nothing, {CampaignSaveMetaData})
 

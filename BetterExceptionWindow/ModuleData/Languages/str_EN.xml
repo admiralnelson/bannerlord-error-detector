@@ -71,7 +71,7 @@
    <string id="htmlXXhideTaleworldsDlls" text="Hide taleworlds dll"/>
    <!-- game log section -->
    <string id="htmlXXgameEngineLog" text="Game Engine Logs"/>
-   <string id="htmlXXrecorededLogFromTheGame" text="Recorded logs from the game engine (RGL). Taken at {logtime}"/>
+   <string id="htmlXXrecorededLogFromTheGame" text="Recorded logs from the game engine (RGL). Taken at (logtime)"/>
    <!-- harmony patch section -->
    <string id="htmlXXharmonyPatches" text="Harmony Patches"/>
    <!-- troubleshoot section -->
@@ -191,7 +191,7 @@
    <string id="javascriptXXdumpFail" text="Failed to dump the memory" />
 
    <!-- function CloseProgram() {  and function AttemptToContinue() { -->
-   <string id="javascriptXXdiscardReport" text="You have attached screenshot or save game.\nDo you want to discard them and close the program?" />
+   <string id="javascriptXXdiscardReport" text="You have attached screenshot or save game.\nDo you want to discard them?" />
 
  </strings>
 </base>
