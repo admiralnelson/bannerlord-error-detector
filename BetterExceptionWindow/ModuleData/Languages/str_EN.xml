@@ -4,7 +4,9 @@
   <tag language="English"/>
  </tags>
  <strings>
-  <string id="AllowInDebugger" text="Allow In Debugger"/>
+   <!-- BewConfigurationUserInterface.vb -->
+
+   <string id="AllowInDebugger" text="Allow In Debugger"/>
   <string id="AllowInDebuggerHint" text="Better Exception Window will trigger when debugger is attached"/>
   <string id="EnableStdoutConsole" text="Enable Stdout/Stdin console"/>
   <string id="EnableStdoutConsoleHint" text="Checking this will spawn console window."/>
@@ -30,5 +32,166 @@
   <string id="AboutBewLabel" text="Send anonymous feedback"/>
   <string id="AboutButton" text="Send feedback..."/>
   <string id="AboutHint" text="Submit your thoughts and feedback about the current state of Better Exception Window via online survey forms. It takes less than a minute to complete."/>
+
+   <!-- ErrorWindow.vb -->
+   <string id="BewShowButterlib" text="&lt;a href=&apos;#&apos; onclick=&apos;window.external.ShowButterlibException()&apos;&gt;Click here&lt;/a&gt; to show Butterlib exception.&lt;br /&gt;&lt;br /&gt;"/>
+   <string id="BewNoInnterException" text="No inner exception was thrown"/>
+
+
+   <!-- html localisation -->
+   <!-- title section -->
+   <string id="htmlXXtitle" text="An unhandled exception occured!" />
+   <string id="htmlXXattemptToContinueButton" text="Attempt to continue" />
+   <string id="htmlXXcloseProgramButton" text="Close the program" />
+   <string id="htmlXXsavePageButton" text="Save this page" />
+
+   <!-- header section -->
+  <string id="htmlXXheader1" text="Bannerlord has encountered a problem and needs to close. We are sorry for the inconvenience. " />
+  <string id="htmlXXheader2" text="If you were in the middle of something, the progress you were working on might be lost." />
+  <string id="htmlXXheader3" text="If you click attempt to continue, the program will ignore this error and continue running, however there is a risk your game will be in corrupted state." />
+  <string id="htmlXXheader4" text="This error can be caused by a faulty XMLs, manifest (submodule.xml), corrupted save game, module, or programming errors." />
+  <string id="htmlXXheader5" text="If this keeps happening, consider saving the error report and send it to the module authors or run a &lt;a href=&quot;#troubleshoot&quot; onclick=&quot;OpenTroubleshootSection()&quot;&gt;troubleshoot&lt;/a&gt; to solve the issues." />
+  <string id="htmlXXheader6" text="You can control Better Exception Window behaviour by editing &lt;a href=&apos;#&apos; onclick=&apos;window.external.OpenConfig()&apos;&gt;&lt;b&gt;config.json&lt;/b&gt;&lt;/a&gt; in BetterExceptionWindow submodule folder." />
+   <!-- exception section -->
+  <string id="htmlXXreasons" text="Reasons" />
+  <string id="htmlXXsource" text="Source:" />
+  <string id="htmlXXinnerException" text="Inner Exception" />
+  <string id="htmlXXcallstacks" text="Callstacks" />
+  <string id="htmlXXprotip" text="Protip:" />
+  <string id="htmlXXprotip1" text="Use a debugger like &lt;a href=&apos;https://github.com/dnSpy/dnSpy&apos;&gt;dnSpy&lt;/a&gt; or&lt;a href=&apos;https://visualstudio.microsoft.com/&apos;&gt;Visual studio&lt;/a&gt; to trace the source of error, by stepping the program line by line."/>
+  <string id="htmlXXprotip2" text="&lt;a href=&quot;#dnspy&quot; onclick=&quot;OpenTroubleshootSection()&quot;&gt;You can restart with dnSpy attached.&lt;/a&gt;" />
+  <string id="htmlXXinnerExceptionCallStack" text="Inner exception callstack:"/>
+  <string id="htmlXXouterExceptionCallStack" text="Outer exception callstack:"/>
+   <!-- installed mods section -->
+  <string id="htmlXXinstalledMods" text="Installed mods"/>
+   <string id="htmlXXhideTaleworldsMods" text="Hide taleworlds mods"/>
+   <string id="htmlXXhideUnloadedMods" text="Hide unloaded mods"/>
+   <!-- dll enumeration section -->
+   <string id="htmlXXloadedDlls" text="Loaded DLLs"/>
+   <string id="htmlXXhideTaleworldsDlls" text="Hide taleworlds dll"/>
+   <!-- game log section -->
+   <string id="htmlXXgameEngineLog" text="Game Engine Logs"/>
+   <string id="htmlXXrecorededLogFromTheGame" text="Recorded logs from the game engine (RGL). Taken at {logtime}"/>
+   <!-- harmony patch section -->
+   <string id="htmlXXharmonyPatches" text="Harmony Patches"/>
+   <!-- troubleshoot section -->
+   <string id="htmlXXtroubleshoot" text="Troubleshoot"/>
+   <string id="htmlXXtroubleshootTip" text="You can try several troubleshoot options down below."/>
+   <!-- xml checker -->
+   <string id="htmlXXcheckForXml" text=" Check for XML typos if an error were caused by faulty XMLs, tap the button on the right to validate them."/>
+   <string id="htmlXXcheckXmlButton" text="Check XML validity"/>
+   <!-- disable mods -->
+   <string id="htmlXXdisableMods" text="Attempt to disable faulty mods. This option may only work with the original Taleworlds Launcher."/>
+   <string id="htmlXXdisableModsButton" text="Disable them"/>
+   <!-- emergency save -->
+   <string id="htmlXXemergencySave" text="Emergency save. &lt;br /&gt; Forcefully to save the game. Keep in mind there are some cases where this is not possible to do."/>
+   <string id="htmlXXemergencySaveButton" text="Save the game"/>
+   <!-- dnspy install & debug mode -->
+   <string id="htmlXXdnspyInstall" text="Restart the program in debug mode. &lt;br /&gt;Restart the program with dnSpy debugger and decompiler attached. This may helps you debug and even made patches to a faulty mod without a source code. &lt;a href=&quot;https://github.com/dnSpy/dnSpy&quot;&gt;What is dnSpy?&lt;/a&gt; &lt;br /&gt;It will disable BetterExceptionWindow temporarily until the next game restart."/>
+   <string id="htmlXXdnspyReason" text="Dnspy is not installed"/>
+   <string id="htmlXXdnspyInstallButton" text="Install dnSpy"/>
+   <string id="htmlXXdnspyProgressBar" text="Installing...(0000000K/000000K)"/>
+   <string id="htmlXXdnspyRestartButton" text="Restart the program with dnSpy attached"/>
+   <!-- screenshot attach -->
+   <string id="htmlXXscreenshotAttach" text="Attach screenshot. &lt;br /&gt;Capture current game screenshot and attach it to this error report.&lt;br /&gt;"/>
+   <string id="htmlXXscreenshotAttachStatus" text="No screenshot was attached on this report."/>
+   <string id="htmlXXscreenshotAttachButton" text="Screenshot now"/>
+   <!-- save attach -->
+   <string id="htmlXXsavegameAttach" text="Attach latest save game to this error report. &lt;br /&gt;You can extract the save game by opening this error report in the browser.&lt;br /&gt;"/>
+   <string id="htmlXXsavegameAttachButton" text="Click to attach"/>
+   <string id="htmlXXsavegameAttachDownloadButton" text="Download the save data"/>
+   <!-- dump memory -->
+   <string id="htmlXXdumpMemory" text="Dump the memory content. &lt;br /&gt; This will dump the contents of the program memory into a file so it can be analysed later.&lt;br /&gt; Memory dump can be quite big so BEW will save this dump seperately. &lt;br /&gt;"/>
+   <string id="htmlXXdumpMemoryCheckbox" text="Dump full memory"/>
+   <string id="htmlXXdumpMemoryButton" text="Dump now"/>
+   <!-- other html string -->
+   <string id="htmlXXgoToTop" text="Go to the top" />
+   
+
+   <!-- javscript localisations -->
+   <!-- TEXT MUST BE IN SINGLE LINE! DO NOT NEW LINE THE TEXT -->
+
+   <!-- function validateXML(e) {... -->
+   <string id="javascriptXXcheckingFile" text="Checking file..." />
+
+   <!-- function doneScanning() {... -->
+   <string id="javascriptXXxmlChecksDone" text="XML checks done." />
+   
+   <!-- function saveEmergencyCampaign() { -->
+   <string id="javascriptXXemergencySaveConfirm" text="Depending on the crash, the saved file could be on invalid state.\nOnly use this if the crash is not player data related (i.e crash was caused by user interface bugs, not player data or AI state related)\nContinue to forcefully save the game?" />
+   <string id="javascriptXXemergencySaveAs" text="Save as" />
+   <string id="javascriptXXemergencySaveInvalidName" text="Invalid name!" />
+   <string id="javascriptXXemergencySaveOk" text="Game saved as: " />
+
+   <!--  function DisplayModulesReport(data) { -->
+   <string id="javascriptXXworkshop" text="(Workshop)" />
+   <string id="javascriptXXmodLoadedYes" text="Mod loaded: YES" />
+   <string id="javascriptXXmodLoadedNo" text="Mod loaded: NO" />
+   <string id="javascriptXXmodId" text="Mod Id:" />
+   <string id="javascriptXXmodVersion" text="Mod Version:" />
+   <string id="javascriptXXmodLocation" text="Mod Location:" />
+   <string id="javascriptXXmodManifestData" text="Mod manifest data:" />
+   <string id="javascriptXXmodManifestLocation" text="Mod Manifest location:" />
+   <string id="javascriptXXdependsOn" text="Depends on:" />
+   <string id="javascriptXXsubmodules" text="Submodules:" />
+   <string id="javascriptXXsteamworkshopUrl" text="Steamworkshop URL:" />
+   <string id="javascriptXXdoesntDependWithOtherModule" text="Does not depend with other module" />
+   <string id="javascriptXXdoesntContainDll" text="Does not contain any DLL module" />
+   <string id="javascriptXXnotLoadedInMemory" text="(Not loaded in memory)" />
+   
+   <!--  function DisplayHarmonyRerport(methodName, data) { -->
+   <string id="javascriptXXprefixes" text="Prefixes" />
+   <string id="javascriptXXpostfixes" text="Postfixes" />
+   <string id="javascriptXXfinalisers" text="Finalisers" />
+   <string id="javascriptXXtranspilers" text="Transpilers" />
+   <string id="javascriptXXfinalisers" text="Finalisers" />
+   <string id="javascriptXXfinalisers" text="Finalisers" />
+
+   <!--  function SavePage() { -->
+   <string id="javascriptXXpageSavedAs" text="File saved as" />
+
+   <!--  function OpenTroubleshootSection() { -->
+   <string id="javascriptXXtroubleshoot" text="Troubleshoot" />
+
+   <!--  function CheckDnspy() { -->
+   <string id="javascriptXXdnspyNotAvailable" text="dnSpy is not available, because the program is already running under debugger." />
+
+   <!--  function InstallDnspy() { -->
+   <string id="javascriptXXinstallDnspy" text="Do you want to install dnSpy?" />
+   <string id="javascriptXXdownload0percent" text="Downloading...0K/0K" />
+
+   <!--  function StartDnspy() { -->
+   <string id="javascriptXXdnspyRestart" text="Are you sure to restart the program? Unsaved game and error logs may be lost!" />
+
+   <!--  Callback_InstallDnspyProgress(currentPercentage, downloadedTotal, totalSize)  -->
+   <string id="javascriptXXdnspyIsBeingDownloaded" text="dnSpy is being downloaded..." />
+   <string id="javascriptXXdownloading" text="Downloading..." />
+   
+   <!--  Callback_InstallDnspyComplete(success, errorMessage) -->
+   <string id="javascriptXXinstallSuccess" text="dnSpy has been successfully downloaded and installed." />
+   <string id="javascriptXXerrorInstalling" text="Error installing dnspy. Reason:" />
+
+  <!-- function CheckCampaignIsRunning() { and function SaveGameAttachement() {  -->
+  <string id="javascriptXXgameIsNotRunningCampaign" text="This option is not available because the game is not running campaign." />
+
+   <!-- function SaveGameAttachement() {  and function AttachSaveGame() { -->
+   <string id="javascriptXXgameIsRunning" text="No save game was attached." />
+   <string id="javascriptXXnoSavegame" text="No save game was attached." />
+   <string id="javascriptXXattachedSave" text="A save game is attached to this report" />
+
+   <!-- function AttachSaveGame() { -->
+   <string id="javascriptXXattachSaveGameOk" text="The save game has been attached to this error report." />
+   <string id="javascriptXXpathDoesntExist" text="An Error occured when attaching your save game, the save game path probably does not exist!" />
+
+   <!-- function Screenshot() { -->
+   <string id="javascriptXXscreenshotHasBeenAttached" text="Screenshot has been taken and attached to this error report" />
+   
+   <!-- function DumpMemory() { -->
+   <string id="javascriptXXdumpSuccess" text="Memory has been dumped" />
+   <string id="javascriptXXdumpFail" text="Failed to dump the memory" />
+
+   <!-- function CloseProgram() {  and function AttemptToContinue() { -->
+   <string id="javascriptXXdiscardReport" text="You have attached screenshot or save game.\nDo you want to discard them and close the program?" />
+
  </strings>
 </base>

@@ -90,8 +90,8 @@ Public Module Util
         End Try
     End Function
     Public Sub Print(str As String, Optional submitIntoDebugSpool As Boolean = True)
-        InformationManager.DisplayMessage(New InformationMessage(str))
-        If submitIntoDebugSpool Then Debug.Print(str)
+        InformationManager.DisplayMessage(New InformationMessage("BetterExceptionWindow: " & str))
+        If submitIntoDebugSpool Then Debug.Print("BetterExceptionWindow: " & str)
     End Sub
 
     Public Sub ShowToastMessage(str As String)

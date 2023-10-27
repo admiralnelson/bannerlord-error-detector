@@ -12,6 +12,7 @@ Imports HarmonyLib
 Imports Newtonsoft.Json
 Imports TaleWorlds.Core
 Imports TaleWorlds.Library
+Imports TaleWorlds.Localization
 Imports TaleWorlds.SaveSystem
 
 <PermissionSet(SecurityAction.Demand, Name:="FullTrust")>
@@ -24,6 +25,8 @@ Public Class ErrorWindow
     Dim bAttachedFileNotSavedYet = False
 
     Private Sub ErrorWindow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        html = LocaliseTheHtmlPage(html)
+
         Me.TopMost = True
         Dim menu As New Windows.Forms.ContextMenu()
         menu.MenuItems.Add("none")
@@ -37,7 +40,8 @@ Public Class ErrorWindow
         errorCount = errorCount + 1
         additionalInfo = additionalInfo & GetAdviseOnAttemptContinue()
         If CheckIsAssemblyLoaded("Bannerlord.ButterLib.dll") Then
-            html = html.Replace("{butterlibMessage}", "<a href='#' onclick='window.external.ShowButterlibException()'>Click here</a> to show Butterlib exception.<br /><br />")
+            html = html.Replace("{butterlibMessage}",
+                 New TextObject("{=BewShowButterlib}<a href='#' onclick='window.external.ShowButterlibException()'>Click here</a> to show Butterlib exception.<br /><br />").ToString())
         Else
             html = html.Replace("{butterlibMessage}", "")
         End If
@@ -56,9 +60,10 @@ Public Class ErrorWindow
             html = html.Replace("{innerFaultingSource}", exceptionData.InnerException.Source)
             html = html.Replace("{innerExceptionCallStack}", exceptionData.InnerException.StackTrace)
         Else
-            html = html.Replace("{innerException}", "No inner exception was thrown")
+            Dim noInnerExceptionString = New TextObject("{=BewNoInnterException}No inner exception was thrown").ToString()
+            html = html.Replace("{innerException}", noInnerExceptionString)
             html = html.Replace("{innerFaultingSource}", "No module")
-            html = html.Replace("{innerExceptionCallStack}", "No inner exception was thrown")
+            html = html.Replace("{innerExceptionCallStack}", noInnerExceptionString)
         End If
         html = html.Replace("{jsonData}", AnalyseModules())
         'wait a bit to gather game log
@@ -68,6 +73,7 @@ Public Class ErrorWindow
         html = html.Replace("{jsonHarmony}", GetHarmonyPatches())
         html = html.Replace("{version}", Version)
         html = html.Replace("{commit}", Commit)
+
         widget.DocumentText = html
         AddHandler widget.Document.ContextMenuShowing, AddressOf WebContextMenuShowing
         AddHandler widget.PreviewKeyDown, AddressOf WebShorcut
@@ -76,6 +82,35 @@ Public Class ErrorWindow
         'widget.Document.InvokeScript("AnalyseModule", Nothing)
         PrintExceptionToDebug()
     End Sub
+
+    Private Function LocaliseTheHtmlPage(html As String) As String
+        Dim xml = File.ReadAllText(BewBasePath() & "\ModuleData\Languages\str_EN.xml")
+        Dim doc As New XmlDocument()
+        doc.LoadXml(xml)
+
+        Dim nodeList As XmlNodeList = doc.SelectNodes("//string[starts-with(@id, 'htmlXX')]")
+
+        For Each node As XmlNode In nodeList
+            Dim localisedId = node.Attributes("id").Value
+            Dim localisedString = node.Attributes("text").Value
+            Dim curlyBracket = "{" & localisedId & "}"
+            Dim localisedText = New TextObject("{=" & localisedId & "}" & localisedString)
+            html = html.Replace(curlyBracket, localisedText.ToString())
+        Next
+
+        nodeList = doc.SelectNodes("//string[starts-with(@id, 'javascriptXX')]")
+
+        For Each node As XmlNode In nodeList
+            Dim localisedId = node.Attributes("id").Value
+            Dim localisedString = node.Attributes("text").Value
+            Dim curlyBracket = "{" & localisedId & "}"
+            Dim localisedText = New TextObject("{=" & localisedId & "}" & localisedString)
+            html = html.Replace(curlyBracket, localisedText.ToString())
+        Next
+
+        Return html
+    End Function
+
     Public Function GetAdviseOnAttemptContinue()
         If Not File.Exists(BewBasePath() & "\solutions.json") Then
             Print("Error loading solutions.json to explain the current crash")
@@ -104,7 +139,7 @@ Public Class ErrorWindow
                 End If
             Next
         Catch ex As Exception
-            Print("Error parsing solution.json " & ex.Message)
+            Print("Error parsing solution.json (ignore this error)")
         End Try
         Return ""
     End Function
@@ -270,7 +305,7 @@ Public Class ErrorWindow
                                                      .OrderByDescending(Function(x) x.LastWriteTimeUtc) _
                                                      .FirstOrDefault()
         If biggestFile IsNot Nothing Then
-            Return biggestFile.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss 'GMT'z")
+            Return biggestFile.LastWriteTime.ToString("yyyy-MM-dd HH:mm : ss 'GMT'z")
         End If
         Return ""
     End Function

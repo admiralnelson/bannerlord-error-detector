@@ -127,15 +127,15 @@
 </head>
 <body>
     <div style='clear:both;' id="top">
-        <h1 id='title'> An unhandled exception occured! </h1>
+        <h1 id='title'> {htmlXXtitle} </h1>
         <button class='button' onclick='AttemptToContinue()'>
-            Attempt to continue
+            {htmlXXattemptToContinueButton}
         </button>
         <button class='button' onclick='CloseProgram()'>
-            Close the program
+            {htmlXXcloseProgramButton}
         </button>
         <button class='button' onclick='SavePage()'>
-            Save/Print this page
+            {htmlXXsavePageButton}
         </button>
     </div>
     <br />
@@ -149,15 +149,15 @@
                 </td>
                 <td style='border: none'>
                     <p>
-                        <b>Bannerlord has encountered a problem and needs to close. We are sorry for the inconvenience. </b><br />
-                        If you were in the middle of something, the progress you were working on might be lost.<br /><br />
+                        <b>{htmlXXheader1}</b><br />
+                        {htmlXXheader2}<br /><br />
 
-                        If you click attempt to continue, the program will ignore this error and continue running, however there is a risk your game will be in corrupted state.<br /><br />
+                        {htmlXXheader3}<br /><br />
 
-                        This error can be caused by a faulty XMLs, manifest (submodule.xml), corrupted save game, module, or programming errors.<br />
-                        If this keeps happening, consider saving the error report and send it to the module authors or run a <a href="#troubleshoot" onclick="OpenTroubleshootSection()">troubleshoot</a> to solve the issues.<br /><br />
+                        {htmlXXheader4}<br />
+                        {htmlXXheader5}<br /><br />
 
-                        You can control Better Exception Window behaviour by editing <a href='#' onclick='window.external.OpenConfig()'><b>config.json</b></a> in BetterExceptionWindow submodule folder.<br /><br />
+                        {htmlXXheader6}<br /><br />
 
                         {butterlibMessage}
 
@@ -169,84 +169,82 @@
     </table>
     <br />
     <h2 name='reason'>
-        <a href='#reason' onclick='spoiler(this, "Reasons" ,"reason")'>
-            + Reason
+        <a href='#reason' onclick='spoiler(this, "{htmlXXreasons}" ,"reason")'>
+            + {htmlXXreasons}
         </a>
     </h2>
     <div class='msg' id='reason'>
-        Source: <span>{faultingSource}</span>
+        {htmlXXsource} <span>{faultingSource}</span>
         <p class='monospace' id='reasonPre'>
             {errorString}
         </p>
     </div>
     <h2 name='innerexcept'>
-        <a href='#innerexcept' onclick='spoiler(this, "Inner exception" ,"innerexcept")'>
-            + Inner exception
+        <a href='#innerexcept' onclick='spoiler(this, "{htmlXXinnerException}" ,"innerexcept")'>
+            + {htmlXXinnerException}
         </a>
     </h2>
     <div class='msg' id='innerexcept'>
-        Source: <span>{innerFaultingSource}</span>
+        {htmlXXsource} <span>{innerFaultingSource}</span>
         <p class='monospace' id='reasonPre'>
             {innerException}
         </p>
     </div>
     <h2 name='fullStack'>
-        <a href='#fullStack' onclick='spoiler(this, "Callstacks" ,"fullStack")'>
-            + Callstacks
+        <a href='#fullStack' onclick='spoiler(this, "{htmlXXcallstacks}" ,"fullStack")'>
+            + {htmlXXcallstacks}
         </a>
     </h2>
     <div class='msg' id='fullStack'>
         <p>
-            <b>Protip: </b>
-            Use a debugger like <a href='https://github.com/dnSpy/dnSpy'>dnSpy</a> or
-            <a href='https://visualstudio.microsoft.com/'>Visual studio</a> to trace the source of error, by stepping the program
-            line by line.
-            <a href="#dnspy" onclick="OpenTroubleshootSection()">You can restart with dnSpy attached.</a>
+            <b>{htmlXXprotip} </b>
+            {htmlXXprotip1}
+            {htmlXXprotip2}
         </p>
-        Inner exception callstack:
+        {htmlXXinnerExceptionCallStack}
         <pre>{innerExceptionCallStack}</pre>
-        Outer exception callstack:
+        {htmlXXouterExceptionCallStack}
         <pre>{fullStackString}</pre>
     </div>
     <h2 name='mods'>
-        <a href='#mods' onclick='spoiler(this, "Installed mods" ,"mods")'>
-            + Installed mods
+        <a href='#mods' onclick='spoiler(this, "{htmlXXinstalledMods}" ,"mods")'>
+            + {htmlXXinstalledMods}
         </a>
     </h2>
     <div class='msg' id='mods'>
-        <p><input type='checkbox' onclick='hideTWMods(this)' /> Hide taleworlds mods </p>
-        <p><input type='checkbox' onclick='hideUnloadedMods(this)' /> Hide unloaded mods</p>
+        <p><input type='checkbox' onclick='hideTWMods(this)' /> {htmlXXhideTaleworldsMods}</p>
+        <p><input type='checkbox' onclick='hideUnloadedMods(this)' /> {htmlXXhideUnloadedMods}</p>
         <div id="mod-container">
 
         </div>
     </div>
     <h2 name='loaded-dll'>
-        <a href='#loaded-dll' onclick='spoiler(this, "Loaded DLLs" ,"dll")'>
-            + Loaded DLLs
+        <a href='#loaded-dll' onclick='spoiler(this, "{htmlXXloadedDlls}" ,"dll")'>
+            + {htmlXXloadedDlls}
         </a>
     </h2>
     <div class='msg' id='dll'>
-        <p><input type='checkbox' onclick='hide(this)' /> Hide taleworlds dll </p>
+        <p><input type='checkbox' onclick='hide(this)' /> {htmlXXhideTaleworldsDlls} </p>
         <ul>
             {installedMods}
         </ul>
     </div>
     <h2 name="rgl">
-        <a href='#rgl-log' onclick='spoiler(this, "Game Engine Log" ,"rgl-log")'>
-            + Game Engine Logs
+        <a href='#rgl-log' onclick='spoiler(this, "{htmlXXgameEngineLog}" ,"rgl-log")'>
+            + {htmlXXgameEngineLog}
         </a>
     </h2>
     <div class='msg' id='rgl-log'>
         <p>
             <img src="https://icons.iconarchive.com/icons/dtafalonso/modern-xp/256/ModernXP-43-Date-New-icon.png" width="64" height="64" />
-            Recorded logs from the game engine (RGL). Taken at {logtime}
+            {htmlXXrecorededLogFromTheGame}
         </p>
         <br />
         <pre id="gamelogstext">{gameLogs}</pre>
     </div>
     <h2 name="harmony">
-        <a href='#harmony-log' onclick='spoiler(this, "Harmony Patches" ,"harmony")'>
-            + Harmony Patches
+        <a href='#harmony-log' onclick='spoiler(this, "{htmlXXharmonyPatches}" ,"harmony")'>
+            + {htmlXXharmonyPatches}
         </a>
     </h2>
     <div class='msg' id='harmony'>
@@ -255,25 +253,25 @@
         </div>
     </div>
     <h2 name="troubleshoot">
-        <a href='#troubleshoot' onclick='spoiler(this, "Troubleshoot" ,"troubleshoot-expanded")' id="troubleshoot">
-            + Troubleshoot
+        <a href='#troubleshoot' onclick='spoiler(this, "{htmlXXtroubleshoot}" ,"troubleshoot-expanded")' id="troubleshoot">
+            + {htmlXXtroubleshoot}
         </a>
     </h2>
     <div class='msg' id='troubleshoot-expanded'>
-        <p>You can try several troubleshoot options down below.</p>
+        <p>{htmlXXtroubleshootTip}</p>
         <div class='border-blue' id='xml-report'>
             <img src='http://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-64-Folder-Check-icon.png' width='48' />
             <div class="troubleshoot-desc">
-                Check for XML typos if an error were caused by faulty XMLs, tap the button on the right to validate them.
+                {htmlXXcheckForXml}
             </div>
-            <button onclick='validateXML(this)' id='btn-validate-xml' class="troubleshoot-buttons">Check XML validity</button>
+            <button onclick='validateXML(this)' id='btn-validate-xml' class="troubleshoot-buttons">{htmlXXcheckXmlButton}</button>
             <br />
             <br />
             <table id='xml-report-table' style='width:100%; display:none; border:none' border='0'>
                 <tr>
                     <td style='width:30px'><img src='http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-check-icon.png' width='24' /> </td>
                     <td>
-                        Submodule.xml <br />
+                        Dummy Submodule.xml <br />
                         Location: <a href='#' onclick='test()'>C:\FILE\Submodule.xml</a>
                         Location: <a href='#' onclick='stopsearch()'>C:\FILE\Submodule.xml</a>
                         Location: <a href='#' onclick='clearTable()'>C:\FILE\Submodule.xml</a>
@@ -284,82 +282,75 @@
         <div class='border-blue'>
             <img src='https://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-21-Desktop-icon.png' width='48' />
             <div class="troubleshoot-desc">
-                Attempt to disable faulty mods. This option may only work with the original Taleworlds Launcher.
+                {htmlXXdisableMods}
             </div>
             <br />
             <br />
-            <button class="troubleshoot-buttons" onclick="window.external.DisableProblematicModules()">Disable them</button>
+            <button class="troubleshoot-buttons" onclick="window.external.DisableProblematicModules()">{htmlXXdisableModsButton}</button>
         </div>
         <div class='border-blue' id="emergency-save">
             <img src='http://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-65-Floppy-Save-icon.png' width='48' />
             <div class="troubleshoot-desc">
-                Emergency save. <br />
-                Forcefully to save the game. Keep in mind there are some cases where this is not possible to do.
+                {htmlXXemergencySave}
                 <div id="save-reason">
 
                 </div>
             </div>
             <br />
             <br />
-            <button class="troubleshoot-buttons" onclick="saveEmergencyCampaign()" id="savegameButton" disabled>Save the game</button>
+            <button class="troubleshoot-buttons" onclick="saveEmergencyCampaign()" id="savegameButton" disabled>{htmlXXemergencySaveButton}</button>
         </div>
         <div class='border-blue' id="dnspy">
             <img src='http://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-70-Window-Settings-icon.png' width='48' />
             <div class="troubleshoot-desc">
-                Restart the program in debug mode. <br />
-                Restart the program with dnSpy debugger and decompiler attached. This may helps you debug and even made patches to a faulty mod without a source code. <a href="https://github.com/dnSpy/dnSpy">What is dnSpy?</a> <br />
-                It will disable BetterExceptionWindow temporarily until the next game restart.
+                {htmlXXdnspyInstall}
                 <div style="display:normal" id="dnspyInstall">
-                    <div id="dnspyReason">Dnspy is not installed.</div> <br />
-                    <a href="#dnspy" onclick="InstallDnspy()" id="dnspyInstallLink">Install dnSpy</a>
+                    <div id="dnspyReason">{htmlXXdnspyReason}</div> <br />
+                    <a href="#dnspy" onclick="InstallDnspy()" id="dnspyInstallLink">{htmlXXdnspyInstallButton}</a>
                 </div>
             </div>
             <br />
             <br />
-            <div class="progressbar" id="dnspyProgressbar" style="display:none">Installing...(0000000K/000000K)</div>
-            <button class="troubleshoot-buttons" onclick="StartDnspy()" id="dnspyButton" disabled>Restart the program with dnSpy attached</button>
+            <div class="progressbar" id="dnspyProgressbar" style="display:none">{htmlXXdnspyProgressBar}</div>
+            <button class="troubleshoot-buttons" onclick="StartDnspy()" id="dnspyButton" disabled>{htmlXXdnspyRestartButton}</button>
         </div>
         <div class='border-blue' id="screenshotattach">
             <img src='https://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-28-Filetype-jpg-icon.png' width='48' />
             <div class="troubleshoot-desc">
-                Attach screenshot. <br />
-                Capture current game screenshot and attach it to this error report.<br />
+                {htmlXXscreenshotAttach}
                 <div>
-                    <div id="noPictureMessage" style="display:none">No screenshot was attached on this report.</div>
+                    <div id="noPictureMessage" style="display:none">{htmlXXscreenshotAttachStatus}</div>
                 </div>
             </div>
             <br />
             <br />
             <img src="" style="width:80%;display:none;float:none" id="screenshotImage" />
-            <button class="troubleshoot-buttons" onclick="Screenshot()" id="screenshotButton">Screenshot now</button>
+            <button class="troubleshoot-buttons" onclick="Screenshot()" id="screenshotButton">{htmlXXscreenshotAttachButton}</button>
         </div>
         <div class='border-blue' id="savegameattach">
             <img src='https://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-16-Folder-Documents-icon.png' width='48' />
             <div class="troubleshoot-desc">
-                Attach latest save game to this error report. <br />
-                You can extract the save game by opening this error report in the browser.<br />
+                {htmlXXsavegameAttach}
                 <div>
                     <div id="attachSaveMessage" style="display:none"></div>
                 </div>
             </div>
             <br />
             <br />
-            <button class="troubleshoot-buttons" onclick="AttachSaveGame()" id="attachSaveGameButton">Click to attach</button>
-            <button class="troubleshoot-buttons" onclick="DownloadSaveGame()" id="attachDownloadSaveGameButton" style="display:none">Download the save data</button>
+            <button class="troubleshoot-buttons" onclick="AttachSaveGame()" id="attachSaveGameButton">{htmlXXsavegameAttachButton}</button>
+            <button class="troubleshoot-buttons" onclick="DownloadSaveGame()" id="attachDownloadSaveGameButton" style="display:none">{htmlXXsavegameAttachDownloadButton}</button>
         </div>
         <div class='border-blue' id="memorydump">
             <img src='https://icons.iconarchive.com/icons/dtafalonso/modern-xp/512/ModernXP-25-Folder-Download-icon.png' width='48' />
             <div class="troubleshoot-desc">
-                Dump the memory content. <br />
-                This will dump the contents of the program memory into a file so it can be analysed later.<br />
-                Memory dump can be quite big so BEW will save this dump seperately. <br />
+                {htmlXXdumpMemory}
                 <div style="display:normal" id="">
-                    <input type="checkbox" id="checkDumpHeap" /> Dump full memory.
+                    <input type="checkbox" id="checkDumpHeap" /> {htmlXXdumpMemoryCheckbox}
                 </div>
             </div>
             <br />
             <br />
-            <button class="troubleshoot-buttons" onclick="DumpMemory()" id="dumpHeapButton">Dump now</button>
+            <button class="troubleshoot-buttons" onclick="DumpMemory()" id="dumpHeapButton">{htmlXXdumpMemoryButton}</button>
         </div>
     </div>
     <div id="jsonData" style="display:none">
@@ -382,7 +373,7 @@
     </div>
     <div class="GoToTop">
         <img src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/256/sign-up-icon.png" style="vertical-align: middle;" width="16" height="16" />
-        <span style="vertical-align:middle"><a href="#top">Go to the top</a></span>
+        <span style="vertical-align:middle"><a href="#top">{htmlXXgoToTop}</a></span>
 
     </div>
     <hr />
@@ -795,7 +786,7 @@
             desc.style.border = "none";
             icon.style.width = '30px';
             icon.innerHTML = '';
-            desc.innerHTML = '<img id="search-icon" style="vertical-align:middle; float:none" src="https://raw.githubusercontent.com/admiralnelson/bannerlord-error-detector/master/imgs/d5mbp7w-8cfa1771-1632-4206-b381-4ab3fd61e9eb.gif" /><span id="scan-status" style="vertical-align: middle;">Checking file...</span>';
+            desc.innerHTML = '<img id="search-icon" style="vertical-align:middle; float:none" src="https://raw.githubusercontent.com/admiralnelson/bannerlord-error-detector/master/imgs/d5mbp7w-8cfa1771-1632-4206-b381-4ab3fd61e9eb.gif" /><span id="scan-status" style="vertical-align: middle;">{javascriptXXcheckingFile}</span>';
             table.style.display = 'block';
             xmlReport.style.backgroundColor = 'lightgoldenrodyellow';
             window.external.ScanAndLintXmls();
@@ -803,20 +794,20 @@
 
         function doneScanning() {
             document.getElementById("search-icon").remove();
-            document.getElementById("scan-status").innerText = "XML checks done.";
+            document.getElementById("scan-status").innerText = "{javascriptXXxmlChecksDone}";
             TroubleshootAction.XMLCheck = true;
 
         }
         function saveEmergencyCampaign() {
-            var result = confirm("Depending on the crash, the saved file could be on invalid state.\nOnly use this if the crash is not player data related (i.e crash was caused by user interface bugs, not player data or AI state related)\nContinue to forcefully save the game?");
+            var result = confirm("{javascriptXXemergencySaveConfirm}");
             if (result) {
-                var filename = prompt("Save as");
+                var filename = prompt("{javascriptXXemergencySaveAs}");
                 if (!filename) {
-                    alert("invalid name");
+                    alert("{javascriptXXemergencySaveInvalidName}");
                 }
                 else {
                     if (window.external.ForceSave(filename)) {
-                        alert("game saved as " + filename);
+                        alert("{javascriptXXemergencySaveOk}" + filename);
                     }
                 }
 
@@ -893,7 +884,7 @@
                 if (data.WorkshopUrl) isWorkshop = true;
                 var moduleName = data.Module.Name["@value"]
                 var caption = moduleName + " (version: " + data.Module.Version["@value"] + ")"
-                if (isWorkshop) moduleName += " (Workshop) "
+                if (isWorkshop) moduleName += " {javascriptXXworkshop} "
                 anchorInHeader.innerText = "+ " + caption;
                 modDetail.id = data.Module.Id["@value"] + isWorkshop;
                 anchorInHeader.href = "#" + modDetail.id;
@@ -910,22 +901,22 @@
                     labelSubModules = document.createElement('div'),
                     steamWorkshopLinkLi = document.createElement('li');
 
-                labelModInformation.innerText = "Mod manifest data:";
-                modLoadedLi.innerText = (data.isModLoaded) ? "Mod loaded: YES" : "Mod loaded: NO";
-                modIdLi.innerText = "Mod Id: " + data.Module.Id["@value"];
-                modVersionLi.innerText = "Mod Version: " + data.Module.Version["@value"];
-                modLocationLi.innerText = "Mod Location: " + data.location;
-                modManifestLocationLi.innerHTML = "Mod Manifest location: <a href='about:dummy' onclick=\"window.external.OpenFile('" + data.manifest + "')\">" + data.manifest + "</a>";
-                labelDependsOn.innerText = "Depends on:";
-                labelSubModules.innerText = "Submodules:";
+                labelModInformation.innerText = "{javascriptXXmodManifestData}";
+                modLoadedLi.innerText = (data.isModLoaded) ? "{javascriptXXmodLoadedYes}" : "{javascriptXXmodLoadedNo}";
+                modIdLi.innerText = "{javascriptXXmodId} " + data.Module.Id["@value"];
+                modVersionLi.innerText = "{javascriptXXmodVersion} " + data.Module.Version["@value"];
+                modLocationLi.innerText = "{javascriptXXmodLocation} " + data.location;
+                modManifestLocationLi.innerHTML = "{javascriptXXmodManifestLocation} <a href='about:dummy' onclick=\"window.external.OpenFile('" + data.manifest + "')\">" + data.manifest + "</a>";
+                labelDependsOn.innerText = "{javascriptXXdependsOn}";
+                labelSubModules.innerText = "{javascriptXXsubmodules}";
 
                 if (data.WorkshopUrl) {
-                    steamWorkshopLinkLi.innerHTML = "Steamworkshop URL: <a href='" + data.WorkshopUrl + "'>" + data.WorkshopUrl + "</a>";
+                    steamWorkshopLinkLi.innerHTML = "{javascriptXXsteamworkshopUrl} <a href='" + data.WorkshopUrl + "'>" + data.WorkshopUrl + "</a>";
                 }
 
                 if (!data.Module.DependedModules || !data.Module.DependedModules.DependedModule || Array.isArray(data.Module.DependedModules.DependedModule) && data.Module.DependedModules.DependedModule.length == 0) {
                     var node = document.createElement('li');
-                    node.innerText = "Does not depend with other module";
+                    node.innerText = "{javascriptXXdoesntDependWithOtherModule}";
                     modDependsUl.appendChild(node);
                 }
                 else if (!Array.isArray(data.Module.DependedModules.DependedModule)) {
@@ -933,7 +924,7 @@
                     if (data.Module.DependedModules.DependedModule)
                         node.innerText = data.Module.DependedModules.DependedModule["@Id"];
                     else
-                        node.innerText = "Does not dependwith other module";
+                        node.innerText = "{javascriptXXdoesntDependWithOtherModule}";
                     modDependsUl.appendChild(node);
                 }
                 else {
@@ -946,7 +937,7 @@
 
                 if (!data.Module.SubModules || !data.Module.SubModules.SubModule || !Array.isArray(data.Module.SubModules.SubModule) && data.Module.SubModules.SubModule.length == 0) {
                     var node = document.createElement('li');
-                    node.innerText = "Does not contain any DLL module";
+                    node.innerText = "{javascriptXXdoesntContainDll}";
                     modSubModulesUl.appendChild(node);
                 }
                 else if (!Array.isArray(data.Module.SubModules.SubModule)) {
@@ -955,7 +946,7 @@
                         node.innerText = data.Module.SubModules.SubModule.DLLName["@value"];
                     }
                     else
-                        node.innerText = "Does not contain any DLL module";
+                        node.innerText = "{javascriptXXdoesntContainDll}";
                     modSubModulesUl.appendChild(node);
 
                 }
@@ -966,7 +957,7 @@
                             node.innerText = data.Module.SubModules.SubModule[i].DLLName["@value"];
                         }
                         else {
-                            node.innerHTML = "<del>" + data.Module.SubModules.SubModule[i].DLLName["@value"] + "</del> (Not loaded in memory)";
+                            node.innerHTML = "<del>" + data.Module.SubModules.SubModule[i].DLLName["@value"] + "</del> {javascriptXXnotLoadedInMemory}";
                         }
 
                         modSubModulesUl.appendChild(node);
@@ -1065,10 +1056,10 @@
                 HarmonyPrefixesDiv.style.display = "none";
                 HarmonyPrefixesDiv.innerHTML = GeneratePatchesTable(data.Prefixes);
 
-                HarmonyPrefixesDivAnchorHeader.innerText = "+ Prefixes" + " (" + data.Prefixes.length + ")";
+                HarmonyPrefixesDivAnchorHeader.innerText = "+ {javascriptXXprefixes}" + " (" + data.Prefixes.length + ")";
                 HarmonyPrefixesDivAnchorHeader.href = "#Prefixes" + methodName;
                 HarmonyPrefixesDivAnchorHeader.onclick = function () {
-                    spoiler(HarmonyPrefixesDivAnchorHeader, "Prefixes " + " (" + data.Prefixes.length + ")", HarmonyPrefixesDiv.id);
+                    spoiler(HarmonyPrefixesDivAnchorHeader, "{javascriptXXprefixes}" + " (" + data.Prefixes.length + ")", HarmonyPrefixesDiv.id);
                 }
             }
 
@@ -1087,10 +1078,10 @@
                 HarmonyPostfixesDiv.style.display = "none";
                 HarmonyPostfixesDiv.innerHTML = GeneratePatchesTable(data.Postfixes);
 
-                HarmonyPostfixesDivAnchorHeader.innerText = "+ Postfixes" + " (" + data.Postfixes.length + ")";
+                HarmonyPostfixesDivAnchorHeader.innerText = "+ {javascriptXXpostfixes}" + " (" + data.Postfixes.length + ")";
                 HarmonyPostfixesDivAnchorHeader.href = "#Postfixes" + methodName;
                 HarmonyPostfixesDivAnchorHeader.onclick = function () {
-                    spoiler(HarmonyPostfixesDivAnchorHeader, "Postfixes" + " (" + data.Postfixes.length + ")", HarmonyPostfixesDiv.id);
+                    spoiler(HarmonyPostfixesDivAnchorHeader, "{javascriptXXpostfixes}" + " (" + data.Postfixes.length + ")", HarmonyPostfixesDiv.id);
                 }
             }
 
@@ -1109,10 +1100,10 @@
                 HarmonyFinalisersDiv.style.display = "none";
                 HarmonyFinalisersDiv.innerHTML = GeneratePatchesTable(data.Finalisers);
 
-                HarmonyFinalisersDivAnchorHeader.innerText = "+ Finalisers" + " (" + data.Finalisers.length + ")";
+                HarmonyFinalisersDivAnchorHeader.innerText = "+ {javascriptXXfinalisers}" + " (" + data.Finalisers.length + ")";
                 HarmonyFinalisersDivAnchorHeader.href = "#Finalisers" + methodName;
                 HarmonyFinalisersDivAnchorHeader.onclick = function () {
-                    spoiler(HarmonyFinalisersDivAnchorHeader, "Finalisers" + " (" + data.Finalisers.length + ")", HarmonyFinalisersDiv.id);
+                    spoiler(HarmonyFinalisersDivAnchorHeader, "{javascriptXXfinalisers}" + " (" + data.Finalisers.length + ")", HarmonyFinalisersDiv.id);
                 }
             }
 
@@ -1133,10 +1124,10 @@
                 HarmonyTranspilersDiv.innerHTML = GeneratePatchesTable(data.Transpilers);
 
 
-                HarmonyTranspilersDivAnchorHeader.innerText = "+ Transpilers" + " (" + data.Transpilers.length + ")";
+                HarmonyTranspilersDivAnchorHeader.innerText = "+ {javascriptXXtranspilers}" + " (" + data.Transpilers.length + ")";
                 HarmonyTranspilersDivAnchorHeader.href = "#Transpilers" + methodName;
                 HarmonyTranspilersDivAnchorHeader.onclick = function () {
-                    spoiler(HarmonyTranspilersDivAnchorHeader, "Transpilers" + " (" + data.Transpilers.length + ")", HarmonyTranspilersDiv.id);
+                    spoiler(HarmonyTranspilersDivAnchorHeader, "{javascriptXXtranspilers}" + " (" + data.Transpilers.length + ")", HarmonyTranspilersDiv.id);
                 }
             }
 
@@ -1161,16 +1152,18 @@
         function RecordTakenAction() {
             document.getElementById("takenTroubleshootActions").innerText = JSON.stringify(TroubleshootAction);
         }
+
         function SavePage() {
             RecordTakenAction();
             var name = window.external.Save();
             if (name) {
-                alert("File saved as " + name);
+                alert("{javascriptXXpageSavedAs} " + name);
             }
         }
+
         function OpenTroubleshootSection() {
             var troubleshoot = document.getElementById("troubleshoot");
-            spoiler(troubleshoot, "Troubleshoot", "troubleshoot-expanded");
+            spoiler(troubleshoot, "{javascriptXXtroubleshoot}", "troubleshoot-expanded");
         }
 
         function CheckDnspy() {
@@ -1182,7 +1175,7 @@
 
             if (isRunningInGame() && window.external.IsUnderdebugger()) {
                 dnspyInstallLink.style.display = "none";
-                dnspyReason.innerHTML = "dnSpy is not available, because the program is already running under debugger."
+                dnspyReason.innerHTML = "{javascriptXXdnspyNotAvailable}"
                 dnspy.style.backgroundColor = "lightgoldenrodyellow";
                 return;
             }
@@ -1193,7 +1186,7 @@
         }
 
         function InstallDnspy() {
-            var installDnspyOrNot = confirm("Do you want to install dnSpy?")
+            var installDnspyOrNot = confirm("{javascriptXXinstallDnspy}")
             if (!installDnspyOrNot) {
                 return;
             }
@@ -1203,12 +1196,12 @@
             dnspyProgressBar.style.width = "0%";
             dnspyProgressBar.style.backgroundColor = "darkgreen";
             dnspyProgressBar.style.display = "block";
-            dnspyProgressBar.innerText = "Downloading...0K/0K";
+            dnspyProgressBar.innerText = "{javascriptXXdownload0percent}";
             dnspyInstallLink.style.display = "none";
         }
 
         function StartDnspy() {
-            var msgbox = confirm("Are you sure to restart the program? Unsaved game and error logs may be lost!");
+            var msgbox = confirm("{javascriptXXdnspyRestart}");
             if (msgbox) {
                 window.external.StartDnspyDebugger();
             }
@@ -1217,7 +1210,7 @@
         function Callback_InstallDnspyProgress(currentPercentage, downloadedTotal, totalSize) {
             var dnspyProgressBar = document.getElementById("dnspyProgressbar"),
                 dnspyReason = document.getElementById("dnspyReason");
-            dnspyReason.innerText = "dnSpy is being downloaded..."
+            dnspyReason.innerText = "{javascriptXXdnspyIsBeingDownloaded}"
             currentPercentage = parseInt(currentPercentage);
             downloadedTotal = parseInt(downloadedTotal);
             totalSize = parseInt(totalSize);
@@ -1226,7 +1219,7 @@
             dnspyProgressBar.style.width = currentPercentage + "%";
             dnspyProgressBar.style.backgroundColor = "darkgreen";
             dnspyProgressBar.style.display = "block";
-            dnspyProgressBar.innerText = "Downloading..." + downloadedTotal + "K/" + totalSize + "K";
+            dnspyProgressBar.innerText = "{javascriptXXdownloading}" + downloadedTotal + "K/" + totalSize + "K";
         }
 
         function Callback_InstallDnspyComplete(success, errorMessage) {
@@ -1237,12 +1230,12 @@
                 dnspyProgressBar = document.getElementById("dnspyProgressbar");
 
             if (success == "1") {
-                dnspyReason.innerText = "dnSpy has been successfully downloaded and installed."
+                dnspyReason.innerText = "{javascriptXXinstallSuccess}"
                 dnspyProgressBar.style.display = "none";
                 dnspyButton.disabled = false;
                 return;
             }
-            dnspyReason.innerHTML = "Error installing dnspy. Reason: <br />" + "<pre>" + errorMessage + "</pre>";
+            dnspyReason.innerHTML = "{javascriptXXerrorInstalling} <br />" + "<pre>" + errorMessage + "</pre>";
             dnspyInstallLink.style.display = "block";
             dnspy.style.backgroundColor = "lightgoldenrodyellow";
         }
@@ -1253,7 +1246,7 @@
                 savegameButton = document.getElementById("savegameButton");
             if (isRunningInGame() && !window.external.IsCampaignRunning()) {
                 emergencySave.style.backgroundColor = "lightgoldenrodyellow";
-                saveReason.innerHTML = "This option is not available because the game is not running campaign.";
+                saveReason.innerHTML = "{javascriptXXgameIsNotRunningCampaign}";
                 return;
             }
             savegameButton.disabled = false;
@@ -1269,19 +1262,19 @@
             if (!isRunningInGame()) {
                 attachSaveGameButton.style.display = "none";
                 if (saveGameFilename.indexOf("saveGameFileName") >= 0 || saveGameFilename.length == 0) {
-                    attachSaveMessage.innerText = "No save game was attached.";
+                    attachSaveMessage.innerText = "{javascriptXXnoSavegame}";
                     attachSaveMessage.style.display = "block";
                 } else {
                     attachDownloadSaveGameButton.style.display = "block";
                     attachSaveMessage.style.display = "block";
-                    attachSaveMessage.innerText = "A save game is attached to this report: " + saveGameFilename;
+                    attachSaveMessage.innerText = "{javascriptXXattachedSave}: " + saveGameFilename;
                 }
                 return
             }
             if (!window.external.IsCampaignRunning()) {
                 saveGameAttach.style.backgroundColor = "lightgoldenrodyellow";
                 attachSaveMessage.style.display = "block";
-                attachSaveMessage.innerText = "Cannot attach because current game is not running campaign."
+                attachSaveMessage.innerText = "{javascriptXXgameIsNotRunningCampaign}"
                 attachSaveGameButton.disabled = true;
                 return;
             }
@@ -1293,15 +1286,15 @@
                 saveFile = window.external.AttachSaveGame();
 
             if (saveFile) {
-                alert("The save game has been attached to this error report.");
+                alert("{javascriptXXattachSaveGameOk}");
                 attachSaveMessage.style.display = "block";
-                attachSaveMessage.innerText = "Save game has been attached: " + saveFile
+                attachSaveMessage.innerText = "{javascriptXXattachedSave}: " + saveFile
                 attachSaveGameButton.disabled = true;
             } else {
-                alert("An Error occured when attaching your save game, the save game path probably does not exist!")
+                alert("{javascriptXXpathDoesntExist}")
                 saveGameAttach.style.backgroundColor = "lightgoldenrodyellow";
                 attachSaveMessage.style.display = "block";
-                attachSaveMessage.innerText = "An Error occured when attaching your save game, the save game path probably does not exist!";
+                attachSaveMessage.innerText = "{javascriptXXpathDoesntExist}";
             }
         }
         function DownloadSaveGame() {
@@ -1317,7 +1310,7 @@
         function Screenshot() {
             var url = window.external.Screenshot();
             if (url) {
-                alert("Screenshot has been taken and attached to this error report")
+                alert("{javascriptXXscreenshotHasBeenAttached}")
             }
             var screenshotImage = document.getElementById("screenshotImage"),
                 screenshotButton = document.getElementById("screenshotButton");
@@ -1344,10 +1337,10 @@
 
             switch (dumpResult) {
                 case 0:
-                    alert("Memory has been dumped");
+                    alert("{javascriptXXdumpSuccess}");
                     break;
                 case 1:
-                    alert("Failed to dump the memory");
+                    alert("{javascriptXXdumpFail}");
                     break;
                 case 2:
                     break;
@@ -1357,7 +1350,7 @@
         }
         function CloseProgram() {
             if (window.external.IsPageModified()) {
-                var result = confirm("You have attached screenshot or save game.\nDo you want to discard them and close the program?");
+                var result = confirm("{javascriptXXdiscardReport}");
                 if (result) {
                     window.external.CloseProgram();
                     return;
@@ -1369,7 +1362,7 @@
         }
         function AttemptToContinue() {
             if (window.external.IsPageModified()) {
-                var result = confirm("You have attached screenshot or save game.\nDo you want to discard them and return to game?");
+                var result = confirm("{javascriptXXdiscardReport}");
                 if (result) {
                     window.external.AttemptToContinue();
                 }
