@@ -9,5 +9,6 @@
 	"IsFirstTime": true,
 	"EnableConsole": false,
 	"DisableBewButterlibException": true,
-	"CatchNative2Managed": true
+	"CatchNative2Managed": true,
+	"ShowHardCrashPrompt": false	
 }
