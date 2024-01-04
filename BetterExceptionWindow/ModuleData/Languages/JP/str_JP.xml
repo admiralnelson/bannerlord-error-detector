@@ -15,7 +15,7 @@
   <string id="EnableNative2Managed" text="例外ハンドラのためにネイティヴコードを有効"/>
   <string id="CatchNative2ManagedHint" text="マネージドコードの管理のためにネイティヴコードの例外ハンドラを配置します。ミッションまたは戦闘シーンで遅延を感じる場合はチェックを外してください。"/>
   <string id="InstallDnspyLabel" text="Dnspyをインストール"/>
-  <string id="InstallDnspyButton" text="インストール"/>
+  <string id="InstallDnspyButton" text="今すぐインストール"/>
   <string id="AttachNowLabel" text="Dnspyデバッガーをただちにインストールします。"/>
   <string id="AttachNowButton" text="接続"/>
   <string id="AttachHint" text="今すぐDnspyを接続します"/>
