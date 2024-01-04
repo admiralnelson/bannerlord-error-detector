@@ -69,7 +69,7 @@
   <string id="htmlXXhideTaleworldsDlls" text="TaleWorlds公式のDLLを隠す"/>
   <!-- game log section -->
   <string id="htmlXXgameEngineLog" text="ゲームエンジンのログ"/>
-  <string id="htmlXXrecorededLogFromTheGame" text="ゲームエンジンからログを記録しています(RGL)。長い時間がかかります。"/>
+  <string id="htmlXXrecorededLogFromTheGame" text="ゲームエンジンからログを記録しています(RGL)。取得時刻: (logtime)"/>
   <!-- harmony patch section -->
   <string id="htmlXXharmonyPatches" text="Harmonyパッチ"/>
   <!-- troubleshoot section -->
