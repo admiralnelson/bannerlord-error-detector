@@ -15,7 +15,7 @@
   <string id="EnableNative2Managed" text="Enable Native code to Managed code exception handler"/>
   <string id="CatchNative2ManagedHint" text="This will put exception handlers in Native code to Managed code procedures. Uncheck this if you're experiencing slowdowns in mission or battles."/>
   <string id="InstallDnspyLabel" text="Install Dnspy now"/>
-  <string id="InstallDnspyButton" text="Install "/>
+  <string id="InstallDnspyButton" text="Install now"/>
   <string id="AttachNowLabel" text="Attach dnSpy now"/>
   <string id="AttachNowButton" text="Attach now"/>
   <string id="AttachHint" text="Attach Dnspy debugger now"/>
