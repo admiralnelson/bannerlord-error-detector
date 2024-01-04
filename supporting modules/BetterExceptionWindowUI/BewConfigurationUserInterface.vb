@@ -279,7 +279,7 @@ Public Module BewConfigurationUserInterface
                   End Function) _
                   .AddButton(
                     "Feedback",
-                    "{=AboutBewLabel}Send anonymous feedback",
+                    "{=FeedbackLabel}Send anonymous feedback",
                     New ProxyRef(Of Action)(
                         Function() As Action
                             Return Sub()
@@ -290,10 +290,10 @@ Public Module BewConfigurationUserInterface
                     Sub(o As Action)
 
                     End Sub),
-                  "{=AboutButton}Send feedback...",
+                  "{=FeedbackButton}Send feedback...",
                   Function(boolBuilder)
                       Return boolBuilder _
-                            .SetHintText("{=AboutHint}Submit your thoughts and feedback about the current state of Better Exception Window via online survey forms. It takes less than a minute to complete.")
+                            .SetHintText("{=FeedbackHint}Submit your thoughts and feedback about the current state of Better Exception Window via online survey forms. It takes less than a minute to complete.")
                   End Function)
 
          End Function) _
