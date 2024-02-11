@@ -246,7 +246,7 @@ Public Module Util
         End If
         xml = xml.Replace("{BANNERLORD_MAIN_BIN}", HttpUtility.HtmlEncode(Path.GetFullPath(BaseDir)))
         xml = xml.Replace("{BANNERLORD_MODULE_NATIVE_BIN}", HttpUtility.HtmlEncode(GetBinFolderOfModule("Native")))
-        xml = xml.Replace("{BANNERLORD_MODULE_DEDICATED_SERVER_BIN}", HttpUtility.HtmlEncode(GetBinFolderOfModule("DedicatedCustomServerHelper")))
+        If Not IsNothing(ModuleHelper.GetModuleInfo("DedicatedCustomServerHelper")) Then xml = xml.Replace("{BANNERLORD_MODULE_DEDICATED_SERVER_BIN}", HttpUtility.HtmlEncode(GetBinFolderOfModule("DedicatedCustomServerHelper")))
         xml = xml.Replace("{BANNERLORD_MODULE_BIRTH_AND_DEATH_BIN}", HttpUtility.HtmlEncode(GetBinFolderOfModule("BirthAndDeath")))
         xml = xml.Replace("{BANNERLORD_MODULE_CUSTOM_BATTLE_BIN}", HttpUtility.HtmlEncode(GetBinFolderOfModule("CustomBattle")))
         xml = xml.Replace("{BANNERLORD_MODULE_SANBOX_BIN}", HttpUtility.HtmlEncode(GetBinFolderOfModule("Sandbox")))
