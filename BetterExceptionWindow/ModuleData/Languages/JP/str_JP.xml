@@ -4,6 +4,8 @@
   <tag language="日本語"/>
  </tags>
  <strings>
+  <!-- BewConfigurationUserInterface.vb -->
+
   <string id="AllowInDebugger" text="デバッガー内での実行を許可"/>
   <string id="AllowInDebuggerHint" text="デバッガーを接続した際にBetter Exception Windowを起動します。"/>
   <string id="EnableStdoutConsole" text="コンソールの標準入出力を有効"/>
@@ -13,7 +15,7 @@
   <string id="EnableNative2Managed" text="例外ハンドラのためにネイティヴコードを有効"/>
   <string id="CatchNative2ManagedHint" text="マネージドコードの管理のためにネイティヴコードの例外ハンドラを配置します。ミッションまたは戦闘シーンで遅延を感じる場合はチェックを外してください。"/>
   <string id="InstallDnspyLabel" text="Dnspyをインストール"/>
-  <string id="InstallDnspyButton" text="Dnspyをインストール"/>
+  <string id="InstallDnspyButton" text="今すぐインストール"/>
   <string id="AttachNowLabel" text="Dnspyデバッガーをただちにインストールします。"/>
   <string id="AttachNowButton" text="接続"/>
   <string id="AttachHint" text="今すぐDnspyを接続します"/>
@@ -24,11 +26,168 @@
   <string id="TestItNow" text="今すぐテストする"/>
   <string id="TestItNowHint" text="これによりゲームがクラッシュします!"/>
   <string id="CrashTestCode" text="クラッシュテスト: コード例外を投げる"/>
-  <string id="AboutBewLabel" text="BetterExceptionWindow について"/>
-  <string id="AboutButton" text="About..."/>
-  <string id="AboutHint" text="このプログラムについて。"/>
-  <string id="AboutBewLabel" text="匿名でフィードバックを送る"/>
-  <string id="AboutButton" text="フィードバックを送る..."/>
-  <string id="AboutHint" text="オンラインサーベイのフォームから、Better Exception Window の現状に関してあなたの意見やフィードバックを提出します。記入は1分未満で終わります。"/>
+  <string id="AboutBewLabel" text="Better Exception Windowについて"/>
+  <string id="AboutButton" text="このプログラムについて"/>
+  <string id="AboutHint" text="このプログラムについてです。"/>
+  <string id="FeedbackLabel" text="匿名のフィードバックを送信"/>
+  <string id="FeedBackButton" text="フィードバックを送る"/>
+  <string id="FeedbackHint" text="オンラインサーベイのフォームから、Better Exception Window の現状に関してあなたの意見やフィードバックを提出します。記入は1分未満で終わります。"/>
+
+  <!-- ErrorWindow.vb -->
+  <string id="BewShowButterlib" text="ButterLibの例外を表示するには&lt;a href='#' onclick='window.external.ShowButterlibException()'&gt;ここをクリック&lt;/a&gt;してください。&lt;br /&gt;&lt;br /&gt;"/>
+  <string id="BewNoInnterException" text="内部例外は発生していません"/>
+
+  <!-- html localisation -->
+  <!-- title section -->
+  <string id="htmlXXtitle" text="制御不能な例外が発生しました!"/>
+  <string id="htmlXXattemptToContinueButton" text="ゲームの続行を試す"/>
+  <string id="htmlXXcloseProgramButton" text="プログラムを終了する"/>
+  <string id="htmlXXsavePageButton" text="このページを保存する"/>
+
+  <!-- header section -->
+  <string id="htmlXXheader1" text="バナーロードの実行中に問題が発生したため、プログラムを終了する必要があります。ご迷惑をおかけします。"/>
+  <string id="htmlXXheader2" text="作業中の内容は失われます。"/>
+  <string id="htmlXXheader3" text="クリックして続行すると、プログラムはこのエラーを無視してゲームを続行します。この操作には、進行中のゲームの状態が崩壊するおそれがあります。"/>
+  <string id="htmlXXheader4" text="このエラーは、XMLファイル・submodule.xml・破損したセーブデータ・モジュール・プログラムのエラーなどが原因の可能性があります。"/>
+  <string id="htmlXXheader5" text='この問題が引き続き発生する場合は、解決のために、エラー報告を保存しmodの作者に送るか、&lt;a href="#troubleshoot" onclick="OpenTroubleshootSection()"&gt;トラブルシュート&lt;/a&gt;の実施を検討してください。'/>
+  <string id="htmlXXheader6" text="BetterExceptionWindowフォルダーにある &lt;a href='#' onclick='window.external.OpenConfig()'&gt;&lt;b&gt;config.json&lt;/b&gt;&lt;/a&gt;を編集することで、Better Exception Windowの挙動を制御できます。"/>
+  <string id="htmlXXreasons" text="原因"/>
+  <string id="htmlXXsource" text="ソース:"/>
+  <string id="htmlXXinnerException" text="内部の例外"/>
+  <string id="htmlXXcallstacks" text="コールスタック"/>
+  <string id="htmlXXprotip" text="プロチップ:"/>
+  <string id="htmlXXprotip1" text="&lt;a href='https://github.com/dnSpy/dnSpy'&gt;dnSpy&lt;/a&gt;や&lt;a href='https://visualstudio.microsoft.com/'&gt;Visual studio&lt;/a&gt;などのデバッガを使用して1文ごとにプログラムを実行し、エラーの発生元を追跡します。"/>
+  <string id="htmlXXprotip2" text='&lt;a href="#dnspy" onclick="OpenTroubleshootSection()"&gt;dnSpyを接続して再起動します。.&lt;/a&gt;'/>
+  <string id="htmlXXinnerExceptionCallStack" text="内部の例外コールスタック:"/>
+  <string id="htmlXXouterExceptionCallStack" text="外部の例外コールスタック:"/>
+  <!-- installed mods section -->
+  <string id="htmlXXinstalledMods" text="インストールされたMod"/>
+  <string id="htmlXXhideTaleworldsMods" text="TaleWorlds公式のmodを隠す"/>
+  <string id="htmlXXhideUnloadedMods" text="読み込まれていないmodを隠す"/>
+  <!-- dll enumeration section -->
+  <string id="htmlXXloadedDlls" text="読み込まれたDLL"/>
+  <string id="htmlXXhideTaleworldsDlls" text="TaleWorlds公式のDLLを隠す"/>
+  <!-- game log section -->
+  <string id="htmlXXgameEngineLog" text="ゲームエンジンのログ"/>
+  <string id="htmlXXrecorededLogFromTheGame" text="ゲームエンジンからログを記録しています(RGL)。取得時刻: (logtime)"/>
+  <!-- harmony patch section -->
+  <string id="htmlXXharmonyPatches" text="Harmonyパッチ"/>
+  <!-- troubleshoot section -->
+  <string id="htmlXXtroubleshoot" text="トラブルシュート"/>
+  <string id="htmlXXtroubleshootTip" text="以下のトラブルシュートを試せます。"/>
+  <!-- xml checker -->
+  <string id="htmlXXcheckForXml" text="エラーの原因がXMLファイルの記述の誤りならば、右のボタンを押してXMLのタイプミスがないか検証してください。"/>
+  <string id="htmlXXcheckXmlButton" text="XMLの妥当性を確認する"/>
+  <!-- disable mods -->
+  <string id="htmlXXdisableMods" text="問題のあるmodを無効にすることを試みます。TaleWorlds公式のランチャーでの動作を想定しています。"/>
+  <string id="htmlXXdisableModsButton" text="無効にする"/>
+  <!-- emergency save -->
+  <string id="htmlXXemergencySave" text="緊急セーブです。&lt;br /&gt;進行中のゲームデータを強制的に保存します。この操作を実行できない場合もあることに注意してください。"/>
+  <string id="htmlXXemergencySaveButton" text="ゲームデータを保存する"/>
+  <!-- dnspy install & debug mode -->
+  <string id="htmlXXdnspyInstall" text='プログラムをデバッグモードで再起動します。&lt;br /&gt;dnSpyデバッガで再起動し、デコンパイラを接続します。問題のあるmodにソースコードがなくとも、デバッグしてパッチを作成できる可能性があります。&lt;a href="https://github.com/dnSpy/dnSpy"&gt;dnSpyについてはこちら&lt;/a&gt;&lt;br /&gt;ゲームを再起動するまで、BetterExceptionWindowは一時的に無効になります。'/>
+  <string id="htmlXXdnspyReason" text="dnSpyはインストールされていません"/>
+  <string id="htmlXXdnspyInstallButton" text="dnSpyをインストールする"/>
+  <string id="htmlXXdnspyProgressBar" text="インストール中…(0000000K/000000K)"/>
+  <string id="htmlXXdnspyRestartButton" text="dsSpyに接続して再起動する"/>
+  <!-- screenshot attach -->
+  <string id="htmlXXscreenshotAttach" text="スクリーンショットを添付します。&lt;br /&gt;スクリーンショットを撮影し、エラー報告に添付します。&lt;br /&gt;"/>
+  <string id="htmlXXscreenshotAttachStatus" text="報告にスクリーンショットが添付されていません。"/>
+  <string id="htmlXXscreenshotAttachButton" text="今すぐスクリーンショットを撮影する"/>
+  <!-- save attach -->
+  <string id="htmlXXsavegameAttach" text="このエラー報告に、最新のセーブデータを添付します。&lt;br /&gt;このエラー報告をWebブラウザで開くと、セーブデータを閲覧できます。&lt;br /&gt;"/>
+  <string id="htmlXXsavegameAttachButton" text="クリックして添付する"/>
+  <string id="htmlXXsavegameAttachDownloadButton" text="セーブデータをダウンロードする"/>
+  <!-- dump memory -->
+  <string id="htmlXXdumpMemory" text="メモリーの内容を書き出します。&lt;br /&gt;プログラムで使用しているメモリの内容を後で解析できます。&lt;br /&gt;書き出すメモリーは膨大になるため、Better Exception Windowはエラー報告と書き出したファイルを個別に保存します。&lt;br /&gt;"/>
+  <string id="htmlXXdumpMemoryCheckbox" text="メモリーの内容を全て書き出す"/>
+  <string id="htmlXXdumpMemoryButton" text="今すぐ書き出す"/>
+  <!-- other html string -->
+  <string id="htmlXXgoToTop" text="一番上へ"/>
+   
+
+  <!-- javscript localisations -->
+  <!-- TEXT MUST BE IN SINGLE LINE! DO NOT NEW LINE THE TEXT -->
+
+  <!-- function validateXML(e) {... -->
+  <string id="javascriptXXcheckingFile" text="ファイルの確認中…"/>
+
+  <!-- function doneScanning() {... -->
+  <string id="javascriptXXxmlChecksDone" text="XMLの確認完了。"/>
+   
+  <!-- function saveEmergencyCampaign() { -->
+  <string id="javascriptXXemergencySaveConfirm" text="クラッシュの内容によっては、セーブデータが進行不可能なものになりえます。{NEWLINE}クラッシュがプレイヤーのデータと無関係な場合のみ、使用してください。プレイヤーのデータや、AIのステータスとは関係ない、インターフェースのバグなどのことです。{NEWLINE}セーブデータの強制保存を実行しますか?"/>
+  <string id="javascriptXXemergencySaveAs" text="名前をつけて保存する"/>
+  <string id="javascriptXXemergencySaveInvalidName" text="無効な名前です!"/>
+  <string id="javascriptXXemergencySaveOk" text="保存されたセーブデータ:"/>
+
+  <!--  function DisplayModulesReport(data) { -->
+  <string id="javascriptXXworkshop" text="(ワークショップ)"/>
+  <string id="javascriptXXmodLoadedYes" text="Modの読み込み: YES"/>
+  <string id="javascriptXXmodLoadedNo" text="Modの読み込み: NO"/>
+  <string id="javascriptXXmodId" text="ModのID:"/>
+  <string id="javascriptXXmodVersion" text="Modのバージョン:"/>
+  <string id="javascriptXXmodLocation" text="Modの場所:"/>
+  <string id="javascriptXXmodManifestData" text="Modのマニフェストデータ:"/>
+  <string id="javascriptXXmodManifestLocation" text="Modのマニフェストの場所:"/>
+  <string id="javascriptXXdependsOn" text="依存対象:"/>
+  <string id="javascriptXXsubmodules" text="サブモジュール:"/>
+  <string id="javascriptXXsteamworkshopUrl" text="SteamワークショップのURL:"/>
+  <string id="javascriptXXdoesntDependWithOtherModule" text="他のモジュールから独立しています"/>
+  <string id="javascriptXXdoesntContainDll" text="DLLモジュールがありません"/>
+  <string id="javascriptXXnotLoadedInMemory" text="(メモリーにロードされていません)"/>
+   
+  <!--  function DisplayHarmonyRerport(methodName, data) { -->
+  <string id="javascriptXXprefixes" text="プレフィックス"/>
+  <string id="javascriptXXpostfixes" text="ポストフィックス"/>
+  <string id="javascriptXXfinalisers" text="ファイナライザ" />
+  <string id="javascriptXXtranspilers" text="トランスパイラ"/>
+
+  <!--  function SavePage() { -->
+  <string id="javascriptXXpageSavedAs" text="名前をつけて保存する"/>
+
+  <!--  function OpenTroubleshootSection() { -->
+  <string id="javascriptXXtroubleshoot" text="トラブルシュート"/>
+
+  <!--  function CheckDnspy() { -->
+  <string id="javascriptXXdnspyNotAvailable" text="dnSpyは有効です。デバッガーが起動しています。"/>
+
+  <!--  function InstallDnspy() { -->
+  <string id="javascriptXXinstallDnspy" text="dnSpyをインストールしますか?"/>
+  <string id="javascriptXXdownload0percent" text="ダウンロード中…OK/OK"/>
+
+  <!--  function StartDnspy() { -->
+  <string id="javascriptXXdnspyRestart" text="プログラムを再起動しますか?保存してないゲームデータとエラーログが失われます!"/>
+
+  <!--  Callback_InstallDnspyProgress(currentPercentage, downloadedTotal, totalSize)  -->
+  <string id="javascriptXXdnspyIsBeingDownloaded" text="dnSpyのダウンロード中…"/>
+  <string id="javascriptXXdownloading" text="ダウンロード中…"/>
+   
+  <!--  Callback_InstallDnspyComplete(success, errorMessage) -->
+  <string id="javascriptXXinstallSuccess" text="dnSpyのダウンロードとインストールに成功しました。"/>
+  <string id="javascriptXXerrorInstalling" text="dnSpyのインストール中にエラーが発生しました。原因:"/>
+
+  <!-- function CheckCampaignIsRunning() { and function SaveGameAttachement() {  -->
+  <string id="javascriptXXgameIsNotRunningCampaign" text="現在のゲームはキャンペーンモードではないため、このオプションは無効です"/>
+
+  <!-- function SaveGameAttachement() {  and function AttachSaveGame() { -->
+  <string id="javascriptXXgameIsRunning" text="セーブデータが添付されていません。"/>
+  <string id="javascriptXXnoSavegame" text="セーブデータは添付されていません。"/>
+  <string id="javascriptXXattachedSave" text="セーブデータが報告に添付されました"/>
+
+  <!-- function AttachSaveGame() { -->
+  <string id="javascriptXXattachSaveGameOk" text="このエラー報告にはセーブデータが添付されています。"/>
+  <string id="javascriptXXpathDoesntExist" text="セーブデータの添付中にエラーが発生しました。セーブデータのパスが存在しない可能性があります!"/>
+
+  <!-- function Screenshot() { -->
+  <string id="javascriptXXscreenshotHasBeenAttached" text="スクリーンショットが撮影されエラー報告に添付されました"/>
+   
+  <!-- function DumpMemory() { -->
+  <string id="javascriptXXdumpSuccess" text="メモリー内容を書き出しました"/>
+  <string id="javascriptXXdumpFail" text="メモリー内容の書き出しに失敗"/>
+
+  <!-- function CloseProgram() {  and function AttemptToContinue() { -->
+  <string id="javascriptXXdiscardReport" text="スクリーンショットまたはセーブデータが添付されています。{NEWLINE}破棄しますか?"/>
+
  </strings>
 </base>

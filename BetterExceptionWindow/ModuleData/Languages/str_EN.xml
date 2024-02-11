@@ -15,7 +15,7 @@
   <string id="EnableNative2Managed" text="Enable Native code to Managed code exception handler"/>
   <string id="CatchNative2ManagedHint" text="This will put exception handlers in Native code to Managed code procedures. Uncheck this if you're experiencing slowdowns in mission or battles."/>
   <string id="InstallDnspyLabel" text="Install Dnspy now"/>
-  <string id="InstallDnspyButton" text="Install "/>
+  <string id="InstallDnspyButton" text="Install now"/>
   <string id="AttachNowLabel" text="Attach dnSpy now"/>
   <string id="AttachNowButton" text="Attach now"/>
   <string id="AttachHint" text="Attach Dnspy debugger now"/>
@@ -29,9 +29,9 @@
   <string id="AboutBewLabel" text="About BetterExceptionWindow"/>
   <string id="AboutButton" text="About..."/>
   <string id="AboutHint" text="About this program."/>
-  <string id="AboutBewLabel" text="Send anonymous feedback"/>
-  <string id="AboutButton" text="Send feedback..."/>
-  <string id="AboutHint" text="Submit your thoughts and feedback about the current state of Better Exception Window via online survey forms. It takes less than a minute to complete."/>
+  <string id="FeedbackLabel" text="Send anonymous feedback"/>
+  <string id="FeedbackButton" text="Send feedback..."/>
+  <string id="FeedbackHint" text="Submit your thoughts and feedback about the current state of Better Exception Window via online survey forms. It takes less than a minute to complete."/>
 
    <!-- ErrorWindow.vb -->
    <string id="BewShowButterlib" text="&lt;a href=&apos;#&apos; onclick=&apos;window.external.ShowButterlibException()&apos;&gt;Click here&lt;/a&gt; to show Butterlib exception.&lt;br /&gt;&lt;br /&gt;"/>
