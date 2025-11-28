@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base>
+ <tags>
+  <tag language="简体中文"/>
+ </tags>
+ <strings>
+   <!-- BewConfigurationUserInterface.vb -->
+
+  <string id="AllowInDebugger" text="允许在调试器内执行"/>
+  <string id="AllowInDebuggerHint" text="连接调试器时启动 Better Exception Window（更好的异常窗口）。默认开启"/>
+
+  <string id="EnableStdoutConsole" text="启用控制台标准输入输出"/>
+  <string id="EnableStdoutConsoleHint" text="勾选后将启用控制台窗口的生成。默认关闭"/>
+
+  <string id="DisableBewButterlibException" text="禁用Butterlib异常"/>
+  <string id="DisableBewButterlibExceptionHint" text="若要恢复旧版本的运行行为，就取消勾选。ButterLib的异常将遵循 Better Exception Window 的规则。修改后需重启游戏方可生效。默认开启"/>
+
+  <string id="EnableNative2Managed" text="为异常处理器启用原生代码"/>
+  <string id="CatchNative2ManagedHint" text="此选项将在原生代码到托管代码的程序流程中添加异常处理器。若在任务或战斗中遇到性能下降问题，就取消勾选。默认开启"/>
+
+  <string id="InstallDnspyLabel" text="安装Dnspy"/>
+  <string id="InstallDnspyButton" text="立即安装"/>
+  <string id="AttachNowLabel" text="立即安装Dnspy调试器。"/>
+  <string id="AttachNowButton" text="连接"/>
+  <string id="AttachHint" text="立即连接Dnspy"/>
+  <string id="RestartDnspyLabel" text="连接DnSpy并重启"/>
+  <string id="RestartButton" text="重启"/>
+  <string id="RestartDebuggerHint" text="在调试器已连接的状态下重启游戏。"/>
+  <string id="CrashTest" text="崩溃测试：抛出异常"/>
+  <string id="TestItNow" text="立即测试"/>
+  <string id="TestItNowHint" text="此操作将导致游戏崩溃！"/>
+  <string id="CrashTestCode" text="崩溃测试：抛出原生代码异常"/>
+  <string id="AboutBewLabel" text="关于 Better Exception Window"/>
+  <string id="AboutButton" text="关于此程序"/>
+  <string id="AboutHint" text="查看此程序的相关信息。"/>
+  <string id="FeedbackLabel" text="发送匿名反馈"/>
+  <string id="FeedbackButton" text="提交反馈"/>
+  <string id="FeedbackHint" text="通过在线调查问卷，提交您对 Better Exception Window 当前状态的意见与反馈。填写耗时不到1分钟。"/>
+
+   <!-- ErrorWindow.vb -->
+   <string id="BewShowButterlib" text="如需显示ButterLib的异常，请&lt;a href='#' onclick='window.external.ShowButterlibException()'&gt;点击此处&lt;/a&gt;。&lt;br /&gt;&lt;br /&gt;"/>
+   <string id="BewNoInnterException" text="未发生内部异常"/>
+
+
+   <!-- html 本地化 -->
+   <!-- 标题部分 -->
+   <string id="htmlXXtitle" text="游戏发生异常崩溃！" />
+   <string id="htmlXXattemptToContinueButton" text="尝试跳过bug，继续游戏" />
+   <string id="htmlXXcloseProgramButton" text="强制退出游戏" />
+   <string id="htmlXXsavePageButton" text="保存错误报告（发给程序大佬/Mod作者解决）" />
+
+   <!-- 头部说明部分 -->
+  <string id="htmlXXheader1" text="你的《骑马与砍杀2：霸主》遇到了BUG！请排查你添加的模组（Mod），检查官方模组文件是否缺失、版本变更等." />
+  <string id="htmlXXheader2" text="当前正在进行的游戏内容可能会丢失。" />
+  <string id="htmlXXheader3" text="若点击“尝试继续”，程序将忽略错误并尝试继续运行，但你的游戏可能处于损坏状态，请尽快进行存档。" />
+  <string id="htmlXXheader4" text="此错误的原因可能包括：XML文件错误、submodule.xml文件错误、损坏的存档数据、模块错误、程序错误等。" />
+  <string id="htmlXXheader5" text="若此错误反复出现，建议保存错误报告并发送给模组作者，或通过&lt;a href=&quot;#troubleshoot&quot; onclick=&quot;OpenTroubleshootSection()&quot;&gt;执行故障排除&lt;/a&gt;解决问题。" />
+  <string id="htmlXXheader6" text="通过编辑 BetterExceptionWindow 文件夹中的&lt;a href=&apos;#&apos; onclick=&apos;window.external.OpenConfig()&apos;&gt;&lt;b&gt;config.json&lt;/b&gt;&lt;/a&gt;文件，可控制 Better Exception Window 的运行行为。" />
+   <!-- 异常详情部分 -->
+  <string id="htmlXXreasons" text="报错原因" />
+  <string id="htmlXXsource" text="报错来源：" />
+  <string id="htmlXXinnerException" text="内部异常" />
+  <string id="htmlXXcallstacks" text="调用堆栈" />
+  <string id="htmlXXprotip" text="专业提示：" />
+  <string id="htmlXXprotip1" text="可使用调试器（如&lt;a href=&apos;https://github.com/dnSpy/dnSpy&apos;&gt;dnSpy&lt;/a&gt;或&lt;a href=&apos;https://visualstudio.microsoft.com/&apos;&gt;Visual Studio&lt;/a&gt;）逐行调试程序，追踪错误来源。或彻底移除故障mod等待作者更新解决。"/>
+  <string id="htmlXXprotip2" text="&lt;a href=&quot;#dnspy&quot; onclick=&quot;OpenTroubleshootSection()&quot;&gt;您可添加DnSpy后重启程序。&lt;/a&gt;" />
+  <string id="htmlXXinnerExceptionCallStack" text="内部异常调用堆栈："/>
+  <string id="htmlXXouterExceptionCallStack" text="外部异常调用堆栈："/>
+   <!-- 已安装模组部分 -->
+  <string id="htmlXXinstalledMods" text="已安装的模组（Mod）"/>
+   <string id="htmlXXhideTaleworldsMods" text="隐藏Taleworlds官方模组（建议√）"/>
+   <string id="htmlXXhideUnloadedMods" text="隐藏未加载的模组（建议√）"/>
+   <!-- DLL文件列表部分 -->
+   <string id="htmlXXloadedDlls" text="已加载的DLL文件"/>
+   <string id="htmlXXhideTaleworldsDlls" text="隐藏Taleworlds官方DLL文件"/>
+   <!-- 游戏日志部分 -->
+   <string id="htmlXXgameEngineLog" text="游戏引擎日志"/>
+   <string id="htmlXXrecorededLogFromTheGame" text="游戏引擎（RGL）记录的日志，记录时间：(logtime)"/>
+   <!-- Harmony补丁部分 -->
+   <string id="htmlXXharmonyPatches" text="Harmony补丁"/>
+   <!-- 故障排除部分 -->
+   <string id="htmlXXtroubleshoot" text="故障排除"/>
+   <string id="htmlXXtroubleshootTip" text="可尝试执行以下故障排除操作。"/>
+   <!-- XML检查器 -->
+   <string id="htmlXXcheckForXml" text="若错误由XML文件问题导致，请检查XML文件拼写错误，点击右侧按钮验证XML有效性。"/>
+   <string id="htmlXXcheckXmlButton" text="检查XML有效性"/>
+   <!-- 禁用模组 -->
+   <string id="htmlXXdisableMods" text="尝试禁用存在问题的模组。此选项仅在原版Taleworlds启动器中可能生效。"/>
+   <string id="htmlXXdisableModsButton" text="禁用问题模组"/>
+   <!-- 紧急存档 -->
+   <string id="htmlXXemergencySave" text="紧急存档。&lt;br /&gt;强制保存当前游戏进度。请注意，在部分情况下可能无法执行此操作。"/>
+   <string id="htmlXXemergencySaveButton" text="保存游戏"/>
+   <!-- dnSpy安装与调试模式 -->
+   <string id="htmlXXdnspyInstall" text="以调试模式重启程序。&lt;br /&gt;通过DnSpy调试器重启，并连接反编译器。此操作可帮助您调试甚至为存在问题的模组打补丁（无需源代码）。&lt;a href=&quot;https://github.com/dnSpy/dnSpy&quot;&gt;什么是DnSpy？&lt;/a&gt; &lt;br /&gt;在游戏重启前，BetterExceptionWindow将暂时禁用。"/>
+   <string id="htmlXXdnspyReason" text="未安装DnSpy"/>
+   <string id="htmlXXdnspyInstallButton" text="安装DnSpy"/>
+   <string id="htmlXXdnspyProgressBar" text="正在安装...(0000000K/000000K)"/>
+   <string id="htmlXXdnspyRestartButton" text="连接DnSpy后重启程序"/>
+   <!-- 附加截图 -->
+   <string id="htmlXXscreenshotAttach" text="添加截图。&lt;br /&gt;截图并添加到错误报告中。&lt;br /&gt;"/>
+   <string id="htmlXXscreenshotAttachStatus" text="此报告未添加截图。"/>
+   <string id="htmlXXscreenshotAttachButton" text="立即截图"/>
+   <!-- 附加存档 -->
+   <string id="htmlXXsavegameAttach" text="将最新存档添加到此错误报告中。&lt;br /&gt;在网页浏览器中打开此错误报告即可查看存档内容。&lt;br /&gt;"/>
+   <string id="htmlXXsavegameAttachButton" text="点击添加"/>
+   <string id="htmlXXsavegameAttachDownloadButton" text="下载存档数据"/>
+   <!-- 内存转储 -->
+   <string id="htmlXXdumpMemory" text="导出内存内容。&lt;br /&gt;可在后续分析程序当前使用的内存内容。&lt;br /&gt;由于导出的内存容量较大，Better Exception Window 将分别保存错误报告和导出文件。&lt;br /&gt;"/>
+   <string id="htmlXXdumpMemoryCheckbox" text="导出全部内存内容"/>
+   <string id="htmlXXdumpMemoryButton" text="立即导出"/>
+   <!-- 其他HTML文本 -->
+   <string id="htmlXXgoToTop" text="返回顶部" />
+   
+
+   <!-- JavaScript本地化 -->
+   <!-- 文本必须为单行！不得换行 -->
+
+   <!-- function validateXML(e) {... -->
+   <string id="javascriptXXcheckingFile" text="正在检查文件..." />
+
+   <!-- function doneScanning() {... -->
+   <string id="javascriptXXxmlChecksDone" text="XML检查完成。" />
+   
+   <!-- function saveEmergencyCampaign() { -->
+   <string id="javascriptXXemergencySaveConfirm" text="根据崩溃情况，保存的文件可能处于无效状态。\n仅当崩溃与玩家数据无关时（如由用户界面bug导致，而非玩家数据或AI状态问题）使用此功能。\n是否继续强制保存游戏？" />
+   <string id="javascriptXXemergencySaveAs" text="另存为" />
+   <string id="javascriptXXemergencySaveInvalidName" text="名称无效！" />
+   <string id="javascriptXXemergencySaveOk" text="游戏已保存为：" />
+
+   <!-- function DisplayModulesReport(data) { -->
+   <string id="javascriptXXworkshop" text="（创意工坊）" />
+   <string id="javascriptXXmodLoadedYes" text="模组已加载：是" />
+   <string id="javascriptXXmodLoadedNo" text="模组已加载：否" />
+   <string id="javascriptXXmodId" text="模组ID：" />
+   <string id="javascriptXXmodVersion" text="模组版本：" />
+   <string id="javascriptXXmodLocation" text="模组位置：" />
+   <string id="javascriptXXmodManifestData" text="模组配置文件数据：" />
+   <string id="javascriptXXmodManifestLocation" text="Mod 配置文件位置：" />
+   <string id="javascriptXXdependsOn" text="依赖模组：" />
+   <string id="javascriptXXsubmodules" text="子模块：" />
+   <string id="javascriptXXsteamworkshopUrl" text="Steam创意工坊链接：" />
+   <string id="javascriptXXdoesntDependWithOtherModule" text="不依赖其他模组" />
+   <string id="javascriptXXdoesntContainDll" text="不包含任何DLL模组文件" />
+   <string id="javascriptXXnotLoadedInMemory" text="（未加载到内存中）" />
+   
+   <!-- function DisplayHarmonyRerport(methodName, data) { -->
+   <string id="javascriptXXprefixes" text="前缀（Prefixes）" />
+   <string id="javascriptXXpostfixes" text="后缀（Postfixes）" />
+   <string id="javascriptXXfinalisers" text="终结器（Finalisers）" />
+   <string id="javascriptXXtranspilers" text="转译器（Transpilers）" />
+
+   <!-- function SavePage() { -->
+   <string id="javascriptXXpageSavedAs" text="另存为" />
+
+   <!-- function OpenTroubleshootSection() { -->
+   <string id="javascriptXXtroubleshoot" text="故障排除" />
+
+   <!-- function CheckDnspy() { -->
+   <string id="javascriptXXdnspyNotAvailable" text="DnSpy已启用。调试器正在运行中。" />
+
+   <!-- function InstallDnspy() { -->
+   <string id="javascriptXXinstallDnspy" text="是否要安装DnSpy？" />
+   <string id="javascriptXXdownload0percent" text="下载中…已完成/总大小" />
+
+   <!-- function StartDnspy() { -->
+   <string id="javascriptXXdnspyRestart" text="是否重启程序？未保存的游戏数据和错误日志将会丢失！" />
+
+   <!-- Callback_InstallDnspyProgress(currentPercentage, downloadedTotal, totalSize)  -->
+   <string id="javascriptXXdnspyIsBeingDownloaded" text="正在下载DnSpy..." />
+   <string id="javascriptXXdownloading" text="正在下载..." />
+   
+   <!-- Callback_InstallDnspyComplete(success, errorMessage) -->
+   <string id="javascriptXXinstallSuccess" text="DnSpy已成功下载并安装。" />
+   <string id="javascriptXXerrorInstalling" text="安装DnSpy时出错，原因：" />
+
+  <!-- function CheckCampaignIsRunning() { 和 function SaveGameAttachement() {  -->
+  <string id="javascriptXXgameIsNotRunningCampaign" text="此选项不可用，因为游戏未处于战役运行状态。" />
+
+   <!-- function SaveGameAttachement() { 和 function AttachSaveGame() { -->
+   <string id="javascriptXXgameIsRunning" text="未添加存档数据。" />
+   <string id="javascriptXXnoSavegame" text="未添加存档数据。" />
+   <string id="javascriptXXattachedSave" text="此报告已添加存档数据" />
+
+   <!-- function AttachSaveGame() { -->
+   <string id="javascriptXXattachSaveGameOk" text="此错误报告已添加存档数据。" />
+   <string id="javascriptXXpathDoesntExist" text="添加存档数据时发生错误，存档路径可能不存在！" />
+
+   <!-- function Screenshot() { -->
+   <string id="javascriptXXscreenshotHasBeenAttached" text="已捕获截图并添加到本错误报告" />
+   
+   <!-- function DumpMemory() { -->
+   <string id="javascriptXXdumpSuccess" text="内存内容导出成功" />
+   <string id="javascriptXXdumpFail" text="内存内容导出失败" />
+
+   <!-- function CloseProgram() { 和 function AttemptToContinue() { -->
+   <string id="javascriptXXdiscardReport" text="您已添加截图或存档数据。\n是否要放弃这些添加内容？" />
+
+ </strings>
+</base>
