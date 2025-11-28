@@ -377,8 +377,7 @@ Public Module Util
         Return strB64Encoded
     End Function
     Public Function IsMcmLoaded() As Boolean
-        Return CheckIsAssemblyLoaded("MCMv5.dll") AndAlso
-               CheckIsAssemblyLoaded("MCMv5.UI.dll")
+        Return CheckIsAssemblyLoaded("MCMv5.dll") Or CheckIsAssemblyLoaded("MCMv5")
     End Function
     'TODO: grab it from xml string
     Public ReadOnly Version As String = "BetterExceptionWindow version " & GetVersionString()

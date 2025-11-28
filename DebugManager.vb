@@ -157,4 +157,8 @@ Public Class DebugManager
     Public Sub ReportMemoryBookmark(message As String) Implements IDebugManager.ReportMemoryBookmark
 
     End Sub
+
+    Public Sub SetDebugVector(value As Vec3) Implements IDebugManager.SetDebugVector
+
+    End Sub
 End Class
