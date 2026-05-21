@@ -268,6 +268,7 @@ Public Class ErrorWindow
                                                                 Dim reg = New Regex("rgl_log_([0-9])*\.txt")
                                                                 Return reg.Match(x.Name).Success
                                                             End Function) _
+                                                     .OrderByDescending(Function(x) x.LastWriteTimeUtc) _
                                                      .FirstOrDefault()
         If temptFile IsNot Nothing Then
             Dim filestrm As New FileStream(temptFile.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
